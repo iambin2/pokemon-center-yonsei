@@ -253,23 +253,6 @@ a { color: inherit; text-decoration: none; }
   padding: 0.5rem;
 }
 
-.mobile-toggle span {
-  width: 22px;
-  height: 2px;
-  background: var(--navy-deep);
-  transition: transform 0.5s var(--ease-out-expo),
-              opacity 0.35s var(--ease-out-quart);
-}
-.mobile-toggle.active span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.mobile-toggle.active span:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0.4);
-}
-.mobile-toggle.active span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
 
 /* ============================================
    HERO
@@ -2314,6 +2297,91 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
 /* --- 10. 임원 이미지: 레이아웃 시프트 방지 ------------------ */
 .exec-poke img{ width:92px; height:92px; object-fit:contain; }
 
+/* --- 15. 모바일 메뉴 버튼: 헤어라인 + 스몰캡스 라벨 ---------
+   3줄 햄버거 대신, 사이트 전반의 1px 괘선과 트래킹 넓은
+   스몰캡스 조판을 그대로 쓴 버튼. 열리면 라벨이 CLOSE 로
+   교차 페이드되고 두 선이 하나의 가는 X 로 접힌다. */
+.mobile-toggle{
+  flex-direction:row; align-items:center; gap:0.75rem;
+  padding:0.5rem 0.15rem;
+}
+.mobile-toggle-label{
+  display:inline-grid; line-height:1;
+  font-family:var(--serif-en); font-size:0.62rem; font-weight:600;
+  letter-spacing:0.26em; text-transform:uppercase;
+  color:var(--navy-deep); font-variation-settings:"opsz" 14;
+}
+.mobile-toggle-label > span{
+  grid-area:1 / 1; text-align:right; white-space:nowrap;
+  transition:opacity .3s var(--ease-out-quart), transform .45s var(--ease-out-expo);
+}
+.mobile-toggle .mt-close{ opacity:0; transform:translateY(4px); }
+.mobile-toggle.active .mt-open{ opacity:0; transform:translateY(-4px); }
+.mobile-toggle.active .mt-close{ opacity:1; transform:none; }
+
+.mobile-toggle-lines{ position:relative; display:block; width:22px; height:11px; }
+.mobile-toggle-lines span{
+  position:absolute; left:0; height:1px; background:var(--navy-deep);
+  transition:transform .55s var(--ease-out-expo), width .55s var(--ease-out-expo);
+}
+.mobile-toggle-lines span:nth-child(1){ top:3px;  width:22px; }
+.mobile-toggle-lines span:nth-child(2){ top:8px;  width:13px; }
+.mobile-toggle.active .mobile-toggle-lines span:nth-child(1){ transform:translateY(2.5px) rotate(45deg); }
+.mobile-toggle.active .mobile-toggle-lines span:nth-child(2){ width:22px; transform:translateY(-2.5px) rotate(-45deg); }
+
+/* --- 16. 임원 카드: 마스코트 카드와 동일한 프레임 ----------
+   각진 모서리 · 같은 테두리 값 · 같은 호버(들어올림 + 그림자)
+   로 맞춰 두 섹션의 카드가 하나의 컴포넌트로 읽히게 한다. */
+.exec-members{ gap:1.25rem; }
+.exec-member{
+  border-radius:0;
+  border:1px solid rgba(20,60,107,0.1);
+  background:var(--cream-pure);
+  padding:1.9rem 2rem;
+  overflow:hidden;
+  transition:transform .7s var(--ease-out-expo),
+             box-shadow .7s var(--ease-out-expo),
+             border-color .5s var(--ease-out-quart);
+}
+.exec-member::before{
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:0;
+  background-image:repeating-linear-gradient(0deg, transparent 0, transparent 23px,
+    rgba(20,60,107,0.025) 23px, rgba(20,60,107,0.025) 24px);
+  transition:opacity .8s var(--ease-out-quart);
+}
+.exec-member{ position:relative; }
+.exec-member:hover{
+  background:var(--cream-pure);
+  border-color:rgba(20,60,107,0.1);
+  transform:translateY(-6px);
+  box-shadow:0 32px 60px -28px rgba(20,60,107,0.18);
+}
+.exec-member:hover::before{ opacity:1; }
+.exec-member.is-head{
+  background:var(--cream-light);
+  border-color:rgba(20,60,107,0.22);
+}
+.exec-member.is-head:hover{ background:var(--cream-light); border-color:rgba(20,60,107,0.22); }
+.exec-member > *{ position:relative; z-index:1; }
+
+/* --- 17. 임원 카드 세부 정보 가독성 --------------------------
+   9.6px~12.8px 로 조판돼 있던 직책·학과·최애 줄을 한 단계씩
+   올려 본문 최소 크기 기준을 넘긴다. */
+.exec-name{ font-size:1.32rem; margin-bottom:0.45rem; }
+.exec-role{
+  font-size:0.72rem; letter-spacing:0.16em; margin-bottom:0.75rem;
+}
+.exec-meta{ font-size:0.92rem; line-height:1.55; margin-bottom:0.6rem; }
+.exec-fav{ font-size:1.02rem; }
+.exec-fav span{ font-size:0.66rem; letter-spacing:0.14em; margin-right:0.5rem; }
+.exec-dept-name{ font-size:1.02rem; }
+@media (max-width:560px){
+  .exec-member{ padding:1.6rem 1.5rem; }
+  .exec-name{ font-size:1.22rem; }
+  .exec-meta{ font-size:0.88rem; }
+  .exec-fav{ font-size:0.96rem; }
+}
+
 /* --- 14. JOIN: 팝업 대신 연락처를 직접 노출 ------------------ */
 .join-wrap{ max-width:var(--w-read); }
 .join-title, .join-text{ max-width:720px; margin-inline:auto; }
@@ -2422,7 +2490,11 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
     </div>
   </div>
   <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
-    <span></span><span></span><span></span>
+    <span class="mobile-toggle-label">
+      <span class="mt-open" data-i18n="nav.menu">MENU</span>
+      <span class="mt-close" data-i18n="nav.close">CLOSE</span>
+    </span>
+    <span class="mobile-toggle-lines" aria-hidden="true"><span></span><span></span></span>
   </button>
 </nav>
 
@@ -3656,9 +3728,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
         <span class="join-contact-label" data-i18n="contact.instagram">INSTAGRAM</span>
         <span class="join-contact-value">@pokemon_center_yonsei</span>
       </a>
-      <a class="join-contact-item" href="tel:+821025087982">
+      <a class="join-contact-item" href="tel:+821077207582">
         <span class="join-contact-label" data-i18n="contact.president">PRESIDENT · 회장</span>
-        <span class="join-contact-value"><span data-i18n="pn.이제빈">이제빈</span> · 010-2508-7982</span>
+        <span class="join-contact-value"><span data-i18n="pn.윤상원">윤상원</span> · 010-7720-7582</span>
       </a>
     </div>
   </div>
@@ -3784,6 +3856,7 @@ const i18n = {
     'join.text': '연세대학교 재학생이라면 누구나 환영합니다.<br><span class="join-flourish">꿈과 모험과! 포켓몬스터의 세계로!</span>', 'contact.email': 'EMAIL', 'contact.instagram': 'INSTAGRAM', 'contact.president': 'PRESIDENT · 회장',
     'foot.desc': '연세대학교 포켓몬스터 동아리.<br>Since 2023. 우리는 모두 친구.',
     'foot.explore': 'EXPLORE',
+    'nav.menu': 'MENU', 'nav.close': 'CLOSE',
     'pk.가디': '가디',
     'pk.글레이시아': '글레이시아',
     'pk.나몰빼미': '나몰빼미',
@@ -3942,6 +4015,7 @@ const i18n = {
     'join.text': 'Any Yonsei University student is welcome.<br><span class="join-flourish">Dreams! Adventure! Into the world of Pokémon!</span>', 'contact.email': 'EMAIL', 'contact.instagram': 'INSTAGRAM', 'contact.president': 'PRESIDENT',
     'foot.desc': 'The Pokémon club of Yonsei University.<br>Since 2023. We are all friends.',
     'foot.explore': 'EXPLORE',
+    'nav.menu': 'MENU', 'nav.close': 'CLOSE',
     'pk.가디': 'Growlithe',
     'pk.글레이시아': 'Glaceon',
     'pk.나몰빼미': 'Rowlet',
@@ -4100,6 +4174,7 @@ const i18n = {
     'join.text': '延世大学校に在籍する方ならどなたでも歓迎します。<br><span class="join-flourish">夢と冒険！ポケットモンスターの世界へ！</span>', 'contact.email': 'EMAIL', 'contact.instagram': 'INSTAGRAM', 'contact.president': 'PRESIDENT · 会長',
     'foot.desc': '延世大学校のポケモンサークル。<br>Since 2023. 私たちはみんな友達。',
     'foot.explore': 'EXPLORE',
+    'nav.menu': 'MENU', 'nav.close': 'CLOSE',
     'pk.가디': 'ガーディ',
     'pk.글레이시아': 'グレイシア',
     'pk.나몰빼미': 'モクロー',
