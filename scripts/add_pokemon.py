@@ -5,7 +5,7 @@
 
 하는 일
   1. 대상 임원이 실제로 존재하는지, 그 임원의 최애(data-fav)가 무엇인지 확인
-  2. 원본 PNG 를 192×192 로 축소 (LANCZOS) 후 oxipng 무손실 최적화
+  2. 원본 PNG 를 128×128 로 축소 (LANCZOS) 후 oxipng 무손실 최적화
   3. POKE_GIFS 맵의 해당 항목 교체
   4. 같은 이미지를 쓰는 항목이 생기면 별칭으로 정리해 중복 저장을 막는다
 
@@ -21,7 +21,7 @@ import re
 import shutil
 import sys
 
-SIZE = 192  # 92px 표시 × 2 DPR + 여유
+SIZE = 128  # 60px 표시 × 2 DPR + 여유 (1~7기 이미지는 192px 시절 것)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INDEX = os.path.join(ROOT, "index.html")

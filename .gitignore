@@ -3,3 +3,5 @@ node_modules/
 *.backup.html
 .DS_Store
 Thumbs.db
+.impeccable/
+_shoot.mjs

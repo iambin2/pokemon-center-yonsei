@@ -46,6 +46,9 @@ print(f"\n검증 대상: {PATH}\n")
 # ---------------------------------------------------------------- i18n
 print("[i18n]")
 used = set(re.findall(r'data-i18n="([^"]+)"', src))
+# 대체 텍스트용 키(data-i18n-aria)와 스크립트가 직접 꺼내 쓰는 키(i18n[curLang()]['contact.copied'])도 사용 중으로 친다
+used |= set(re.findall(r'data-i18n-aria="([^"]+)"', src))
+used |= set(re.findall(r"i18n\[[^\]]+\]\['([^']+)'\]", src))
 js = src[src.find("const i18n") : src.find("window.i18n = i18n")]
 
 # 값은 작은따옴표와 큰따옴표를 모두 쓴다 (영문 블록에 아포스트로피가 들어가는 문장이 있다)
@@ -143,7 +146,7 @@ if langs:
 
 # ---------------------------------------------------------------- 구조
 print("\n[구조]")
-VOID = {"meta", "link", "img", "br", "hr", "input", "source", "use", "circle", "line", "path"}
+VOID = {"meta", "link", "img", "br", "hr", "input", "source", "use", "circle", "line", "path", "rect"}
 
 
 class Checker(html.parser.HTMLParser):
@@ -172,11 +175,12 @@ if c.errors or c.stack:
 else:
     ok("태그 구조 정상")
 
-for tag, n in (("<style>", 1), ("</style>", 1), ("<script>", 2), ("</script>", 2)):
+# script 3개: 첫 화면 전 테마 결정(head) / 본문 / 임원 이미지
+for tag, n in (("<style>", 1), ("</style>", 1), ("<script>", 3), ("</script>", 3)):
     if src.count(tag) != n:
         bad(f"{tag} 개수 이상: {src.count(tag)} (기대 {n})")
-if src.count("</style>") == 1 and src.count("</script>") == 2:
-    ok("style 1개 / script 2개")
+if src.count("</style>") == 1 and src.count("</script>") == 3:
+    ok("style 1개 / script 3개")
 
 # ---------------------------------------------------------------- 예산
 print("\n[크기]")

@@ -9,8 +9,8 @@
  *   - 인라인 이미지 전부 디코딩되는지
  *   - 한국어/영어/일본어 전환이 모든 섹션에 적용되는지
  *   - 영문 모드에 남은 한글이 없는지 (마퀴 제외 — 3개 국어 병기가 의도됨)
- *   - FAQ / 기수 아코디언 동작과 aria 상태
- *   - 명암비 WCAG AA (4.5:1, 큰 글씨 3:1)
+ *   - FAQ와 기수 아코디언 동작, aria 상태
+ *   - 명암비 WCAG AA (4.5:1, 큰 글씨 3:1), 라이트와 다크 두 테마 모두
  *   - 모바일 가로 오버플로
  *   - 스킵 링크와 포커스 표시
  *
@@ -54,7 +54,6 @@ const browser = await chromium.launch();
   /* 이미지 --------------------------------------------------------- */
   console.log('\n[이미지]');
   await page.evaluate(() => {
-    document.querySelectorAll('.exec-gen-toggle').forEach((b) => b.click());
     document.querySelectorAll('.exec-poke img').forEach((i) => (i.loading = 'eager'));
   });
   await page.waitForTimeout(2500);
@@ -68,25 +67,24 @@ const browser = await chromium.launch();
 
   /* 아코디언 ------------------------------------------------------- */
   console.log('\n[아코디언]');
+  await page.evaluate(() => document.querySelectorAll('.exec-gen-toggle').forEach((b) => b.click()));
+  await page.waitForTimeout(600);
   const acc = await page.evaluate(() => {
-    const check = (sel, openClassHost) => {
-      const btns = [...document.querySelectorAll(sel)];
-      return btns.every((b) => {
-        const host = openClassHost(b);
-        const expanded = b.getAttribute('aria-expanded') === 'true';
-        const controls = b.getAttribute('aria-controls');
-        return host.classList.contains('open') === expanded
-          && controls && document.getElementById(controls);
-      });
-    };
+    const btns = [...document.querySelectorAll('.exec-gen-toggle')];
     return {
-      gen: check('.exec-gen-toggle', (b) => b.closest('.exec-gen')),
-      genCount: document.querySelectorAll('.exec-gen-toggle').length,
+      genCount: btns.length,
+      gen: btns.length > 0 && btns.every((b) => {
+        const host = b.closest('.exec-gen');
+        const panel = document.getElementById(b.getAttribute('aria-controls'));
+        const expanded = b.getAttribute('aria-expanded') === 'true';
+        return panel && host.classList.contains('open') === expanded && panel.inert === !expanded;
+      }),
       faqCount: document.querySelectorAll('.faq-q').length,
     };
   });
-  acc.gen ? ok(`기수 아코디언 ${acc.genCount}개 상태·aria 일치`)
-          : bad('기수 아코디언 aria 상태 불일치');
+  acc.gen ? ok(`기수 아코디언 ${acc.genCount}개 상태·aria·inert 일치`)
+          : bad('기수 아코디언 상태 불일치');
+  await page.evaluate(() => document.querySelectorAll('.exec-gen-toggle').forEach((b) => { if (b.getAttribute('aria-expanded') === 'true') b.click(); }));
 
   await page.evaluate(() => document.querySelector('.faq-q').click());
   const faq = await page.evaluate(() => {
@@ -128,6 +126,9 @@ const browser = await chromium.launch();
 
   /* 명암비 --------------------------------------------------------- */
   console.log('\n[명암비]');
+  for (const theme of ['light', 'dark']) {
+  await page.evaluate((t) => document.documentElement.setAttribute('data-theme', t), theme);
+  await page.waitForTimeout(700);
   const contrast = await page.evaluate(() => {
     const lum = (c) => {
       const s = c.map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
@@ -166,8 +167,10 @@ const browser = await chromium.launch();
     });
     return [...new Set(out)];
   });
-  contrast.length ? bad(`AA 미달 ${contrast.length}건:\n      ${contrast.slice(0, 6).join('\n      ')}`)
-                  : ok('WCAG AA 미달 0건');
+  contrast.length ? bad(`${theme} 테마 AA 미달 ${contrast.length}건:\n      ${contrast.slice(0, 6).join('\n      ')}`)
+                  : ok(`${theme} 테마 WCAG AA 미달 0건`);
+  }
+  await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'light'));
 
   /* 키보드 --------------------------------------------------------- */
   console.log('\n[키보드]');
