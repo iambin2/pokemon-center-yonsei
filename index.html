@@ -374,13 +374,17 @@ body[data-lang="ja"] .about-quote { font-family: var(--serif-ja); letter-spacing
 .about-body p + p { margin-top: 20px; }
 .about-body p:first-of-type { font-size: var(--t-body); color: var(--ink); }
 
-/* 연혁 */
-.timeline { position: relative; max-width: 880px; }
-.timeline li { display: grid; grid-template-columns: 150px minmax(0, 1fr); padding-bottom: clamp(48px, 5vw, 72px); }
+/* 연혁 — 제목은 붙박이로 두고, 지금 읽는 마디만 또렷해진다 */
+.history-grid { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+.history-stick { position: sticky; top: calc(var(--nav) + 10vh); }
+.history-stick .sec-head { margin-bottom: 0; flex-direction: column; align-items: flex-start; gap: 18px; }
+.timeline { max-width: 640px; }
+.timeline li { display: grid; grid-template-columns: 110px minmax(0, 1fr); padding-bottom: clamp(48px, 5vw, 72px); }
+.js .timeline li.is-current time, .js .timeline li.is-current h3 { color: var(--navy); }
 .timeline li:last-child { padding-bottom: 0; }
-.timeline time { font-family: var(--serif-en); font-size: var(--t-small); font-weight: 500; letter-spacing: .14em; color: var(--navy); padding-top: 6px; }
-.timeline .tl-body { padding-left: 32px; }
-.timeline h3 { font-family: var(--serif-kr); font-size: var(--t-title); font-weight: 500; color: var(--navy); line-height: 1.4; }
+.timeline time { font-family: var(--serif-en); font-size: var(--t-small); font-weight: 500; letter-spacing: .14em; color: var(--ink-mute); padding-top: 8px; transition: color var(--t2) var(--ease); }
+.timeline .tl-body { padding-left: 24px; }
+.timeline h3 { font-family: var(--serif-kr); font-size: var(--t-title); font-weight: 500; color: var(--ink-mute); line-height: 1.4; transition: color var(--t2) var(--ease); }
 body[data-lang="en"] .timeline h3 { font-family: var(--serif-en); }
 body[data-lang="ja"] .timeline h3 { font-family: var(--serif-ja); }
 .timeline p { margin-top: 10px; color: var(--ink-soft); max-width: 34em; }
@@ -408,7 +412,7 @@ body[data-lang="ja"] .card h3 { font-family: var(--serif-ja); }
 }
 .sec:not(.alt) .card .tag span { background: var(--bg); }
 
-.groups { display: grid; grid-template-columns: 1fr 1fr; gap: 24px clamp(40px, 6vw, 80px); margin-top: clamp(64px, 7vw, 96px); align-items: start; }
+.groups { display: grid; grid-template-columns: 1fr 1fr; gap: 24px clamp(40px, 6vw, 80px); margin-top: clamp(88px, 10vw, 140px); align-items: start; }
 /* 항목이 많은 쪽은 두 단으로 흘려 두 열의 높이를 맞춘다 */
 .group-list.split { display: grid; grid-template-rows: repeat(3, auto); grid-auto-flow: column; grid-auto-columns: 1fr; column-gap: clamp(24px, 3vw, 44px); }
 .group-head { margin-bottom: 18px; }
@@ -417,7 +421,7 @@ body[data-lang="ja"] .card h3 { font-family: var(--serif-ja); }
 body[data-lang="en"] .group-list li { font-family: var(--serif-en); }
 body[data-lang="ja"] .group-list li { font-family: var(--serif-ja); }
 
-.annual { margin-top: clamp(64px, 7vw, 96px); }
+.annual { margin-top: clamp(88px, 10vw, 140px); }
 .annual ul { display: flex; flex-wrap: wrap; gap: 10px 40px; margin-top: 22px; }
 .annual li { font-family: var(--serif-kr); font-size: var(--t-title); color: var(--navy); }
 body[data-lang="en"] .annual li { font-family: var(--serif-en); font-style: italic; }
@@ -583,6 +587,9 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
 
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; }
+  .history-grid { grid-template-columns: 1fr; }
+  .history-stick { position: static; }
+  .history-stick .sec-head { margin-bottom: clamp(44px, 5.4vw, 72px); }
   .cards { grid-template-columns: 1fr; }
   .groups { grid-template-columns: 1fr; gap: 40px; }
   .group-list.split { display: block; }
@@ -738,8 +745,10 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
 </section>
 
 <section class="sec" id="history" aria-labelledby="history-t">
-  <div class="wrap">
-    <div class="sec-head" data-reveal><p class="label"><svg class="ball" aria-hidden="true"><use href="#i-ball"/></svg>History</p><h2 class="sec-title" id="history-t" data-i18n="history.title">연혁</h2></div>
+  <div class="wrap history-grid">
+    <div class="history-stick">
+      <div class="sec-head" data-reveal><p class="label"><svg class="ball" aria-hidden="true"><use href="#i-ball"/></svg>History</p><h2 class="sec-title" id="history-t" data-i18n="history.title">연혁</h2></div>
+    </div>
     <ol class="timeline">
       <li data-reveal><time class="num" datetime="2022-11">2022.11</time><div class="tl-body"><h3 data-i18n="history.t1.title">출발</h3><p data-i18n="history.t1.body">포켓몬 스칼렛과 바이올렛 출시를 앞두고 “연세대학교 포켓몬 좋아하는 사람들”이라는 카카오톡 오픈채팅방에서 모든 것이 시작되었습니다.</p></div></li>
       <li data-reveal><time class="num" datetime="2023-03">2023.03</time><div class="tl-body"><h3 data-i18n="history.t2.title">실명 운영의 시작</h3><p data-i18n="history.t2.body">정식 동아리를 준비하며 실명 오픈채팅방을 시험 운영했고, 한 학기 동안 오프라인 정모를 열었습니다.</p></div></li>
@@ -2212,6 +2221,27 @@ document.querySelectorAll('[data-copy]').forEach(btn => {
       kick();
     }, { passive: true });
   }
+})();
+
+/* 연혁: 화면 가운데에 가장 가까운 마디를 '지금'으로 표시한다 */
+(() => {
+  const items = [...document.querySelectorAll('.timeline li')];
+  if (!items.length || reduceMotion.matches) return;
+  let raf = 0;
+  const mark = () => {
+    raf = 0;
+    const mid = innerHeight * 0.45;
+    let best = items[0], bestD = Infinity;
+    for (const li of items) {
+      const r = li.getBoundingClientRect();
+      const d = Math.abs(r.top + Math.min(r.height, 160) / 2 - mid);
+      if (d < bestD) { bestD = d; best = li; }
+    }
+    for (const li of items) li.classList.toggle('is-current', li === best);
+  };
+  addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(mark); }, { passive: true });
+  addEventListener('resize', () => { if (!raf) raf = requestAnimationFrame(mark); }, { passive: true });
+  mark();
 })();
 
 /* 저장된 언어 복원 */
