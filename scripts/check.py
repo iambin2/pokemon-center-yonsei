@@ -192,6 +192,31 @@ if raw_mb > SIZE_BUDGET_MB or gz_mb > GZIP_BUDGET_MB:
 else:
     ok(f"{line} — 예산 내")
 
+# ---------------------------------------------------------------- 링크 공유 카드
+# 선언한 크기가 실제 파일과 다르면 스크래퍼가 잘못 그리거나 아예 거부한다.
+print("\n[공유 카드]")
+og_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "og.png")
+if not os.path.exists(og_path):
+    bad("og.png 없음 — node scripts/make-og.mjs 로 만들 것")
+else:
+    with open(og_path, "rb") as f:
+        head = f.read(24)
+    if head[:8] != bytes.fromhex("89504e470d0a1a0a") or head[12:16] != b"IHDR":
+        bad("og.png이 PNG가 아님")
+    else:
+        real_w = int.from_bytes(head[16:20], "big")
+        real_h = int.from_bytes(head[20:24], "big")
+        m_w = re.search(r'og:image:width" content="(\d+)"', src)
+        m_h = re.search(r'og:image:height" content="(\d+)"', src)
+        if not (m_w and m_h):
+            bad("og:image:width/height 메타가 없음")
+        elif (int(m_w.group(1)), int(m_h.group(1))) != (real_w, real_h):
+            bad(f"선언 {m_w.group(1)}×{m_h.group(1)} ≠ 실제 {real_w}×{real_h}")
+        elif abs(real_w / real_h - 1200 / 630) > 0.02:
+            bad(f"가로세로비가 1.91:1이 아님 — {real_w}×{real_h}")
+        else:
+            ok(f"og.png {real_w}×{real_h}, 메타와 일치")
+
 # ---------------------------------------------------------------- 결과
 print()
 if fails:
