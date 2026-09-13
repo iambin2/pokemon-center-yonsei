@@ -243,22 +243,6 @@ body[data-lang="ja"] .sec-title { font-family: var(--serif-ja); letter-spacing: 
 @media (hover: hover) { .pill.white:hover { background: var(--band-tint); } }
 .pill-sm { min-height: 38px; padding: 0 18px; font-size: var(--t-tiny); }
 
-.link {
-  position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
-  font-size: var(--t-ui); font-weight: 600; letter-spacing: .02em; color: var(--navy);
-}
-.link span { position: relative; }
-.link span::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: currentColor;
-  transform: scaleX(0); transform-origin: right; transition: transform var(--t3) var(--ease);
-}
-.link .ic { width: 16px; height: 16px; stroke-width: 1.8; transition: transform var(--t2) var(--ease); }
-@media (hover: hover) {
-  .link:hover span::after { transform: scaleX(1); transform-origin: left; }
-  .link:hover .i-arrow { transform: translateX(4px); }
-  .link:hover .i-out { transform: translate(3px, -3px); }
-}
-
 /* --------------------------------------------------------------------------
    상단 메뉴
    -------------------------------------------------------------------------- */
@@ -292,12 +276,20 @@ body[data-lang="ja"] .sec-title { font-family: var(--serif-ja); letter-spacing: 
 .nav-tools { display: flex; align-items: center; gap: 4px; flex: none; }
 .langs { display: inline-flex; align-items: center; }
 .langs button {
-  min-width: 34px; min-height: 44px; padding: 0 6px;
-  font-family: var(--serif-en); font-size: var(--t-label); font-weight: 500; letter-spacing: .16em; color: var(--ink-mute);
-  transition: color var(--t1) var(--ease);
+  min-width: 34px; min-height: 44px; display: grid; place-items: center;
+  /* 고르지 않은 언어를 낮추고, 고른 언어만 또렷하게 둔다 */
+  opacity: .38; transition: opacity var(--t1) var(--ease);
 }
-@media (hover: hover) { .langs button:hover { color: var(--navy); } }
-.langs button[aria-pressed="true"] { color: var(--navy); }
+@media (hover: hover) { .langs button:hover { opacity: .75; } }
+.langs button[aria-pressed="true"] { opacity: 1; }
+.nav-tools .langs .flag { width: 22px; height: 15px; }
+/* 고른 언어에는 밑줄을 그어 상태를 색만으로 알리지 않는다 */
+.nav-tools .langs button { position: relative; }
+.nav-tools .langs button::after {
+  content: ""; position: absolute; left: 6px; right: 6px; bottom: 9px; height: 1.5px; background: var(--navy);
+  transform: scaleX(0); transform-origin: right; transition: transform var(--t3) var(--ease);
+}
+.nav-tools .langs button[aria-pressed="true"]::after { transform: scaleX(1); transform-origin: left; }
 .icon-btn { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--navy); transition: background-color var(--t1) var(--ease); }
 .icon-btn .ic { width: 18px; height: 18px; }
 @media (hover: hover) { .icon-btn:hover { background: var(--hair); } }
@@ -340,8 +332,11 @@ body[data-lang="ja"] .sheet .nav-link { font-family: var(--serif-ja); }
 .sheet .nav-link .italic-num { font-size: var(--t-ui); color: var(--on-band-2); width: 26px; }
 .sheet.open .nav-link { opacity: 1; transform: none; transition-delay: calc(120ms + var(--i) * 40ms); }
 .sheet-foot { display: flex; align-items: center; gap: 8px; padding-top: 24px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16); }
-.sheet-foot .langs button { color: var(--on-band-2); min-width: 44px; }
-.sheet-foot .langs button[aria-pressed="true"] { color: #fff; }
+.sheet-foot .langs button {
+  grid-auto-flow: column; gap: 8px; min-width: 44px; padding: 0 10px;
+  font-size: var(--t-ui); color: #fff;
+}
+.sheet-foot .langs button:not([aria-pressed="true"]) { opacity: .6; }
 .sheet-foot .icon-btn { color: #fff; margin-left: auto; }
 
 /* --------------------------------------------------------------------------
@@ -365,7 +360,6 @@ body[data-lang="ja"] .hero-kr { font-family: var(--serif-ja); letter-spacing: .2
 .hero-sub { margin-top: 32px; font-family: var(--serif-kr); font-size: var(--t-hero-sub); line-height: 1.7; color: var(--ink-soft); }
 body[data-lang="en"] .hero-sub { font-family: var(--serif-en); font-style: italic; font-variation-settings: "opsz" 144; }
 body[data-lang="ja"] .hero-sub { font-family: var(--serif-ja); }
-.hero-cta { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px 28px; margin-top: 44px; }
 .hero-scroll { margin-top: clamp(48px, 8vh, 88px); display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--navy); }
 .hero-scroll .label { font-size: var(--t-label); opacity: .6; }
 .hero-scroll-line { width: 1px; height: 48px; background: linear-gradient(var(--hair), var(--hair)); position: relative; overflow: hidden; }
@@ -435,7 +429,9 @@ body[data-lang="ja"] .card h3 { font-family: var(--serif-ja); }
 }
 .sec:not(.alt) .card .tag span { background: var(--bg); }
 
-.groups { display: grid; grid-template-columns: 1fr 1fr; gap: 24px clamp(40px, 6vw, 80px); margin-top: clamp(64px, 7vw, 96px); }
+.groups { display: grid; grid-template-columns: 1fr 1fr; gap: 24px clamp(40px, 6vw, 80px); margin-top: clamp(64px, 7vw, 96px); align-items: start; }
+/* 항목이 많은 쪽은 두 단으로 흘려 두 열의 높이를 맞춘다 */
+.group-list.split { display: grid; grid-template-rows: repeat(3, auto); grid-auto-flow: column; grid-auto-columns: 1fr; column-gap: clamp(24px, 3vw, 44px); }
 .group-head { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
 .group-head .label { flex: none; }
 .group-head::after { content: ""; flex: 1; height: 1px; background: var(--hair); }
@@ -444,6 +440,7 @@ body[data-lang="en"] .group-list li { font-family: var(--serif-en); }
 body[data-lang="ja"] .group-list li { font-family: var(--serif-ja); }
 .group-list li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--navy-2); flex: none; }
 .group-list li:last-child { box-shadow: none; }
+.group-list.split li:nth-child(3n) { box-shadow: none; }
 
 .annual { margin-top: clamp(64px, 7vw, 96px); }
 .annual ul { display: flex; flex-wrap: wrap; gap: 10px 40px; margin-top: 22px; }
@@ -533,8 +530,10 @@ body[data-lang="en"] .exec-name { font-family: var(--serif-en); }
 body[data-lang="ja"] .exec-name { font-family: var(--serif-ja); }
 .exec-role { font-size: var(--t-small); font-weight: 600; letter-spacing: .06em; color: var(--navy-2); line-height: 1.5; margin-top: 2px; }
 .exec-meta, .exec-fav { font-size: var(--t-small); color: var(--ink-mute); line-height: 1.6; }
-.flag { display: inline-block; width: 1.5em; height: 1em; vertical-align: -.08em; border-radius: 2px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .16); }
-:root[data-theme="dark"] .flag { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .24); }
+.flag { position: relative; display: inline-block; width: 1.5em; height: 1em; vertical-align: -.08em; border-radius: 2px; overflow: hidden; }
+/* svg가 배경을 덮으므로 테두리는 그 위에 따로 얹는다 */
+.flag::after { content: ""; position: absolute; inset: 0; border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .18); }
+:root[data-theme="dark"] .flag::after { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .26); }
 .flag svg { width: 100%; height: 100%; display: block; }
 .exec-meta span + span { margin-left: .45em; }
 .exec-fav span:first-child { color: var(--ink-soft); font-weight: 600; margin-right: .35em; }
@@ -614,6 +613,8 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
   .about-grid { grid-template-columns: 1fr; }
   .cards { grid-template-columns: 1fr; }
   .groups { grid-template-columns: 1fr; gap: 40px; }
+  .group-list.split { display: block; }
+  .group-list.split li:nth-child(3n):not(:last-child) { box-shadow: inset 0 -1px 0 var(--hair); }
   .mascots { grid-template-columns: 1fr; }
   .contacts { grid-template-columns: 1fr; }
   .contact + .contact { box-shadow: inset 0 1px 0 var(--hair); }
@@ -632,7 +633,6 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
   .hero-meta .rule { width: 20px; }
   .hero-meta .label { letter-spacing: .16em; font-size: var(--t-label); white-space: nowrap; }
   .hero-meta { gap: 10px; }
-  .hero-cta { flex-direction: column; gap: 6px; }
   .sec-head { flex-direction: column; align-items: flex-start; gap: 14px; }
   .timeline::before { left: 4px; }
   .timeline li { grid-template-columns: 1fr; padding: 0 0 44px 32px; }
@@ -669,7 +669,9 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <symbol id="i-ball" viewBox="0 0 24 24"><path d="M2.68 12a9.4 9.4 0 0 1 18.64 0z" fill="currentColor"/><circle cx="12" cy="12" r="9.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2.6 12h6.3M15.1 12h6.3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+    <!-- 몬스터볼: 위쪽 반구는 채우되 가운데 버튼 자리는 비워 둔다 (evenodd). 아래쪽 반구는 비어 있다. -->
+    <symbol id="i-ball" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M2.6 12a9.4 9.4 0 0 1 18.8 0ZM8.4 12a3.6 3.6 0 0 1 7.2 0Z"/><circle cx="12" cy="12" r="9.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2.6 12h5.8M15.6 12h5.8" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="2.4" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+    <symbol id="f-us" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><g fill="#B22234"><rect y="0.0000" width="24" height="1.2308"/><rect y="2.4615" width="24" height="1.2308"/><rect y="4.9231" width="24" height="1.2308"/><rect y="7.3846" width="24" height="1.2308"/><rect y="9.8462" width="24" height="1.2308"/><rect y="12.3077" width="24" height="1.2308"/><rect y="14.7692" width="24" height="1.2308"/></g><rect width="9.6" height="8.6154" fill="#3C3B6E"/><g fill="#fff"><circle cx="0.96" cy="1.08" r=".42"/><circle cx="2.88" cy="1.08" r=".42"/><circle cx="4.80" cy="1.08" r=".42"/><circle cx="6.72" cy="1.08" r=".42"/><circle cx="8.64" cy="1.08" r=".42"/><circle cx="0.96" cy="3.24" r=".42"/><circle cx="2.88" cy="3.24" r=".42"/><circle cx="4.80" cy="3.24" r=".42"/><circle cx="6.72" cy="3.24" r=".42"/><circle cx="8.64" cy="3.24" r=".42"/><circle cx="0.96" cy="5.40" r=".42"/><circle cx="2.88" cy="5.40" r=".42"/><circle cx="4.80" cy="5.40" r=".42"/><circle cx="6.72" cy="5.40" r=".42"/><circle cx="8.64" cy="5.40" r=".42"/><circle cx="0.96" cy="7.56" r=".42"/><circle cx="2.88" cy="7.56" r=".42"/><circle cx="4.80" cy="7.56" r=".42"/><circle cx="6.72" cy="7.56" r=".42"/><circle cx="8.64" cy="7.56" r=".42"/></g></symbol>
     <symbol id="f-kr" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><path d="M7.8 8a4.2 4.2 0 0 1 8.4 0z" fill="#CD2E3A"/><path d="M7.8 8a4.2 4.2 0 0 0 8.4 0z" fill="#0047A0"/><g fill="#111"><g transform="translate(5 4.2) rotate(-33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g><g transform="translate(19 4.2) rotate(33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g><g transform="translate(5 11.8) rotate(33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g><g transform="translate(19 11.8) rotate(-33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g></g></symbol>
     <symbol id="f-jp" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><circle cx="12" cy="8" r="4.4" fill="#BC002D"/></symbol>
     <symbol id="f-fr" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><rect width="8" height="16" fill="#0055A4"/><rect x="16" width="8" height="16" fill="#EF4135"/></symbol>
@@ -698,9 +700,9 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
     </nav>
     <div class="nav-tools">
       <div class="langs" role="group" aria-label="Language">
-        <button type="button" data-lang-set="ko" aria-pressed="true" lang="ko" aria-label="한국어">KO</button>
-        <button type="button" data-lang-set="en" aria-pressed="false" lang="en" aria-label="English">EN</button>
-        <button type="button" data-lang-set="ja" aria-pressed="false" lang="ja" aria-label="日本語">JA</button>
+        <button type="button" data-lang-set="ko" aria-pressed="true" lang="ko" aria-label="한국어"><span class="flag"><svg><use href="#f-kr"/></svg></span></button>
+        <button type="button" data-lang-set="en" aria-pressed="false" lang="en" aria-label="English"><span class="flag"><svg><use href="#f-us"/></svg></span></button>
+        <button type="button" data-lang-set="ja" aria-pressed="false" lang="ja" aria-label="日本語"><span class="flag"><svg><use href="#f-jp"/></svg></span></button>
       </div>
       <button type="button" class="icon-btn theme-btn" data-theme-toggle>
         <svg class="ic i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
@@ -726,9 +728,9 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
   </ul>
   <div class="sheet-foot">
     <div class="langs" role="group" aria-label="Language">
-      <button type="button" data-lang-set="ko" aria-pressed="true" lang="ko">한국어</button>
-      <button type="button" data-lang-set="en" aria-pressed="false" lang="en">English</button>
-      <button type="button" data-lang-set="ja" aria-pressed="false" lang="ja">日本語</button>
+      <button type="button" data-lang-set="ko" aria-pressed="true" lang="ko"><span class="flag"><svg><use href="#f-kr"/></svg></span><span>한국어</span></button>
+      <button type="button" data-lang-set="en" aria-pressed="false" lang="en"><span class="flag"><svg><use href="#f-us"/></svg></span><span>English</span></button>
+      <button type="button" data-lang-set="ja" aria-pressed="false" lang="ja"><span class="flag"><svg><use href="#f-jp"/></svg></span><span>日本語</span></button>
     </div>
     <button type="button" class="icon-btn theme-btn" data-theme-toggle>
       <svg class="ic i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
@@ -745,11 +747,7 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
   <h1 data-in><span class="sr-only" data-i18n="brand">포켓몬 센터 연세점</span><span aria-hidden="true">POKÉMON CENTER YONSEI</span></h1>
   <p class="hero-kr" data-in style="--d:4" aria-hidden="true" data-i18n="hero.local">포켓몬 센터 연세점</p>
   <p class="hero-sub" data-in style="--d:5" data-i18n="hero.sub">다양한 방식으로 포켓몬을 즐기는 사람들이 모이는 연세대학교 포켓몬스터 동아리</p>
-  <div class="hero-cta" data-in style="--d:6">
-    <a class="pill" href="#join"><span data-i18n="nav.join">가입하기</span><svg class="ic i-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    <a class="link" href="https://iambin2.github.io/ypl-site/" target="_blank" rel="noopener"><span data-i18n="hero.ypl">YPL 리그 보기</span><svg class="ic i-out" aria-hidden="true"><use href="#i-out"/></svg></a>
-  </div>
-  <a class="hero-scroll" href="#about" data-in style="--d:7" aria-label="Scroll"><span class="label">Scroll</span><span class="hero-scroll-line"></span></a>
+  <a class="hero-scroll" href="#about" data-in style="--d:6" aria-label="Scroll"><span class="label">Scroll</span><span class="hero-scroll-line"></span></a>
 </header>
 
 <main id="main" tabindex="-1">
@@ -808,11 +806,11 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
     <div class="groups">
       <div data-reveal>
         <div class="group-head"><p class="label">Pokémon</p></div>
-        <ul class="group-list"><li data-i18n="sub.s1">포켓몬 배틀</li><li data-i18n="sub.s2">포켓몬 GO</li><li data-i18n="sub.s3">포켓몬 TCG</li><li data-i18n="sub.s4">포코피아</li><li data-i18n="sub.s5">굿즈</li></ul>
+        <ul class="group-list"><li data-i18n="sub.s1">포켓몬 배틀</li><li data-i18n="sub.s2">포켓몬 GO</li><li data-i18n="sub.s3">포켓몬 TCG</li></ul>
       </div>
       <div data-reveal style="--d:1">
         <div class="group-head"><p class="label">Beyond</p></div>
-        <ul class="group-list"><li data-i18n="sub.b1">만화</li><li data-i18n="sub.b2">종합게임</li><li data-i18n="sub.b3">리그 오브 레전드</li><li data-i18n="sub.b4">야구</li><li data-i18n="sub.b5">해외축구</li></ul>
+        <ul class="group-list split"><li data-i18n="sub.s5">굿즈</li><li data-i18n="sub.b2">종합게임</li><li data-i18n="sub.b3">리그 오브 레전드</li><li data-i18n="sub.b4">야구</li><li data-i18n="sub.b5">해외축구</li><li data-i18n="sub.b6">맛집</li></ul>
       </div>
     </div>
     <div class="annual" data-reveal>
@@ -1201,13 +1199,12 @@ const i18n = {
     'sub.s1': '포켓몬 배틀',
     'sub.s2': '포켓몬 GO',
     'sub.s3': '포켓몬 TCG',
-    'sub.s4': '포코피아',
     'sub.s5': '굿즈',
-    'sub.b1': '만화',
     'sub.b2': '종합게임',
     'sub.b3': '리그 오브 레전드',
     'sub.b4': '야구',
     'sub.b5': '해외축구',
+    'sub.b6': '맛집',
     'act.e1': '동아리 박람회',
     'act.e2': '신입생 환영회',
     'act.e3': 'MT',
@@ -1246,7 +1243,6 @@ const i18n = {
     'brand': '포켓몬 센터 연세점',
     'nav.mascots': '마스코트',
     'hero.local': '포켓몬 센터 연세점',
-    'hero.ypl': 'YPL 리그 보기',
     'about.quote': '우리는<br>모두 친구.',
     'ypl.tag': '배틀 대회에 참가해 자신의 실력을 뽐내고<br><span class="accent">동아리 정점의 트레이너</span>를 노리세요.',
     'join.cta': '이메일 보내기',
@@ -1472,13 +1468,12 @@ const i18n = {
     'sub.s1': 'Pokémon Battle',
     'sub.s2': 'Pokémon GO',
     'sub.s3': 'Pokémon TCG',
-    'sub.s4': 'Pokopia',
     'sub.s5': 'Merchandise',
-    'sub.b1': 'Manga',
     'sub.b2': 'Gaming',
     'sub.b3': 'League of Legends',
     'sub.b4': 'Baseball',
     'sub.b5': 'Football',
+    'sub.b6': 'Dining',
     'act.e1': 'Club fair',
     'act.e2': 'Welcome party',
     'act.e3': 'Membership retreat',
@@ -1517,7 +1512,6 @@ const i18n = {
     'brand': 'Pokémon Center Yonsei',
     'nav.mascots': 'Mascots',
     'hero.local': 'Yonsei University Pokémon Club',
-    'hero.ypl': 'Visit the YPL league',
     'about.quote': 'We are<br>all friends.',
     'ypl.tag': 'Enter the tournament, show your skill,<br>and aim to become <span class="accent">the top trainer in the club</span>.',
     'join.cta': 'Send an email',
@@ -1743,13 +1737,12 @@ const i18n = {
     'sub.s1': 'ポケモンバトル',
     'sub.s2': 'ポケモンGO',
     'sub.s3': 'ポケモンTCG',
-    'sub.s4': 'ポコピア',
     'sub.s5': 'グッズ',
-    'sub.b1': 'マンガ',
     'sub.b2': '総合ゲーム',
     'sub.b3': 'League of Legends',
     'sub.b4': '野球',
     'sub.b5': '海外サッカー',
+    'sub.b6': 'グルメ',
     'act.e1': 'サークル博覧会',
     'act.e2': '新入生歓迎会',
     'act.e3': 'MT（合宿）',
@@ -1788,7 +1781,6 @@ const i18n = {
     'brand': 'ポケモンセンター延世店',
     'nav.mascots': 'マスコット',
     'hero.local': '延世大学ポケモンサークル',
-    'hero.ypl': 'YPLリーグを見る',
     'about.quote': '私たちはみんな<br>友達。',
     'ypl.tag': 'バトル大会に出て実力を試し、<br><span class="accent">サークルいちばんのトレーナー</span>を目指しましょう。',
     'join.cta': 'メールを送る',
