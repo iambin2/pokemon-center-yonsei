@@ -178,13 +178,14 @@ const browser = await chromium.launch();
   await p2.goto(URL);
   await p2.waitForTimeout(800);
   await p2.keyboard.press('Tab');
-  const skip = await p2.evaluate(() => {
+  const first = await p2.evaluate(() => {
     const el = document.activeElement;
-    return { cls: el.className, outline: getComputedStyle(el).outlineWidth };
+    const r = el.getBoundingClientRect();
+    return { cls: el.className || el.tagName, outline: getComputedStyle(el).outlineWidth, onScreen: r.width > 0 && r.top >= 0 };
   });
-  skip.cls === 'skip-link' && skip.outline !== '0px'
-    ? ok('첫 Tab에서 스킵 링크 포커스 + 아웃라인 표시')
-    : bad(`스킵 링크/포커스 이상: ${JSON.stringify(skip)}`);
+  first.outline !== '0px' && first.onScreen
+    ? ok(`첫 Tab에서 포커스 아웃라인 표시 (${first.cls})`)
+    : bad(`첫 Tab 포커스 이상: ${JSON.stringify(first)}`);
   await p2.close();
   await page.close();
 }
