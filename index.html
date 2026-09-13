@@ -208,7 +208,6 @@ body[data-lang="ja"] .sec-title { font-family: var(--serif-ja); letter-spacing: 
 .pill .ic { width: 17px; height: 17px; stroke-width: 1.8; transition: transform var(--t2) var(--ease); }
 @media (hover: hover) {
   .pill:hover { background: var(--navy-hover); box-shadow: 0 12px 28px -14px rgba(0, 40, 90, .6); }
-  .pill:hover .i-arrow { transform: translateX(4px); }
   .pill:hover .i-out { transform: translate(4px, -4px); }
 }
 .pill:active { transform: scale(.97); }
@@ -529,11 +528,10 @@ body[data-lang="ja"] .faq-q-text { font-family: var(--serif-ja); }
 .join-title { font-family: var(--serif-kr); font-size: var(--t-display); font-weight: 400; line-height: 1.2; letter-spacing: -0.025em; color: var(--navy); }
 body[data-lang="en"] .join-title { font-family: var(--serif-en); font-variation-settings: "opsz" 144; }
 body[data-lang="ja"] .join-title { font-family: var(--serif-ja); letter-spacing: 0; }
-.join-text { margin-top: 28px; font-size: var(--t-body); color: var(--ink-soft); }
+.join-text { margin-top: 26px; font-size: var(--t-body); color: var(--ink-soft); }
 .join-flourish { display: block; margin-top: 10px; font-family: var(--serif-kr); font-size: var(--t-body); font-weight: 500; color: var(--navy); }
 body[data-lang="en"] .join-flourish { font-family: var(--serif-en); font-style: italic; }
 body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
-.join .pill { margin-top: 40px; }
 .contacts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 960px; margin: clamp(56px, 6vw, 80px) auto 0; }
 .contact { padding: 30px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .contact .label { font-size: var(--t-micro); }
@@ -549,7 +547,7 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
 .copy.done .i-copy { display: none; }
 .copy.done .i-check { display: block; }
 .copy.done { color: var(--navy); }
-.facts { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 36px; margin-top: 36px; font-size: var(--t-small); color: var(--ink-mute); }
+.facts { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 36px; margin-top: clamp(44px, 4.6vw, 60px); font-size: var(--t-small); color: var(--ink-mute); }
 .facts b { color: var(--ink); font-weight: 600; margin-left: 8px; }
 
 /* 바닥글 */
@@ -634,7 +632,6 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
     <symbol id="f-kr" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><path d="M7.8 8a4.2 4.2 0 0 1 8.4 0z" fill="#CD2E3A"/><path d="M7.8 8a4.2 4.2 0 0 0 8.4 0z" fill="#0047A0"/><g fill="#111"><g transform="translate(5 4.2) rotate(-33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g><g transform="translate(19 4.2) rotate(33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g><g transform="translate(5 11.8) rotate(33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g><g transform="translate(19 11.8) rotate(-33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g></g></symbol>
     <symbol id="f-jp" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><circle cx="12" cy="8" r="4.4" fill="#BC002D"/></symbol>
     <symbol id="f-fr" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><rect width="8" height="16" fill="#0055A4"/><rect x="16" width="8" height="16" fill="#EF4135"/></symbol>
-    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="M13.5 6l6 6-6 6"/></symbol>
     <symbol id="i-out" viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M8.5 7H17v8.5"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.8v2"/><path d="M12 19.2v2"/><path d="M2.8 12h2"/><path d="M19.2 12h2"/><path d="M5.5 5.5l1.4 1.4"/><path d="M17.1 17.1l1.4 1.4"/><path d="M5.5 18.5l1.4-1.4"/><path d="M17.1 6.9l1.4-1.4"/></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.6A8 8 0 1 1 9.4 4.5a6.4 6.4 0 0 0 10.1 10.1z"/></symbol>
@@ -1066,7 +1063,6 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
     <div class="sec-head center" data-reveal style="margin-bottom:28px"><p class="label"><svg class="ball" aria-hidden="true"><use href="#i-ball"/></svg>Join us</p></div>
     <h2 class="join-title" id="join-t" data-reveal data-i18n="join.title">당신의 포켓몬을<br>들고 오세요.</h2>
     <p class="join-text" data-reveal style="--d:1"><span data-i18n="join.text">연세대학교 재학생이라면 누구나 환영합니다.</span><span class="join-flourish" data-i18n="join.flourish">꿈과 모험과! 포켓몬스터의 세계로!</span></p>
-    <a class="pill" data-reveal style="--d:2" href="mailto:pokeyonsei@gmail.com"><span data-i18n="join.cta">이메일 보내기</span><svg class="ic i-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     <p class="facts" data-reveal style="--d:2"><span><span data-i18n="facts.r1.k">회비</span><b data-i18n="facts.r1.v">한 학기 3만 원</b></span><span><span data-i18n="facts.r2.k">가입 대상</span><b data-i18n="facts.r2.v">연세대 재학생 누구나</b></span><span><span data-i18n="facts.r3.k">정기 모임</span><b data-i18n="facts.r3.v">2주마다, 신촌 일대</b></span></p>
     <div class="contacts" data-reveal>
       <div class="contact"><p class="label">Email</p><a class="value" href="mailto:pokeyonsei@gmail.com">pokeyonsei@gmail.com</a><button type="button" class="copy" data-copy="pokeyonsei@gmail.com"><svg class="ic i-copy" aria-hidden="true"><use href="#i-copy"/></svg><svg class="ic i-check" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="contact.copy">주소 복사</span></button></div>
@@ -1199,7 +1195,6 @@ const i18n = {
     'hero.local': '포켓몬 센터 연세점',
     'about.quote': '우리는<br>모두 친구.',
     'ypl.tag': '배틀 대회에 참가해 자신의 실력을 뽐내고<br><span class="accent">동아리 정점의 트레이너</span>를 노리세요.',
-    'join.cta': '이메일 보내기',
     'facts.r1.k': '회비',
     'facts.r1.v': '한 학기 3만 원',
     'facts.r2.k': '가입 대상',
@@ -1467,7 +1462,6 @@ const i18n = {
     'hero.local': 'Yonsei University Pokémon Club',
     'about.quote': 'We are<br>all friends.',
     'ypl.tag': 'Enter the tournament, show your skill,<br>and aim to become <span class="accent">the top trainer in the club</span>.',
-    'join.cta': 'Send an email',
     'facts.r1.k': 'Fee',
     'facts.r1.v': '30,000 KRW a semester',
     'facts.r2.k': 'Who can join',
@@ -1735,7 +1729,6 @@ const i18n = {
     'hero.local': '延世大学ポケモンサークル',
     'about.quote': '私たちはみんな<br>友達。',
     'ypl.tag': 'バトル大会に出て実力を試し、<br><span class="accent">サークルいちばんのトレーナー</span>を目指しましょう。',
-    'join.cta': 'メールを送る',
     'facts.r1.k': '会費',
     'facts.r1.v': '1学期 3万ウォン',
     'facts.r2.k': '対象',
