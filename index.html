@@ -2222,14 +2222,14 @@ document.querySelectorAll('[data-copy]').forEach(btn => {
     const p = t - enc.t, UP = 320, RISE = 560, HOLD = 1900, DOWN = 520;
     if (p > UP + RISE + HOLD + DOWN) { enc = null; return; }
     const m = enc.mon;
-    const size = w < 640 ? 72 : 90;                    /* 임원 그림(160px)이 흐려지지 않는 크기로 모두 맞춘다 */
+    const size = w < 640 ? 92 : 120;                   /* 모든 포켓몬을 같은 키로 맞춘다 */
     const sc = Math.min(size / m.sh, size * 1.5 / m.sw), dw = m.sw * sc, dh = m.sh * sc;
     let rise = 0;
     if (p > UP && p < UP + RISE) { const q = (p - UP) / RISE, s = 1.2; rise = 1 + (s + 1) * (q - 1) ** 3 + s * (q - 1) ** 2; }
     else if (p >= UP + RISE && p < UP + RISE + HOLD) rise = 1 + Math.sin((p - UP - RISE) / 300) * .02;
     else if (p >= UP + RISE + HOLD) { const q = (p - UP - RISE - HOLD) / DOWN; rise = 1 - q * q * (3 - 2 * q); }
     if (rise <= 0) return;
-    const top = h - gh * .6 - dh * rise;
+    const top = h - gh * .5 - dh * rise;
     ctx.drawImage(m.img, m.sx, m.sy, m.sw, m.sh, enc.x - dw / 2, top, dw, dh);
     const bang = p - UP - RISE;
     if (bang > 0 && bang < 1000) {          /* 머리 위 느낌표 */
@@ -2265,8 +2265,12 @@ document.querySelectorAll('[data-copy]').forEach(btn => {
       const [x] = at(e), t = performance.now();
       rustles.push({ x, t });
       const pool = favs.length && Math.random() < .5 ? favs : mascots, ready = pool.filter(m => m.ready);
-      if (!enc && ready.length && (clicks++ === 0 || Math.random() < .55))
-        enc = { t, x: Math.min(Math.max(x, 80), w - 80), mon: ready[Math.floor(Math.random() * ready.length)] };
+      if (!enc && ready.length && (clicks++ === 0 || Math.random() < .55)) {
+        /* 가운데의 스크롤 신호와 겹치지 않도록 한가운데 좁은 띠는 비켜서 나온다 */
+        let ex = Math.min(Math.max(x, 80), w - 80);
+        if (Math.abs(ex - w / 2) < 100) ex = w / 2 + (ex < w / 2 ? -100 : 100);
+        enc = { t, x: ex, mon: ready[Math.floor(Math.random() * ready.length)] };
+      }
     }, { passive: true });
     host.addEventListener('pointerleave', () => { px = py = -1e4; }, { passive: true });
   }
