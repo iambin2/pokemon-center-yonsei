@@ -270,7 +270,7 @@ At ≤640px the ramp itself is re-pointed rather than overridden per rule: `--t-
 
 A single centred measure: `.wrap` is `max-width: calc(1180px + 2 × gutter)` with a fluid gutter `clamp(20px, 4vw, 48px)`. Sections run `clamp(88px, 11vw, 152px)` of vertical padding and alternate ground tone via `.sec.alt`; `scroll-margin-top` compensates for the fixed 68px nav (60px under 640px).
 
-The first screen is `min(100svh, 920px)`, centred, and opens directly on type: a hairline-flanked meta row (`36px rule — Since 2023 — pokéball — Yonsei University — 36px rule`), then the wordmark, the Korean name, the description, the CTAs and the scroll cue. No image sits in the hero.
+The first screen is `min(100svh, 920px)`, centred, and opens directly on type: a hairline-flanked meta row (`36px rule — Since 2023 — pokéball — Yonsei University — 36px rule`), then the wordmark, the Korean name, the description, the CTAs and the scroll cue. No image sits in the hero; the only picture is the tall grass along its bottom edge.
 
 The section head is a baseline-aligned flex row — tracked English label, then Korean title — with `gap: 14px 28px` and `clamp(44px, 5.4vw, 72px)` beneath. `.sec-head.center` stacks and centres the same parts for 리그 and 가입. Intros pull up by 55% of that head gap so the label / title / intro reads as one block.
 
@@ -344,6 +344,8 @@ Japanese text breaks at phrase boundaries, not at arbitrary characters: `@suppor
 
 ### Hero
 Centred column, type only: the hairline-flanked meta row, the wordmark, the Korean name at `.32em` (`.24em` in Japanese), a serif one-line description, then the navy pill plus a YPL text link, then the scroll cue. Everything rises and fades in on load at `--d × 120ms + 100ms`; the wordmark instead opens its tracking from `.04em` to `.16em` over 1.8s at a 260ms delay — the signature moment, re-targeted to `.1em` under 640px. The scroll cue is a `Scroll` label at `--t-label`, 60% opacity, above a 48px hairline down which a navy segment falls on a 2.4s loop.
+
+Along the bottom of the hero runs tall grass (`canvas.hero-grass`), the Pokémon convention for "wild Pokémon live here". Three rows of tapered blades in Yonsei Blue mixed into the paper at 7%, 13% and 21%, each row with its ground filled so the back rows read as layered bands, about a fifth of the hero tall (80–120px under 640px). It sways on a slow wind, bends away from the pointer and whips with the pointer's speed. A click or tap rustles the grass around it and, on the first click and about half the time after, a Rufflet, Braviary or Pikachu silhouette (the traced figures from `#emblem`, at 62% ink) rises from between the front and middle rows with a `!` above it, holds, and sinks back. Under reduced motion the grass is drawn once, still. It stops drawing when the hero leaves the screen.
 
 ### Accordions (executives and FAQ)
 One mechanism, two dressings. A full-width button row (84px for 기수, 80px for FAQ) in a grid, with a 36px circular chevron button on the right whose vertical stroke rotates 90° when open; the panel is a `grid-template-rows: 0fr → 1fr` transition over 720ms with the inner content fading and rising at a 90–100ms delay. Rows are separated by inset hairlines only, and the list as a whole is capped top and bottom by one.

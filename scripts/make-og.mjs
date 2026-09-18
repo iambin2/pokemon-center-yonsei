@@ -1,5 +1,5 @@
 /* 링크 미리보기 이미지(og.png)를 사이트의 첫 화면 그대로 찍는다.
-   따로 그리지 않는다 — 같은 활자, 같은 색, 같은 점판을 쓰므로 늘 본문과 일치한다.
+   따로 그리지 않는다 — 같은 활자, 같은 색, 같은 풀숲을 쓰므로 늘 본문과 일치한다.
    실행: node scripts/make-og.mjs                                                */
 import { chromium } from 'playwright';
 import { fileURLToPath } from 'url';
@@ -41,7 +41,7 @@ await page.evaluate(() => {
   for (const e of els) e.style.transform = `translateY(${shift}px)`;
 });
 
-/* 점판을 고르게 깔기 위해 포인터를 화면 밖에 둔다 */
+/* 풀숲이 커서에 비켜서지 않도록 포인터를 화면 밖에 둔다 */
 await page.mouse.move(-500, -500);
 await page.waitForTimeout(700);
 

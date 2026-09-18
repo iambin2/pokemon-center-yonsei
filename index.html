@@ -323,9 +323,8 @@ body[data-lang="ja"] .sheet .nav-link { font-family: var(--serif-ja); }
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   padding: calc(var(--nav) + 48px) var(--gutter) 56px;
 }
-/* 점조직: 쉴 때는 거의 보이지 않고, 커서가 지나갈 때만 밝아진다 */
-/* 점판은 첫 화면에만 깔린다 */
-.hero-dots { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+/* 풀숲: 첫 화면 아래에 깔려 바람과 커서에 흔들린다. 그림은 스크립트가 캔버스에 그린다 */
+.hero-grass { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
 .hero-meta { display: flex; align-items: center; gap: 14px; color: var(--navy); }
 .hero h1 {
   margin-top: 30px;
@@ -697,7 +696,7 @@ body[data-lang="ja"] .join-flourish { font-family: var(--serif-ja); }
 </div>
 
 <header class="hero" id="top">
-  <canvas class="hero-dots" aria-hidden="true"></canvas>
+  <canvas class="hero-grass" aria-hidden="true"></canvas>
   <div class="hero-meta" data-in style="--d:1">
     <span class="label">Since 2023</span><svg class="ball" aria-hidden="true"><use href="#i-ball"/></svg><span class="label">Yonsei University</span>
   </div>
@@ -2067,161 +2066,166 @@ document.querySelectorAll('[data-copy]').forEach(btn => {
 });
 
 /* ==========================================================================
-   점판. 쉴 때도 아주 느린 물결이 흐르고, 커서가 닿으면 같은 방식으로 더 밝아진다.
-   한 벌의 코드로 화면 전체와 남색 띠 두 곳을 함께 그린다.
+   첫 화면의 풀숲.
+   첫 화면 아래에 풀숲이 깔려 바람에 흔들린다. 커서가 지나가면 풀이 비켜서고,
+   클릭하면 풀이 바스락거리다가 가끔 포켓몬이 고개를 내민다 (엠블럼의 실루엣을 그대로 쓴다).
    ========================================================================== */
 (() => {
-  const fields = [];
+  const cv = document.querySelector('.hero-grass');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
   const still = reduceMotion.matches;
+  let w = 0, h = 0, gh = 0, px = -1e4, py = -1e4, pvx = 0, ink = [0, 56, 118], bg = [255, 255, 255];
+  let rows = [], rustles = [], enc = null, clicks = 0;
 
-  function field(cv, opts) {
-    const ctx = cv.getContext('2d', { alpha: true });
-    const R_LIGHT = 170, RIPPLE_MS = 1100, RIPPLE_MAX = 620;
-    let dots = [], w = 0, h = 0, px = -1e4, py = -1e4, ripples = [];
-    let rgb = opts.rgb || null;
-
-    const readInk = () => {
-      if (opts.rgb) return;
-      const v = getComputedStyle(document.documentElement).getPropertyValue('--navy-rgb').trim();
-      const n = v.split(',').map(x => parseInt(x, 10));
-      if (n.length === 3 && n.every(x => x >= 0)) rgb = n;
-    };
-
-    function build() {
-      const box = cv.getBoundingClientRect();
-      w = Math.max(box.width, 1); h = Math.max(box.height, 1);
-      const dpr = Math.min(devicePixelRatio || 1, 2);
-      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const gap = w < 640 ? 22 : 28;
-      dots = [];
-      for (let y = gap / 2; y < h; y += gap)
-        for (let x = gap / 2; x < w; x += gap) dots.push(x, y);
+  /* 엠블럼 기호에서 루차불, 워글, 피카츄의 윤곽을 골라낸다 */
+  const mons = (() => {
+    const NS = 'http://www.w3.org/2000/svg', tmp = document.createElementNS(NS, 'svg');
+    tmp.setAttribute('style', 'position:absolute;width:0;height:0;overflow:hidden');
+    document.body.append(tmp);
+    const pick = { rufflet: [], braviary: [], pikachu: [] };
+    for (const p of document.querySelectorAll('#emblem g path')) {
+      const [tx, ty] = p.getAttribute('transform').match(/-?[\d.]+/g).map(Number);
+      const c = p.cloneNode(); c.removeAttribute('transform'); tmp.append(c);
+      const bb = c.getBBox(), x0 = tx + bb.x, y0 = ty + bb.y, x1 = x0 + bb.width, y1 = y0 + bb.height;
+      const mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+      const key = mx < -350 && my > -60 && my < 480 ? 'rufflet' : mx > 420 && my > -60 && my < 480 ? 'braviary'
+                : Math.abs(mx) < 250 && my < -520 ? 'pikachu' : null;
+      if (key) pick[key].push({ d: p.getAttribute('d'), tx, ty, x0, y0, x1, y1 });
     }
+    tmp.remove();
+    return Object.entries(pick).filter(([, a]) => a.length).map(([name, a]) => {
+      const path = new Path2D();
+      for (const q of a) path.addPath(new Path2D(q.d), new DOMMatrix().translate(q.tx, q.ty));
+      const x0 = Math.min(...a.map(q => q.x0)), x1 = Math.max(...a.map(q => q.x1));
+      const y0 = Math.min(...a.map(q => q.y0)), y1 = Math.max(...a.map(q => q.y1));
+      return { name, path, x0, y0, wd: x1 - x0, ht: y1 - y0 };
+    });
+  })();
 
-    /* 활자가 놓인 자리는 비운다. 글자 위에는 점이 얹히지 않는다. */
-    let holes = [], holeEls = [];
-    function findHoles() {
-      holeEls = opts.holes ? [...(opts.root || document).querySelectorAll(opts.holes)] : [];
-    }
-    function readHoles() {
-      if (!holeEls.length) { holes = []; return; }
-      const box = cv.getBoundingClientRect();
-      holes = [];
-      for (const el of holeEls) {
-        const r = el.getBoundingClientRect();
-        if (r.bottom < -120 || r.top > innerHeight + 120) continue;  /* 화면 밖은 셈에서 뺀다 */
-        holes.push({ l: r.left - box.left - 26, t: r.top - box.top - 18,
-                     r: r.right - box.left + 26, b: r.bottom - box.top + 18 });
+  const rgbOf = v => v.split(',').map(x => parseInt(x, 10));
+  function readInk() {
+    const cs = getComputedStyle(document.documentElement);
+    ink = rgbOf(cs.getPropertyValue('--navy-rgb'));
+    const probe = document.createElement('i'); probe.style.color = cs.getPropertyValue('--bg'); document.body.append(probe);
+    bg = getComputedStyle(probe).color.match(/\d+/g).slice(0, 3).map(Number); probe.remove();
+  }
+  /* 겹친 풀이 비치지 않도록 반투명 대신 바탕과 섞은 불투명색을 쓴다 */
+  const tone = k => `rgb(${ink.map((c, i) => Math.round(bg[i] + (c - bg[i]) * k)).join(',')})`;
+
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  function build() {
+    const box = cv.getBoundingClientRect();
+    w = Math.max(box.width, 1); h = Math.max(box.height, 1);
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const small = w < 640;
+    gh = small ? Math.min(Math.max(h * .15, 80), 120) : Math.min(Math.max(h * .21, 110), 200);
+    seed = 7;
+    rows = [[.40, .46, .07], [.2, .62, .13], [-.03, .8, .21]].map(([lift, tall, k]) => {
+      const tufts = [], step = small ? 26 : 36;
+      for (let x = -12 + rnd() * step; x < w + 12; x += step * (.75 + rnd() * .5)) {
+        const n = 3 + Math.floor(rnd() * 3), blades = [];
+        for (let i = 0; i < n; i++) blades.push({ lean: (i / (n - 1) - .5) * 1.0 + (rnd() - .5) * .25, len: .6 + rnd() * .4, off: (rnd() - .5) * 8, wd: 2.8 + rnd() * 2 });
+        tufts.push({ x, y: h - gh * lift, H: gh * tall * (.75 + rnd() * .35), blades, ang: 0, vel: 0, ph: rnd() * 6.28 });
       }
-    }
-    const veil = (x, y) => {
-      if (!holes.length) return 1;
-      let near = Infinity;
-      for (const q of holes) {
-        const dx = Math.max(q.l - x, 0, x - q.r), dy = Math.max(q.t - y, 0, y - q.b);
-        if (dx === 0 && dy === 0) return 0;
-        const d = Math.hypot(dx, dy);
-        if (d < near) near = d;
-      }
-      if (near >= 72) return 1;
-      const k = near / 72;
-      return k * k * (3 - 2 * k);
-    };
-
-    function draw(t) {
-      ctx.clearRect(0, 0, w, h);
-      if (!rgb) return false;
-      const [r, g, b] = rgb, base = opts.base, sw = t / 2600;
-      let alive = false;
-      for (let i = 0; i < dots.length; i += 2) {
-        const x = dots[i], y = dots[i + 1];
-        const m = veil(x, y);
-        if (m < 0.02) continue;
-        /* 쉴 때의 물결: 대각선으로 아주 느리게 지나간다 */
-        let k = still ? 0 : (Math.sin((x + y) / 190 - sw) + 1) / 2;
-        k *= k;
-        let a = base * (1 + k * 1.6), rr = 1.05 + k * 0.35;
-
-        if (!still) {
-          const d = Math.hypot(x - px, y - py);
-          if (d < R_LIGHT) {
-            const q = 1 - d / R_LIGHT, e = q * q * (3 - 2 * q);
-            a += e * opts.lit; rr += e * 1.25;
-          }
-          for (const rp of ripples) {
-            const age = (t - rp.t) / RIPPLE_MS;
-            if (age >= 1) continue;
-            alive = true;
-            const near = 1 - Math.min(Math.abs(Math.hypot(x - rp.x, y - rp.y) - age * RIPPLE_MAX) / 56, 1);
-            if (near > 0) { const f = near * (1 - age); a += f * opts.lit; rr += f * 1.4; }
-          }
-        }
-        a *= m;
-        ctx.beginPath();
-        ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + (a > .95 ? .95 : a) + ')';
-        ctx.arc(x, y, rr, 0, 6.2832);
-        ctx.fill();
-      }
-      ripples = alive ? ripples.filter(rp => t - rp.t < RIPPLE_MS) : [];
-      return alive;
-    }
-
-    const api = {
-      draw,
-      resize() { build(); findHoles(); readHoles(); },
-      onMove(e) {
-        const box = cv.getBoundingClientRect();
-        px = e.clientX - box.left; py = e.clientY - box.top;
-      },
-      onLeave() { px = -1e4; py = -1e4; },
-      onDown(e) {
-        const box = cv.getBoundingClientRect();
-        ripples.push({ x: e.clientX - box.left, y: e.clientY - box.top, t: performance.now() });
-      },
-      readInk,
-    };
-    readInk(); build(); findHoles(); readHoles();
-    return api;
+      return { k, tufts, y: h - gh * lift };
+    });
   }
 
-  const hero = document.querySelector('.hero-dots');
-  if (!hero) return;
-  fields.push(field(hero, { base: .075, lit: .72, root: hero.parentElement,
-    holes: '.hero-meta, h1, .hero-kr, .hero-sub, .hero-scroll' }));
+  function blade(x, y, len, lean, wd) {
+    const tx = x + Math.sin(lean) * len, ty = y - Math.cos(lean) * len;
+    const cx = x + Math.sin(lean * .45) * len * .55, cy = y - Math.cos(lean * .45) * len * .55;
+    ctx.moveTo(x - wd, y); ctx.quadraticCurveTo(cx - wd * .4, cy, tx, ty); ctx.quadraticCurveTo(cx + wd * .4, cy, x + wd, y);
+  }
 
-  /* 쉴 때의 물결은 30프레임이면 충분하다. 탭이 숨거나 첫 화면이 지나가면 아예 멈춘다. */
+  function step(t) {
+    for (const row of rows) for (const tf of row.tufts) {
+      let target = still ? 0 : Math.sin(t / 1300 + tf.x / 170) * .05 + Math.sin(t / 2900 + tf.x / 90 + tf.ph) * .03;
+      const dx = tf.x - px, dy = tf.y - tf.H * .6 - py, d = Math.hypot(dx, dy);
+      if (d < 120) { const f = (1 - d / 120) ** 2; target += Math.sign(dx || 1) * f * .6; tf.vel += pvx * .004 * f; }
+      tf.vel += (target - tf.ang) * .12 - tf.vel * .2;
+      tf.ang += tf.vel;
+    }
+    pvx *= .6;
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, w, h);
+    rows.forEach((row, ri) => {
+      if (ri === 2 && enc) drawMon(t);
+      ctx.fillStyle = tone(row.k); ctx.beginPath();
+      ctx.rect(-4, row.y - 2, w + 8, h - row.y + 6);   /* 뒷줄 풀의 밑동이 비치지 않게 땅을 채운다 */
+      for (const tf of row.tufts) {
+        let shake = 0;
+        for (const r of rustles) {
+          const age = (t - r.t) / 900, dx = Math.abs(tf.x - r.x);
+          if (age < 1 && dx < 170) shake += Math.sin(t * .05 + tf.x) * .3 * (1 - age) * (1 - dx / 170);
+        }
+        for (const b of tf.blades) blade(tf.x + b.off, tf.y, tf.H * b.len, b.lean * .55 + tf.ang + shake, b.wd);
+      }
+      ctx.fill();
+    });
+    rustles = rustles.filter(r => t - r.t < 900);
+  }
+
+  /* 풀숲에서 포켓몬이 나왔다 들어간다: 솟아오름 → 느낌표 → 머무름 → 내려감 */
+  function drawMon(t) {
+    const p = t - enc.t, UP = 260, RISE = 460, HOLD = 1700, DOWN = 420;
+    if (p > UP + RISE + HOLD + DOWN) { enc = null; return; }
+    const m = enc.mon, size = gh * .78, sc = size / m.ht;
+    const baseY = h - gh * .02;
+    let rise = 0;
+    if (p > UP && p < UP + RISE) { const q = (p - UP) / RISE, s = 1.7; rise = 1 + (s + 1) * (q - 1) ** 3 + s * (q - 1) ** 2; }
+    else if (p >= UP + RISE && p < UP + RISE + HOLD) rise = 1 + Math.sin((p - UP - RISE) / 260) * .025;
+    else if (p >= UP + RISE + HOLD) { const q = (p - UP - RISE - HOLD) / DOWN; rise = 1 - q * q; }
+    if (rise <= 0) return;
+    const top = baseY - size * .92 * rise;
+    ctx.save();
+    ctx.translate(enc.x - m.wd * sc / 2, top); ctx.scale(sc, sc); ctx.translate(-m.x0, -m.y0);
+    ctx.fillStyle = tone(.62); ctx.fill(m.path);
+    ctx.restore();
+    const bang = p - UP - RISE;
+    if (bang > 0 && bang < 900) {          /* 머리 위 느낌표 */
+      const pop = Math.min(bang / 140, 1), fade = bang > 700 ? 1 - (bang - 700) / 200 : 1;
+      const bx = enc.x + m.wd * sc * .28, by = top - 10, s = 1 + (1 - pop) * .6;
+      ctx.save(); ctx.globalAlpha = fade; ctx.fillStyle = tone(.9);
+      ctx.translate(bx, by); ctx.scale(s, s);
+      ctx.beginPath(); ctx.roundRect(-2.6, -22, 5.2, 14, 2.6); ctx.fill();
+      ctx.beginPath(); ctx.arc(0, -3, 2.8, 0, 6.2832); ctx.fill();
+      ctx.restore();
+    }
+  }
+
   let last = 0, running = false, onScreen = true;
   function frame(t) {
     if (document.hidden || !onScreen) { running = false; return; }
-    if (t - last >= 33) { last = t; for (const f of fields) f.draw(t); }
+    if (t - last >= 33) { last = t; step(t); draw(t); }
     requestAnimationFrame(frame);
   }
-  function start() { if (!running && !document.hidden && onScreen && !still) { running = true; requestAnimationFrame(frame); } }
-
-  new IntersectionObserver(([en]) => {
-    onScreen = en.isIntersecting;
-    if (onScreen) start();
-  }, { rootMargin: '80px' }).observe(hero);
-
-  if (still) for (const f of fields) f.draw(0);
-  else start();
-
+  const start = () => { if (!running && !document.hidden && onScreen && !still) { running = true; requestAnimationFrame(frame); } };
+  new IntersectionObserver(([en]) => { onScreen = en.isIntersecting; if (onScreen) start(); }, { rootMargin: '80px' }).observe(cv);
+  readInk(); build();
+  if (still) draw(0); else start();
   addEventListener('visibilitychange', start);
   let rz = 0;
-  const relayout = () => { clearTimeout(rz); rz = setTimeout(() => {
-    for (const f of fields) f.resize();
-    if (still) for (const f of fields) f.draw(0);
-  }, 150); };
+  const relayout = () => { clearTimeout(rz); rz = setTimeout(() => { build(); if (still) draw(0); }, 150); };
   addEventListener('resize', relayout, { passive: true });
-  addEventListener('pcy:layout', relayout);
-  new MutationObserver(() => { for (const f of fields) f.readInk(); })
-    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
+  new MutationObserver(() => { readInk(); if (still) draw(0); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   if (!still) {
-    hero.parentElement.addEventListener('pointermove', e => { for (const f of fields) f.onMove(e); }, { passive: true });
-    hero.parentElement.addEventListener('pointerdown', e => { for (const f of fields) f.onDown(e); }, { passive: true });
-    hero.parentElement.addEventListener('pointerleave', () => { for (const f of fields) f.onLeave(); }, { passive: true });
+    const host = cv.parentElement, at = e => { const b = cv.getBoundingClientRect(); return [e.clientX - b.left, e.clientY - b.top]; };
+    host.addEventListener('pointermove', e => { const [x, y] = at(e); if (px > -1e3) pvx = pvx * .5 + (x - px) * .5; px = x; py = y; }, { passive: true });
+    host.addEventListener('pointerdown', e => {
+      const [x] = at(e), t = performance.now();
+      rustles.push({ x, t });
+      if (!enc && (clicks++ === 0 || Math.random() < .55)) {
+        const pool = mons.length ? mons : [];
+        if (pool.length) enc = { t, x: Math.min(Math.max(x, 70), w - 70), mon: pool[Math.floor(Math.random() * pool.length)] };
+      }
+    }, { passive: true });
+    host.addEventListener('pointerleave', () => { px = py = -1e4; }, { passive: true });
   }
 })();
 
