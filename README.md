@@ -21,7 +21,7 @@
 
 ```bash
 npm install        # 최초 1회 (playwright)
-npm run check      # i18n 정합성, PNG 무결성, 태그 구조, 크기 예산
+npm run check      # i18n 정합성, 이미지 무결성, 태그 구조, 크기 예산
 npm run verify     # 3개 국어, 아코디언, 이미지, 두 테마 명암비, 모바일
 npm test           # 둘 다
 ```

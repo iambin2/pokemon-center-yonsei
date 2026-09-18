@@ -3,7 +3,7 @@
 
 브라우저 없이 파일만 읽어서 확인한다.
   - i18n 3중 정합성 (키 집합 동일 / HTML 기본 텍스트 = ko 값 / 미아 키 없음)
-  - 인라인 PNG 무결성
+  - 인라인 이미지(임원 아이콘 WebP) 무결성
   - HTML 태그 구조
   - 크기 예산
 
@@ -112,19 +112,22 @@ else:
 
 # ---------------------------------------------------------------- 이미지
 print("\n[이미지]")
-entries = re.findall(r'"([^"]{1,20})"\s*:\s*"data:image/png;base64,([^"]+)"', src)
+entries = re.findall(r'"([^"]{1,20})"\s*:\s*"data:image/(?:png|webp);base64,([^"]+)"', src)
 aliases = re.findall(r'POKE_GIFS\["([^"]+)"\]\s*=\s*POKE_GIFS\["([^"]+)"\]', src)
 broken = []
 for name, b64 in entries:
     try:
         raw = base64.b64decode(b64)
-        assert raw[:8] == b"\x89PNG\r\n\x1a\n" and raw[-8:] == b"IEND\xaeB`\x82"
+        if raw[:4] == b"RIFF":   # WebP: 머리에 적힌 길이와 실제 길이가 맞아야 잘리지 않은 것
+            assert raw[8:12] == b"WEBP" and int.from_bytes(raw[4:8], "little") + 8 == len(raw)
+        else:
+            assert raw[:8] == b"\x89PNG\r\n\x1a\n" and raw[-8:] == b"IEND\xaeB`\x82"
     except Exception:
         broken.append(name)
 if broken:
-    bad(f"손상된 PNG: {broken}")
+    bad(f"손상된 이미지: {broken}")
 else:
-    ok(f"POKE_GIFS {len(entries)}개 + 별칭 {len(aliases)}개, PNG 전부 정상")
+    ok(f"POKE_GIFS {len(entries)}개 + 별칭 {len(aliases)}개, 이미지 전부 정상")
 
 # data-poke 가 맵에 존재하는지
 keys = {n for n, _ in entries} | {a for a, _ in aliases}

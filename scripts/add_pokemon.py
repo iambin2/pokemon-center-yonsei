@@ -5,11 +5,13 @@
 
 하는 일
   1. 대상 임원이 실제로 존재하는지, 그 임원의 최애(data-fav)가 무엇인지 확인
-  2. 원본 PNG 를 128×128 로 축소 (LANCZOS) 후 oxipng 무손실 최적화
+  2. 원본을 160×160 으로 축소 (LANCZOS) 후 무손실 WebP 로 저장
   3. POKE_GIFS 맵의 해당 항목 교체
   4. 같은 이미지를 쓰는 항목이 생기면 별칭으로 정리해 중복 저장을 막는다
 
-필요 패키지:  pip install pillow pyoxipng
+원본은 PokeAPI 의 공식 HOME 렌더를 쓴다 (CLAUDE.md 참고). 이미 줄인 이미지를 다시 줄이지 말 것.
+
+필요 패키지:  pip install pillow
 """
 from __future__ import annotations
 
@@ -21,7 +23,7 @@ import re
 import shutil
 import sys
 
-SIZE = 128  # 60px 표시 × 2 DPR + 여유 (1~7기 이미지는 192px 시절 것)
+SIZE = 160  # 임원 카드 그림 78px 표시 × 2
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INDEX = os.path.join(ROOT, "index.html")
@@ -42,9 +44,8 @@ def main():
 
     try:
         from PIL import Image
-        import oxipng
     except ImportError:
-        die("pillow / pyoxipng 가 필요하다:  pip install pillow pyoxipng")
+        die("pillow 가 필요하다:  pip install pillow")
 
     src = open(INDEX, encoding="utf-8").read()
 
@@ -71,20 +72,20 @@ def main():
 
     im = im.convert("RGBA").resize((SIZE, SIZE), Image.LANCZOS)
     buf = io.BytesIO()
-    im.save(buf, "PNG", optimize=True)
-    out = oxipng.optimize_from_memory(buf.getvalue(), level=4, strip=oxipng.StripChunks.safe())
+    im.save(buf, "WEBP", lossless=True, quality=100, method=6)  # 무손실: 픽셀은 PNG와 같고 크기만 작다
+    out = buf.getvalue()
     print(f"결과: {SIZE}×{SIZE}  {len(out)/1024:.0f} KB")
 
     b64 = base64.b64encode(out).decode("ascii")
 
     # 3) 교체 ------------------------------------------------------------
-    pat = re.compile('("%s"\\s*:\\s*")data:image/png;base64,[^"]*(")' % re.escape(a.name))
+    pat = re.compile('("%s"\\s*:\\s*")data:image/(?:png|webp);base64,[^"]*(")' % re.escape(a.name))
     if not pat.search(src):
         die(f"'{a.name}' 항목이 별칭으로만 존재한다. 별칭을 먼저 실제 항목으로 되돌려야 한다.")
-    src = pat.sub(lambda m: m.group(1) + "data:image/png;base64," + b64 + m.group(2), src, count=1)
+    src = pat.sub(lambda m: m.group(1) + "data:image/webp;base64," + b64 + m.group(2), src, count=1)
 
     # 4) 중복 정리 --------------------------------------------------------
-    entries = re.findall(r'"([^"]{1,20})"\s*:\s*"data:image/png;base64,([^"]+)"', src)
+    entries = re.findall(r'"([^"]{1,20})"\s*:\s*"data:image/((?:png|webp);base64,[^"]+)"', src)
     by_val: dict[str, list[str]] = {}
     for n, v in entries:
         by_val.setdefault(v, []).append(n)
@@ -94,7 +95,7 @@ def main():
             continue
         keep, *rest = names
         for n in rest:
-            src = src.replace('"%s": "data:image/png;base64,%s"' % (n, v), '"%s": 0' % n, 1)
+            src = src.replace('"%s": "data:image/%s"' % (n, v), '"%s": 0' % n, 1)
             alias = 'POKE_GIFS["%s"]=POKE_GIFS["%s"];' % (n, keep)
             src = src.replace('document.querySelectorAll(".exec-poke[data-poke]")',
                               alias + '\n' + 'document.querySelectorAll(".exec-poke[data-poke]")', 1)
