@@ -158,7 +158,7 @@ This is the club's own world, rebuilt: a printed club record (동아리 기록�
 
 Density is editorial and generous: 88–152px between sections, a 1180px measure, body text at 17px/1.8 with Korean `word-break: keep-all` so lines break at word boundaries. Facts are stated plainly and typeset with care — 숫자 (dates, counts, dex numbers, 기수 numbers, FAQ numbers) always set in Fraunces italic, light weight, in the softer navy (#2A5589), so the record's numbers read as a single running voice across the page.
 
-The build has moved toward less since the first pass: the trilingual marquee band and the background dot texture are gone, and the first screen no longer opens on the emblem. What is left is the type. The first viewport is now a hairline-flanked `Since 2023 ◓ Yonsei University` label, the tracked serif wordmark whose letter-spacing opens on load, the Korean name, one serif line of description, the navy pill, and the scroll cue. The emblem appears in two places, the top-left of the nav (44px) and the footer (64px), both drawing on one `.emblem` background image. Confirmed rejections, from the user's own words: the concept world (airport signage, "cheap") and the generic Apple-style category standard ("별로"). This world is the incumbent site refined, not replaced.
+The build has moved toward less since the first pass: the trilingual marquee band and the background dot texture are gone, and the first screen no longer opens on the emblem. What is left is the type. The first viewport is now a hairline-flanked `Since 2023 ◓ Yonsei University` label, the tracked serif wordmark whose letter-spacing opens on load, the Korean name, one serif line of description, the navy pill, and the scroll cue. The emblem appears in two places, the top-left of the nav (40px, beside the wordmark) and the footer (64px), both drawing on one inline SVG symbol, `#emblem`. Confirmed rejections, from the user's own words: the concept world (airport signage, "cheap") and the generic Apple-style category standard ("별로"). This world is the incumbent site refined, not replaced.
 
 **Key Characteristics:**
 - One serif voice (Noto Serif KR / JP + Fraunces) for every heading, wordmark, label and numeral; Pretendard (KR / JP) for body and UI only.
@@ -305,7 +305,7 @@ Near-flat by design. Depth comes from tonal layering (paper → alt paper → ca
 
 ## Shapes
 
-Two radii, a pill and a circle. Cards, mascot cards and executive member tiles take a generous 20px (`{rounded.card}`); the focus ring rounds at 10px (`{rounded.s}`); anything interactive and text-bearing takes a full pill (`999px`) — buttons, tag pills, the copy button, the skip link. Circles are structural: the 44px nav emblem, the 64px footer emblem, the 44px icon buttons, the 36px accordion chevron buttons, the 64px executive Pokémon well, the 9px timeline dots, the 7px group-list ring, the 9px type dots, the 6px department dot, and the pokéball mark itself.
+Two radii, a pill and a circle. Cards, mascot cards and executive member tiles take a generous 20px (`{rounded.card}`); the focus ring rounds at 10px (`{rounded.s}`); anything interactive and text-bearing takes a full pill (`999px`) — buttons, tag pills, the copy button, the skip link. Circles are structural: the 40px nav emblem, the 64px footer emblem, the 44px icon buttons, the 36px accordion chevron buttons, the 64px executive Pokémon well, the 9px timeline dots, the 7px group-list ring, the 9px type dots, the 6px department dot, and the pokéball mark itself.
 
 The pokéball is the system's one recurring silhouette: a single 24px SVG symbol (`#i-ball`) drawn with presentation attributes (`fill="currentColor"`, `stroke="currentColor"`, `stroke-width="1.4"`) so it inherits the text colour of whatever label carries it, used at 14px beside labels and in the hero meta row. All other icons are inline SVG from one `<defs>` sprite (arrow, external, sun, moon, copy, check, plus/chevron) with 1.6–1.8px round-cap strokes inherited from `.ic`.
 
@@ -338,7 +338,7 @@ Japanese text breaks at phrase boundaries, not at arbitrary characters: `@suppor
 - **Internal Padding:** `clamp(28px, 3vw, 40px)`.
 
 ### Navigation
-- **Desktop:** fixed, 68px, transparent over the hero. On scroll a `::before` plate fades in — 82% paper, `saturate(160%) blur(16px)`, 1px hairline underneath. Left: the 44px circular emblem, linking to the top (aria-label `Pokémon Center Yonsei`), at every width. Right: Korean section links (Pretendard `--t-small` / `.03em`, 44px tall, wipe underline on hover), a KO / EN / JA group in Fraunces `--t-label` / `.16em` (muted until selected or hovered), a 44px circular theme toggle, and a navy 가입하기 pill.
+- **Desktop:** fixed, 68px, transparent over the hero. On scroll a `::before` plate fades in — 82% paper, `saturate(160%) blur(16px)`, 1px hairline underneath. Left: the 40px circular emblem and, 12px after it, `POKÉMON CENTER YONSEI` in Fraunces `--t-label` / `.24em` (`PCY` under 640px), one link to the top. Right: Korean section links (Pretendard `--t-small` / `.03em`, 44px tall, wipe underline on hover), a KO / EN / JA group in Fraunces `--t-label` / `.16em` (muted until selected or hovered), a 44px circular theme toggle, and a navy 가입하기 pill.
 - **Active section:** `.is-here` holds the link's underline fully drawn (left origin), driven by scroll position.
 - **Mobile (≤1120px):** a two-bar hamburger whose bars cross into an X, over a full-screen navy sheet revealed by `clip-path: inset(0 0 100% 0) → inset(0)` over 720ms. Inside: eight 58px serif links at `--t-h4`, each prefixed by its italic numeral and staggered in at `120ms + i × 40ms`; a footer strip with full language names and the theme toggle. While the sheet is open the nav's wordmark and icons invert to white, the pill inverts to white-on-navy-text, the nav plate hides, and the body locks scroll.
 
@@ -376,7 +376,7 @@ The navy band that closes the page: 64px circular emblem image, tracked wordmark
 - **Do** keep saturated navy to full-bleed bands and pill buttons.
 - **Do** use the one easing curve with `--t1` / `--t2` / `--t3`, put hover treatments behind `@media (hover: hover)`, and make sure the surface is still complete when `prefers-reduced-motion` kills all of it.
 - **Do** keep every interactive target at least 44px tall and every focus-visible ring at 2px / 3px offset, white inside navy bands.
-- **Do** use the club's own assets as they are: the emblem image (nav and footer, embedded once as `.emblem`), the two mascot renders (embedded once each as `.art-rufflet` / `.art-braviary` background images and reused), the executive Pokémon renders, the favicons and `og.png`.
+- **Do** use the club's own assets as they are: the emblem (nav and footer, embedded once as the SVG symbol `#emblem`), the two mascot renders (embedded once each as `.art-rufflet` / `.art-braviary` background images and reused), the executive Pokémon renders, the favicons and `og.png`.
 - **Do** state facts plainly in all three languages together, with matching key sets and Korean HTML defaults.
 
 ### Don't:
