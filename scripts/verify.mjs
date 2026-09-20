@@ -22,13 +22,13 @@ import path from 'node:path';
 import process from 'node:process';
 
 const FILE = path.resolve(process.argv[2] ?? 'index.html');
-const URL = 'file://' + FILE;
+const URL = /^https?:/.test(process.argv[2] ?? '') ? process.argv[2] : 'file://' + FILE;
 
 let failed = 0;
 const ok = (m) => console.log(`  \x1b[32m✓\x1b[0m ${m}`);
 const bad = (m) => { failed++; console.log(`  \x1b[31m✗\x1b[0m ${m}`); };
 
-console.log(`\n검증 대상: ${FILE}\n`);
+console.log(`\n검증 대상: ${URL}\n`);
 
 const browser = await chromium.launch();
 

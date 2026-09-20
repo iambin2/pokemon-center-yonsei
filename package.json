@@ -3,6 +3,8 @@
   "private": true,
   "description": "포켓몬 센터 연세점 홈페이지 — 단일 파일 정적 사이트",
   "scripts": {
+    "build": "node scripts/build.mjs",
+    "verify:build": "node scripts/verify-build.mjs",
     "check": "python3 scripts/check.py || python scripts/check.py",
     "verify": "node scripts/verify.mjs",
     "test": "npm run check && npm run verify"

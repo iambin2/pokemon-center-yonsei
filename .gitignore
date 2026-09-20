@@ -5,3 +5,5 @@ node_modules/
 Thumbs.db
 .impeccable/
 _shoot.mjs
+
+dist/
