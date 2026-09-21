@@ -34,7 +34,7 @@ await page.evaluate(() => {
 
 /* 글 덩어리를 실제로 재서 화면 한가운데로 맞춘다 */
 await page.evaluate(() => {
-  const els = [...document.querySelectorAll('.hero-meta, .hero h1, .hero-kr, .hero-sub')];
+  const els = [...document.querySelectorAll('.hero-emblem, .hero-meta, .hero h1, .hero-kr, .hero-sub')];
   const top = Math.min(...els.map(e => e.getBoundingClientRect().top));
   const bottom = Math.max(...els.map(e => e.getBoundingClientRect().bottom));
   const shift = innerHeight / 2 - (top + bottom) / 2;
