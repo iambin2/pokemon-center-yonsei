@@ -13,7 +13,8 @@ for (const name of new Set(html.match(/assets\/[a-f0-9]{64}\.(?:png|webp)/g))) {
   const bytes = await readFile(new URL(name, root));
   restored = restored.replaceAll(name, `data:image/${name.split('.').pop()};base64,${bytes.toString('base64')}`);
 }
-assert.equal(restored, source, 'Extracted images must restore the exact source');
+const noFonts = s => s.replace(/<link href="https:\/\/fonts\.googleapis\.com\/css2[^>]*>\n?/g, '');   /* 폰트 주소는 배포 때 쓰인 글자만 받도록 바뀐다 */
+assert.equal(noFonts(restored), noFonts(source), 'Extracted images must restore the exact source');
 assert.ok(!/data:image\/(?:png|webp|jpe?g|gif)/.test(html), 'All raster images must be external');   /* 작은 SVG(구름띠)는 글자라 안에 둬도 된다 */
 /* 예산은 실제로 내려받는 크기(압축 후)로 잰다. 글이 많은 단일 파일이라 압축 전 크기는 로딩 시간을 잘 나타내지 못한다 */
 const gz = gzipSync(html).length;
