@@ -1,394 +1,375 @@
 ---
 name: 포켓몬 센터 연세점 (Pokémon Center Yonsei)
-description: An editorial club record in Yonsei Blue — one serif voice, pokéball-marked English labels, italic numerals.
+description: 연세 블루 천 표지의 스탬프 랠리 수첩. 섹션마다 한 쪽씩 넘기며 도장이 찍힌다.
 colors:
-  navy: "#003876"
-  navy-2: "#2A5589"
-  navy-hover: "#0B4A94"
-  band: "#003876"
-  on-band: "#FFFFFF"
-  on-band-2: "#BCCBE3"
-  on-band-accent: "#A9C8F5"
-  band-tint: "#E8EFF9"
-  bg: "#FFFFFF"
-  bg-alt: "#F6F7F9"
-  card: "#FFFFFF"
-  card-on-bg: "#F6F7F9"
-  ink: "#14181C"
-  ink-soft: "#4A5158"
-  ink-mute: "#666E77"
-  hair: "rgba(0, 56, 118, .12)"
-  nav-bg: "rgba(255, 255, 255, .82)"
-  type-normal: "#A4A6A1"
-  type-flying: "#88AEEB"
+  cloth: "#0E3A78"
+  cloth-deep: "#0A2E62"
+  paper: "#FFFFFF"
+  album: "#EEF3FA"
+  print: "#E6EDF8"
+  ink: "#1B2A44"
+  ink-2: "#2F3E5A"
+  label: "#4D6690"
+  title: "#0E3A78"
+  on-cloth: "#FFFFFF"
+  on-cloth-2: "#C9D8F0"
+  ink-blue: "#1D4FA0"
+  ink-red: "#C2331F"
+  ink-green: "#23724A"
+  ink-violet: "#5B3FA0"
 typography:
   display:
-    fontFamily: "Fraunces, 'Noto Serif KR', Georgia, serif"
-    fontSize: "clamp(30px, 5.6vw, 76px)"
-    fontWeight: 400
-    lineHeight: 1.08
-    letterSpacing: "0.16em"
-    fontVariation: "'opsz' 144"
-  quote:
-    fontFamily: "'Noto Serif KR', Fraunces, serif"
-    fontSize: "clamp(46px, 6.4vw, 88px)"
-    fontWeight: 400
-    lineHeight: 1.18
-    letterSpacing: "-0.025em"
+    fontFamily: "Hahmlet, Gowun Dodum, serif"
+    fontSize: "clamp(41.5px, 6vw, 81px)"
+    fontWeight: 900
+    lineHeight: 1.1
+    letterSpacing: "-0.03em"
   headline:
-    fontFamily: "'Noto Serif KR', Fraunces, serif"
-    fontSize: "clamp(34px, 4.4vw, 58px)"
-    fontWeight: 400
-    lineHeight: 1.16
-    letterSpacing: "-0.02em"
+    fontFamily: "Hahmlet, Gowun Dodum, serif"
+    fontSize: "clamp(33px, 4.4vw, 52px)"
+    fontWeight: 900
+    lineHeight: 1.25
+    letterSpacing: "-0.015em"
   title:
-    fontFamily: "'Noto Serif KR', Fraunces, serif"
-    fontSize: "clamp(21px, 1.9vw, 25px)"
-    fontWeight: 500
-    lineHeight: 1.4
-  lead:
-    fontFamily: "'Pretendard Variable', Pretendard, system-ui, sans-serif"
-    fontSize: "19px"
-    fontWeight: 400
-    lineHeight: 1.75
+    fontFamily: "Hahmlet, Gowun Dodum, serif"
+    fontSize: "26.5px"
+    fontWeight: 900
+    lineHeight: 1.25
+    letterSpacing: "-0.015em"
+  value:
+    fontFamily: "Hahmlet, Gowun Dodum, serif"
+    fontSize: "21px"
+    fontWeight: 700
+    lineHeight: 1.25
   body:
-    fontFamily: "'Pretendard Variable', Pretendard, system-ui, sans-serif"
+    fontFamily: "Gowun Dodum, Apple SD Gothic Neo, system-ui, sans-serif"
     fontSize: "17px"
     fontWeight: 400
-    lineHeight: 1.8
-    letterSpacing: "-0.006em"
-  ui:
-    fontFamily: "'Pretendard Variable', Pretendard, system-ui, sans-serif"
-    fontSize: "15px"
-    fontWeight: 600
+    lineHeight: 1.7
+  small:
+    fontFamily: "Gowun Dodum, Apple SD Gothic Neo, system-ui, sans-serif"
+    fontSize: "13.5px"
+    fontWeight: 400
+    lineHeight: 1.55
+  stamp:
+    fontFamily: "Black Han Sans, Dela Gothic One, Gowun Dodum, sans-serif"
+    fontSize: "17px"
+    fontWeight: 400
     lineHeight: 1
     letterSpacing: "0.02em"
-  label:
-    fontFamily: "Fraunces, 'Noto Serif KR', Georgia, serif"
+  data-label:
+    fontFamily: "Martian Mono, ui-monospace, monospace"
+    fontSize: "11px"
+    fontWeight: 400
+    letterSpacing: "0.12em"
+  hangul-label:
+    fontFamily: "Gowun Dodum, sans-serif"
     fontSize: "12px"
-    fontWeight: 500
-    lineHeight: 1.4
-    letterSpacing: "0.3em"
-    fontVariation: "'opsz' 14"
-  numeral:
-    fontFamily: "Fraunces, Georgia, serif"
-    fontSize: "22px"
-    fontWeight: 300
-    lineHeight: 1
-    fontFeature: "lining-nums"
-    fontVariation: "'opsz' 144"
+    fontWeight: 400
 rounded:
-  s: "10px"
-  card: "20px"
+  page: "3px"
+  tag: "6px"
   pill: "999px"
-  circle: "50%"
+  round: "50%"
 spacing:
-  nav: "68px"
-  gutter: "clamp(20px, 4vw, 48px)"
-  section: "clamp(88px, 11vw, 152px)"
-  head-gap: "clamp(44px, 5.4vw, 72px)"
-  card-pad: "clamp(28px, 3vw, 40px)"
-  grid-gap: "20px"
-  wrap: "1180px"
+  sp-1: "4px"
+  sp-2: "8px"
+  sp-3: "12px"
+  sp-4: "16px"
+  sp-5: "24px"
+  sp-6: "32px"
+  sp-7: "48px"
+  sp-8: "64px"
+  sp-9: "96px"
+  gutter: "clamp(16px, 4vw, 48px)"
+  page-pad: "clamp(24px, 5vw, 64px)"
+  bar-h: "64px"
 components:
-  pill:
-    backgroundColor: "{colors.band}"
-    textColor: "{colors.on-band}"
-    rounded: "{rounded.pill}"
-    padding: "0 28px"
-    height: "52px"
-  pill-hover:
-    backgroundColor: "{colors.navy-hover}"
-  pill-white:
-    backgroundColor: "{colors.on-band}"
-    textColor: "{colors.navy}"
-    rounded: "{rounded.pill}"
-  pill-white-hover:
-    backgroundColor: "{colors.band-tint}"
-  pill-sm:
-    backgroundColor: "{colors.band}"
-    textColor: "{colors.on-band}"
-    rounded: "{rounded.pill}"
-    padding: "0 18px"
-    height: "38px"
-  link-underline:
-    textColor: "{colors.navy}"
+  ticket:
+    backgroundColor: "{colors.ink-blue}"
+    textColor: "{colors.on-cloth}"
+    typography: "{typography.stamp}"
+    rounded: "{rounded.tag}"
+    padding: "0 24px 0 32px"
+    height: "48px"
+  ticket-white:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.cloth}"
+    typography: "{typography.stamp}"
+    rounded: "{rounded.tag}"
     height: "44px"
-  card:
-    backgroundColor: "{colors.card-on-bg}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.card}"
-    padding: "{spacing.card-pad}"
-  card-on-alt:
-    backgroundColor: "{colors.card}"
-    rounded: "{rounded.card}"
-  tag-pill:
-    backgroundColor: "{colors.bg-alt}"
-    textColor: "{colors.navy}"
+  ticket-red:
+    backgroundColor: "{colors.ink-red}"
+    textColor: "{colors.on-cloth}"
+    typography: "{typography.stamp}"
+    rounded: "{rounded.tag}"
+    padding: "0 30px 0 40px"
+    height: "56px"
+  ticket-violet:
+    backgroundColor: "{colors.ink-violet}"
+    textColor: "{colors.on-cloth}"
+    typography: "{typography.stamp}"
+    rounded: "{rounded.tag}"
+    height: "48px"
+  gen-tab:
+    backgroundColor: "{colors.album}"
+    textColor: "{colors.title}"
+    typography: "{typography.stamp}"
+    rounded: "{rounded.tag}"
+    padding: "10px 16px"
+    height: "44px"
+  gen-tab-selected:
+    backgroundColor: "{colors.ink-blue}"
+    textColor: "{colors.on-cloth}"
+  chip:
+    backgroundColor: "{colors.album}"
+    textColor: "{colors.title}"
     rounded: "{rounded.pill}"
-    padding: "0 13px"
-    height: "30px"
-  nav-bar:
-    backgroundColor: "{colors.nav-bg}"
-    textColor: "{colors.navy}"
-    height: "{spacing.nav}"
-  sheet-menu:
-    backgroundColor: "{colors.band}"
-    textColor: "{colors.on-band}"
-  exec-member:
-    backgroundColor: "{colors.card-on-bg}"
+    padding: "0 14px 0 10px"
+    height: "36px"
+  page:
+    backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.card}"
-    padding: "14px 16px"
-  icon-btn:
-    textColor: "{colors.navy}"
-    rounded: "{rounded.circle}"
-    size: "44px"
-  icon-btn-hover:
-    backgroundColor: "{colors.hair}"
+    rounded: "{rounded.page}"
+    padding: "{spacing.page-pad}"
+    width: "min(1200px, 100% - 2 * gutter)"
+  dialog:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.page}"
+    padding: "40px 28px 28px"
+    width: "min(480px, 100% - 32px)"
+  answer-slip:
+    backgroundColor: "{colors.album}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.tag}"
+    padding: "13px 18px 13px 54px"
 ---
 
-# Design System: 포켓몬 센터 연세점 (Pokémon Center Yonsei)
+# 디자인 체계: 포켓몬 센터 연세점
+
+이 문서는 2026-10-17에 사용자가 고른 '스탬프 랠리 수첩' 세계를, 다 만든 `index.html`을 보고 받아 적은 것이다. 계획이 아니라 실제로 화면에 나온 값이 기준이다. 숫자 값은 맨 위 머리말(`---` 사이)이 정본이고, 코드에서는 `index.html` 첫 `:root` 블록의 토큰으로 들어 있다. 예전 문서의 '포코피아 밤 마을'(밤하늘, 풀밭, 명판, 3D 뱃지)은 버린 세계이며 이 문서에 남기지 않는다.
 
 ## Overview
 
-**Creative North Star: "The Club Record in Yonsei Blue"**
+**Creative North Star: "동아리의 스탬프 랠리 수첩"**
 
-This is the club's own world, rebuilt: a printed club record (동아리 기록물) rather than a landing page. One serif voice carries every heading, wordmark, label and numeral; one blue — Yonsei Blue (#003876) — carries every heading, band, button and mark. The page reads as paper: white and a faint cool grey ground, untextured, with surfaces separated by tone and hairlines and never by boxes and borders. The saturated navy appears as full-bleed fields (the 리그 section, the footer, the mobile sheet) that punctuate the paper rather than decorate it.
+페이지 전체가 연세 블루 천으로 싼 수첩 한 권이다. 고운 결이 있는 천 표지(`--cloth`) 위에 옅은 연세 무늬가 인쇄된 흰 속지가 한 장씩 놓이고, 섹션 하나가 속지 한 쪽이다. 방문자는 첫 장(동아리 자료 쪽)을 펼치고, 소개, 연혁의 입국 도장, 한 학기 도장 카드와 활동, 리그 입장권, 마스코트 등록 카드 두 장, 기수별 우표첩, 질문 줄을 지나, 뒤쪽의 빈 도장 자리와 가입 표에서 끝낸다. 정거장에 도착할 때마다 도장이 찍히고, 머리줄의 색인 꼬리표에는 지나온 표시가 찍힌다.
 
-Density is editorial and generous: 88–152px between sections, a 1180px measure, body text at 17px/1.8 with Korean `word-break: keep-all` so lines break at word boundaries. Facts are stated plainly and typeset with care — 숫자 (dates, counts, dex numbers, 기수 numbers, FAQ numbers) always set in Fraunces italic, light weight, in the softer navy (#2A5589), so the record's numbers read as a single running voice across the page.
-
-The build has moved toward less since the first pass: the trilingual marquee band and the background dot texture are gone, and the first screen no longer opens on the emblem. What is left is the type. The first viewport is now a hairline-flanked `Since 2023 ◓ Yonsei University` label, the tracked serif wordmark whose letter-spacing opens on load, the Korean name, one serif line of description, the navy pill, and the scroll cue. The emblem appears in two places, the top-left of the nav (40px, beside the wordmark) and the footer (64px), both drawing on one inline SVG symbol, `#emblem`. Confirmed rejections, from the user's own words: the concept world (airport signage, "cheap") and the generic Apple-style category standard ("별로"). This world is the incumbent site refined, not replaced.
+밀도는 '잘 만든 여권'에 가깝다. 큰 명조 제목, 넉넉한 쪽 여백, 고정폭 글자의 자료 이름표, 기계 판독 줄(MRZ), 절취선과 반원 홈. 귀여운 게임 화면도 아니고 회사 소개 페이지도 아니다. 색은 천의 연세 블루 하나가 바탕을 쥐고, 도장 잉크 넷이 그 위에 찍힌다.
 
 **Key Characteristics:**
-- One serif voice (Noto Serif KR / JP + Fraunces) for every heading, wordmark, label and numeral; Pretendard (KR / JP) for body and UI only.
-- One saturated blue, used as full-bleed bands and as heading ink; nothing else is saturated.
-- Tone and hairlines separate surfaces; no outlined boxes, no page texture.
-- Small tracked uppercase English labels, each carrying a pokéball mark — the incumbent identity, kept by the maintainer's standing instruction.
-- Italic Fraunces numerals everywhere a number appears.
-- Every font-size in the file is a named token; no literal size is written at a use site.
-- One easing curve (`cubic-bezier(.16, 1, .3, 1)`) and three durations; nothing moves under reduced motion.
+- 천 표지(연세 블루, 결무늬) 위에 흰 속지가 한 장씩, 섹션 하나가 쪽 하나
+- 잉크 넷(파랑, 빨강, 초록, 보라)의 도장이 얼룩진 잉크 질감과 살짝 기운 각도로 찍힌다
+- 수첩에 실제로 있는 물건만 부품이 된다: 자료 칸, MRZ, 도장, 표(티켓), 우표, 등록 카드, 색인 꼬리표, 쪽 번호
+- 내용은 처음부터 보이고, 등장 움직임은 도장 찍기 하나
+- 테마는 하나, 3D 없음
 
 ## Colors
 
-A single institutional blue on cool paper, with a graphite ink family for prose and two Pokémon type dots as the only foreign hues.
+천의 연세 블루가 바탕을 쥐고, 흰 속지 위에 도장 잉크 넷이 찍히는 '종이와 잉크' 팔레트다.
 
 ### Primary
-- **Yonsei Blue** (`{colors.navy}`): the club's core colour. Every heading, section title, label, nav link, pill button, timeline dot and icon. Also the full-bleed band colour (`{colors.band}`) for the 리그 section, the footer and the mobile sheet.
-- **Blue Ink** (`{colors.navy-2}`): the numeral colour. Every italic numeral, the focus ring, the group-list bullet ring, and executive role lines.
-- **Pressed Blue** (`{colors.navy-hover}`): the navy pill button's hover fill only.
-- **Band Tint** (`{colors.band-tint}`): the white-on-navy pill's hover fill, and the only token whose light and dark values are both tints of the band rather than of paper (dark theme `#123A6E`).
+- **연세 블루 천** (`cloth`): 페이지 바탕 전체. 결무늬(`--weave`, 가로 세로 1px 줄)를 겹쳐 천처럼 보이게 한다. 제목 글자색(`title`)도 같은 값이다.
+- **짙은 천** (`cloth-deep`): 머리줄(`.bar`)과 바닥글(뒤표지).
 
-### Secondary (on-band family)
-- **Band White** (`{colors.on-band}`): text on navy bands.
-- **Band Haze** (`{colors.on-band-2}`): secondary text on navy — footer body and legal text, 리그 body copy, sheet numerals and unselected sheet language buttons.
-- **Band Sky** (`{colors.on-band-accent}`): one emphasis phrase inside the 리그 tagline. Nothing else.
+### Secondary (도장 잉크 넷)
+- **파랑 잉크** (`ink-blue`): 기본 도장, 기본 표, 고른 기수 탭, 링크, 화살표.
+- **빨강 잉크** (`ink-red`): 모토 도장, 환영 도장, 가입 표(마지막 쪽), 질문의 A 표시와 열린 표시, 회장과 부회장 직책, 초점 테두리.
+- **초록 잉크** (`ink-green`): 소개 쪽 봉인 도장, 연혁과 활동의 일부 도장, 복사 완료.
+- **보라 잉크** (`ink-violet`): 리그 입장권(표, 트로피 도장, 강조 글자).
 
-### Tertiary (dex types)
-- **Normal Grey** (`{colors.type-normal}`) and **Flying Blue** (`{colors.type-flying}`): 9px dots on the mascot type chips only. They exist because the dex card is a real Pokémon convention, not as a palette extension.
+네 잉크는 글자로 써도 흰 속지 위에서 4.5:1을 넘는다. 흰 글자를 올려도 마찬가지다.
 
 ### Neutral
-- **Paper** (`{colors.bg}`) and **Cool Paper** (`{colors.bg-alt}`): alternating section grounds. `.sec.alt` takes Cool Paper; the rhythm alternates down the page.
-- **Card surfaces** (`{colors.card}`, `{colors.card-on-bg}`): a card inverts against its ground — white on a Cool Paper section, Cool Paper on a white section. That inversion is the entire card treatment.
-- **Ink** (`{colors.ink}`) for body, **Soft Ink** (`{colors.ink-soft}`) for paragraphs under a heading, **Muted Ink** (`{colors.ink-mute}`) for meta lines, counts and captions.
-- **Hairline** (`{colors.hair}`): a 12%-navy 1px line, drawn as `box-shadow: inset` on lists, specs and column dividers, and as a 1px background on the timeline rail and section-head rule.
-- **Nav glass** (`{colors.nav-bg}`): the scrolled nav's translucent plate, under `backdrop-filter: saturate(160%) blur(16px)`.
-
-Dark theme is a token override on `:root[data-theme="dark"]`, not a second system: navy inverts to a pale blue (`#C6D8F5`) for ink-on-dark headings, the band deepens to `#0D3366`, paper becomes `#0B1422` / `#0F1A2B`, cards `#152238` / `#121E31`. Every class stays the same. Theme is resolved in an inline script before first paint and stored under `pcy-theme`; the device setting is the default.
+- **속지** (`paper`): 모든 쪽의 바탕. 위에 옅은 보안 무늬(`--print-url`, 선 색 `print`)를 240×60 간격으로 깐다.
+- **우표첩 바탕** (`album`): 속지 안의 옅은 면. 칩, 고르지 않은 기수 탭, 직책 꼬리표, 질문의 답 쪽지, 휴대폰 색인 칸.
+- **본문 잉크** (`ink`): 본문 글자.
+- **보조 잉크** (`ink-2`): 소개 글, 쪽 머리 설명, 임원 학과와 학번(속지 위 약 10:1. 고운돋움이 가늘어 본문과 거의 같은 짙기로 둔다). 쪽 안의 긴 글은 `--fs-body`(17px에서 넓은 화면 18px).
+- **이름표 잉크** (`label`): 고정폭 이름표와 쪽 번호. 가장 옅은 글자색이다(속지 위 약 5.8:1). 이보다 옅게 하지 않는다.
+- **천 위 글자** (`on-cloth`, `on-cloth-2`): 머리줄과 뒤표지의 흰 글자와 보조 글자(약 7:1).
 
 ### Named Rules
-**The One Blue Rule.** There is exactly one saturated colour on this site. If a surface needs emphasis, it becomes a navy band or it takes navy type — it never gets a second accent hue.
+**잉크 넷 규칙.** 강조색은 도장 잉크 넷뿐이다. 머리줄 색인 꼬리표도 예외가 아니다(2026-10-18에 포켓몬 타입 색 일곱을 걷어 냈다). 새 색을 만들지 말고, 여러 개가 줄지어 나오면 잉크 넷을 순서대로 돌린다.
 
-**The Tone-Not-Border Rule.** Surfaces separate by ground tone, and lists separate by a single hairline. No element gets an outline border; a card is a tonal inversion of its section, nothing more.
-
-**The Band Rule.** Saturated navy appears only as a full-bleed field (리그, footer, mobile sheet). Navy is never a small filled block in the middle of paper — except as a pill button.
-
-**The Bare Paper Rule.** The page ground is flat colour. No texture, pattern, gradient wash or dot grid sits behind content; the ground earns its character from the tone change between sections alone.
+**맨 글자 규칙.** 글자에 투명도를 쓰지 않는다. 옅은 글자가 필요하면 `ink-2`나 `label`을 쓴다.
 
 ## Typography
 
-**Display / Serif:** Fraunces (variable, `opsz` 9–144, ital) for Latin; Noto Serif KR for Korean; Noto Serif JP for Japanese — all three loaded from Google Fonts in one request.
-**Body / Sans:** Pretendard Variable, with Pretendard JP Variable for Japanese — both loaded as dynamic-subset stylesheets from jsDelivr.
-**Label:** Fraunces at `opsz 14`, 12px, `.3em` tracking, uppercase.
+글꼴은 **역할 여섯**으로만 쓴다. 새 글자를 넣을 때는 먼저 다섯 가운데 무엇인지 정한다.
 
-**Character:** A high-contrast editorial serif paired with a neutral Korean UI sans. The serif does all the speaking — wordmark, headings, quotes, English labels, numerals — and Pretendard does all the explaining. Fraunces' optical-size axis is used deliberately: `opsz 144` on display sizes for sharp thin serifs, `opsz 14` on small tracked labels so they stay legible at 12px.
+| 역할 | 글꼴(일본어) | 쓰는 곳 |
+|---|---|---|
+| 제목 | Hahmlet 900 (Shippori Mincho B1 800) | h1, h2, h3, 임원 이름, 머리줄과 바닥글의 영문 이름 |
+| 값 (`.val`) | Hahmlet 700 (Shippori Mincho B1) | 소개 첫 문단, 자료 칸의 값, 가입 요약의 값, 연락처, 질문, 리그 문구, 도감 분류, 키와 몸무게, 한 학기 행사 이름 |
+| 단추 | Black Han Sans (Dela Gothic One) | 누르는 것과 작은 꼬리표: 표 단추, 링크, 탭, 색인 꼬리표, 칩, 직책 꼬리표 |
+| 도장 글자 (`--f-ink`) | Gasoek One (Dela Gothic One) | 고무도장에 판 글자: 도장 띠, 모토 도장, 부서 도장. 17px 이하에서는 획이 뭉개지므로 쓰지 않는다(소모임 꼬리표와 가입 쪽 빨강 한 줄은 Black Han Sans) |
+| 자료 (`.mono`) | B612 Mono 400 (세 언어 공통, 공항과 여권 서류의 글자) | 자료 이름표(CLUB, MEMBERS), 도감 번호, 영어 이름, 연락처 종류, MRZ, 쪽 번호, 저작권 줄 |
+| 본문 | Gowun Dodum (Zen Kaku Gothic New) | 문단, 쪽 소개, 임원 정보, 법적 고지, 한글 이름표(`.lbl`) |
 
-The language switch is a typographic switch. `body[data-lang]` reassigns the serif family (`--serif-kr` / `--serif-en` / `--serif-ja`), reassigns the body sans for Japanese (`--sans-ja`), and resets letter-spacing and line-height per script (`ko` 1.8 / -0.006em, `en` 1.7 / 0, `ja` 1.8 / 0 with `line-break: strict` and `word-break: normal`). English headings also take italic in a few places the Korean does not (hero subtitle, about quote, 리그 tagline, annual list) — the Latin serif is allowed a voice the Korean serif would not carry. Swapping languages fades and blurs the copy for 260ms.
+영어의 é처럼 검은고딕에 없는 글자는 같은 굵기의 Dela Gothic One이 채운다.
 
-### The size ramp
+### 광학 중앙
+상자 안의 한 줄 글자는 줄 높이 1로 두고, 글꼴마다 잰 잉크 치우침만큼만 위아래 여백을 준다(`--opt-stamp-t` .23em 위, `--opt-ink-b` .05em 아래, `--opt-mono-t` .13em 위. 일본어 Dela Gothic One은 .06em 아래). 작은 직책 꼬리표와 칩은 1px을 더한다. 도장 띠 글자는 기준선 134.7, 가로 80.5(자간 1의 반을 보정). 임원 우표의 글 묶음(이름부터 최애까지)은 그림 칸 아래와 안쪽 테 사이의 한가운데에 둔다. 이름 위와 최애 아래의 줄 사이 여백을 `text-box`로 잘라 글자 끝에서 재고, 위 13px, 아래 13px(우표 안쪽 여백에서 테까지 7px 포함, 휴대폰은 3px)이다. 같은 줄의 우표가 키가 같아지며 남는 높이는 위아래로 나눈다. 직책과 학과 사이는 4px.
 
-Every font-size in the stylesheet is a `var()`. The ramp is the complete list; a new surface picks a step from it rather than writing a number.
+### 글자 크기 음계
+17px에서 1.25배씩 오르내리는 열 칸(`--fs-1` ~ `--fs-10`): 11, 13.5, **17**, 21, 26.5, 33, 41.5, 52, 65, 81. 화면 폭에 따라 커지는 제목은 `clamp(작은 칸, 폭, 큰 칸)`으로 두 칸 사이만 오간다. 이 밖의 크기를 적지 않는다. 예외는 하나, 고정폭 이름표 옆의 한글 이름표(`--fs-lbl` 12px)다. 한글은 같은 px에서 작아 보여 한 칸 키운다.
 
-| Token | Value | Role |
-| --- | --- | --- |
-| `--t-tiny` | 13px | executive role, department, favourite; spec keys; the nav's small pill |
-| `--t-label` | 12px | English labels, nav wordmark, language buttons, tag pills, footer legal |
-| `--t-small` | 14px | supporting notes, nav links, counts, captions, footer brand line |
-| `--t-ui` | 15px | buttons, text links, footer links, timeline dates, sheet numerals |
-| `--t-body` | 17px | all prose (16px ≤640px) |
-| `--t-lead` | 19px | section intros, first about paragraph, FAQ questions, join copy (17px ≤640px) |
-| `--t-name` | 18px | names, group-list items, FAQ numerals, contact values (17px ≤640px) |
-| `--t-num` | 22px | dex numbers, spec values, the Korean mascot name |
-| `--t-card-num` | 44px | the activity card's italic numeral |
-| `--t-h3` | clamp(21px, 1.9vw, 25px) | timeline and card titles |
-| `--t-h4` | clamp(22px, 2vw, 26px) | 기수 labels, sheet menu links |
-| `--t-h2` | clamp(34px, 4.4vw, 58px) | section titles |
-| `--t-quote` | clamp(46px, 6.4vw, 88px) | the 소개 pull quote |
-| `--t-quote-mark` | 96px | the opening quotation glyph above it |
-| `--t-hero` | clamp(30px, 5.6vw, 76px) | the hero wordmark |
-| `--t-hero-kr` | clamp(18px, 1.7vw, 23px) | the tracked Korean name under it |
-| `--t-hero-sub` | clamp(17px, 1.5vw, 20px) | the one-line hero description |
-| `--t-tag` | clamp(19px, 1.8vw, 23px) | the annual-events list |
-| `--t-ypl-tag` | clamp(21px, 2.4vw, 32px) | the 리그 tagline |
-| `--t-mascot` | clamp(38px, 3.6vw, 48px) | the mascot's English name |
-| `--t-join` | clamp(42px, 6.2vw, 84px) | the 가입 title |
-| `--t-watermark` | clamp(160px, 28vw, 420px) | the `League` watermark |
+- 큰 제목(첫 화면 이름, 모토, 가입 제목): 41.5에서 81
+- 쪽 제목: 33에서 52
+- 작은 제목(연혁 21, 활동과 소모임 26.5, 마스코트 이름 33)
+- 값 21(자료 칸 값은 26.5), 본문 17, 작은 글 13.5, 이름표 11
 
-At ≤640px the ramp itself is re-pointed rather than overridden per rule: `--t-body` 16px, `--t-lead` 17px, `--t-name` 17px.
-
-### Hierarchy
-- **Wordmark / Display** (Fraunces 400, `--t-hero`, 1.08, `.16em`): the hero `POKÉMON CENTER YONSEI` only. Tracking narrows to `.1em` under 640px. Always compensated with a negative right margin equal to the tracking so the optical centre is true.
-- **Quote** (`--t-quote`, 1.18, -0.025em): the 소개 pull quote; the 가입 title runs one step larger at `--t-join`. One per section at most.
-- **Headline** (`--t-h2`, 1.16, -0.02em): `.sec-title`, the Korean section heading beside its English label.
-- **Title** (serif 500, `--t-h3`, 1.4): timeline entry titles and card titles. 기수 labels and sheet links run at `--t-h4`; FAQ questions at `--t-lead`.
-- **Lead** (Pretendard 400, `--t-lead`, 1.75): section intros and the first paragraph of the about body.
-- **Body** (Pretendard 400, `--t-body`, 1.8, -0.006em): all prose. Korean sets with `word-break: keep-all`.
-- **UI** (Pretendard 600, `--t-ui`, `.02em`): pills, text links, footer links.
-- **Label** (Fraunces 500, `--t-label`, `.3em`, uppercase): the tracked English section labels. The nav wordmark and footer wordmark use the same face at `.24em`, the copyright line at `.18em`, the language buttons at `.16em`.
-- **Numeral** (Fraunces italic 300, `opsz 144`, lining figures, Blue Ink): `01`–`03` card numbers at `--t-card-num`, `№ 0627` dex numbers and spec values at `--t-num`, FAQ numbers at `--t-name`, sheet menu numbers at `--t-ui`. Tabular figures (`.num`, `font-variant-numeric: tabular-nums`) on dates, counts and phone numbers.
+### 자간과 줄 간격
+- 자간: 큰 제목 -0.03em, 제목 -0.015em, 본문 0, 도장 글자 +0.02em, 고정폭 이름표 +0.12em(대문자). 일본어는 고정폭 말고 모두 0.
+- 줄 간격: 큰 제목 1.1, 제목과 값 1.25, 한 줄짜리 단추 1, 본문 1.7, 작은 글 1.55.
 
 ### Named Rules
-**The Serif-Speaks Rule.** Anything that names something — wordmark, heading, label, quote, group-list item, number — is serif. Anything that explains — paragraphs, nav links, buttons, meta, form UI — is Pretendard. Two voices only: the serif has a cut per script (KR / EN / JA) and the sans has two (KR, JP), but a third voice is never introduced.
-
-**The Named Size Rule.** No font-size literal is written at a use site. Every size is one of the `--t-*` tokens above; a responsive change re-points the token at the breakpoint instead of overriding the rule.
-
-**The Italic Numeral Rule.** Every number visible on the page is Fraunces italic 300 in Blue Ink. Dates, dex numbers, 기수, FAQ indices, heights and weights. A number set in the body sans is a defect.
-
-**The Tracked Label Rule.** English section labels are set at `--t-label` / `.3em` / uppercase with a 14px pokéball mark at `gap: 12px`. They are design elements of the incumbent identity and are never translated into Korean or Japanese by the i18n dictionary.
+**이름표는 값 위에만 규칙.** 고정폭 이름표는 자료 칸에서 값 바로 위에 붙는 항목 이름일 때만 쓴다. 쪽 제목 위에 작은 영어 라벨을 얹지 않는다.
 
 ## Layout
 
-A single centred measure: `.wrap` is `max-width: calc(1180px + 2 × gutter)` with a fluid gutter `clamp(20px, 4vw, 48px)`. Sections run `clamp(88px, 11vw, 152px)` of vertical padding and alternate ground tone via `.sec.alt`; `scroll-margin-top` compensates for the fixed 68px nav (60px under 640px).
+천 위에 속지가 세로로 쌓인다. 속지 한 장(`.paper.page`)의 폭은 최대 1200px이고 좌우에 `gutter`만큼 천이 보인다.
 
-The first screen is `min(100svh, 920px)`, centred, and opens directly on type: a hairline-flanked meta row (`36px rule — Since 2023 — pokéball — Yonsei University — 36px rule`), then the wordmark, the Korean name, the description, the CTAs and the scroll cue. No image sits in the hero; the only picture is the tall grass along its bottom edge.
+### 여백 음계와 법칙
+8px 바탕에 1.5배씩 커지는 아홉 칸(`--sp-1` ~ `--sp-9`): 4, 8, 12, 16, 24, 32, 48, 64, 96. 이 밖의 여백을 적지 않는다.
 
-The section head is a baseline-aligned flex row — tracked English label, then Korean title — with `gap: 14px 28px` and `clamp(44px, 5.4vw, 72px)` beneath. `.sec-head.center` stacks and centres the same parts for 리그 and 가입. Intros pull up by 55% of that head gap so the label / title / intro reads as one block.
+| 사이 | 칸 |
+|---|---|
+| 한 덩어리 안: 이름표와 값, 제목과 그 아래 글 | `--sp-1` ~ `--sp-3` (4~12) |
+| 같은 묶음의 항목 사이: 자료 칸, 우표, 꼬리표 줄 | `--sp-3` ~ `--sp-5` (12~24) |
+| 묶음 사이: 쪽 머리와 본문, 연혁 줄, 활동의 세 덩어리, 부서와 부서 | `--sp-7` (48) |
+| 쪽 안쪽 여백 | `--page-pad` (24~64), 아래는 쪽 번호 자리 `--sp-6`를 더한다 |
+| 쪽과 쪽 사이 | 24~48 |
 
-Grids: activities 3 columns at 20px, mascots 2 columns at 20px inside a 1040px cap, subgroups 2 columns, contacts 3 columns, footer 1.5fr / 1fr / 1fr, executive members `auto-fill minmax(260px, 1fr)` at 10px. The timeline is a 150px date column plus body with a hairline rail at 150px and a 9px ringed dot per entry, the last one filled solid.
+- 제목 위는 아래보다 늘 넓다(위는 묶음 사이, 아래는 덩어리 안).
+- 쪽 머리(제목과 소개) 다음 첫 본문에는 `.page-body`를 붙여 묶음 사이 간격을 준다.
 
-**Breakpoints** (max-width):
-- **1120px** — desktop nav links, language buttons and theme button hide; the hamburger and the navy sheet menu take over (and the sheet is `display: none` above 1121px).
-- **900px** — about, activities, subgroups, mascots, contacts and footer collapse to single or two columns; the contact divider flips from vertical to horizontal.
-- **640px** — nav shrinks to 60px, the body / lead / name steps of the ramp drop one size, the wordmark abbreviates to `PCY`, wordmark tracking narrows to `.1em`, the timeline collapses to a single left-rail column, the section head stacks left-aligned, 기수 rows shorten to 72px, executive members go one column, hero CTAs stack.
-
-Motion: one easing curve `cubic-bezier(.16, 1, .3, 1)` and three durations — `220ms` (colour and hover), `420ms` (fades, theme change, card lift), `720ms` (travel: underline wipes, accordion rows, sheet clip-path, mascot art). Reveal on scroll is opacity + 22px rise, staggered by `--d × 100ms`. Under `prefers-reduced-motion: reduce` every animation and transition collapses to `.01ms` and reveals render at rest. Print hides the nav, sheet, skip link and scroll cue and forces every accordion open.
+### 쪽마다 자기 배치
+- **첫 화면:** 두 쪽을 펼친 수첩(`.spread`). 왼쪽 쪽은 도장으로 찍은 엠블럼, 동아리 이름, 영어 이름, 소개 한 줄, 가입 표와 YPL 링크. 오른쪽 쪽은 자료 여섯 칸(두 줄 세 칸, 칸마다 위에 점선)과 MRZ 두 줄. 사진 칸은 없다(마스코트 그림은 아래 등록 카드에서만). 가운데 접힌 자리에 모토 도장을 걸쳐 찍는다. 900px 미만에서는 한 장으로 이어지고, 520px 미만에서 자료 칸이 한 줄이 된다.
+- **활동:** 한 학기 도장 카드 네 칸, 점선 아래 활동 셋(같은 모양: 잉크 점, 제목, 글), 다시 점선 아래 소모임 띠(왼쪽 제목, 오른쪽 고무도장 꼬리표). 소모임 목록을 활동 칸 하나에 매달지 않는다.
+- 소개는 5:7 두 칸, 연혁은 두 줄 도장 목록, 마스코트는 카드 두 장과 화살표, 질문은 줄 목록, 가입은 글과 도장 자리 두 칸. 리그 입장권만 `.loose`로 천 위에 따로 놓인다.
+- **머리줄:** 높이 64px(900px 미만 56px).
 
 ### Named Rules
-**The Alternating Ground Rule.** Sections alternate `{colors.bg}` and `{colors.bg-alt}` down the page, and a card always takes the opposite ground of its section. Two adjacent sections never share a tone.
+**속지 한 장 규칙.** 섹션 하나는 속지 한 장이다. 속지 안에 또 흰 카드나 테두리 상자, 그림자 상자를 넣지 않는다. 바탕색이 다른 면은 수첩에 실제로 있는 물건일 때만 쓴다(답 쪽지, 그림 칸, 입장권의 떼는 쪽, 우표).
 
-**The One Curve Rule.** Every transition and animation on the page uses `--ease` at `--t1`, `--t2` or `--t3`. A new bezier or a new duration is not a new component's prerogative.
+**쪽의 리듬.** 속지 아래에는 종이가 두 장 더 겹친 두께가 보인다. 900px 이상에서는 쪽마다 0.25도와 -0.2도로 번갈아 놓인다. 연혁 쪽(`.fold`)은 861px 이상에서 가운데에 접힌 자리가 있는 펼친 두 쪽이다.
 
 ## Elevation & Depth
 
-Near-flat by design. Depth comes from tonal layering (paper → alt paper → card) and from 1px hairlines drawn as inset box-shadows, not from stacked shadows. Nothing carries a resting shadow. Three things lift on interaction — a hovered activity card, a hovered pill button, a hovered executive tile — and the scrolled nav plate fades in a 1px hairline plus backdrop blur rather than a drop shadow.
+깊이는 종이가 천 위에 놓인 높이 하나다. 속지는 짧고 진한 그림자와 길고 퍼진 그림자 두 겹을 쓰고, 연락처 창은 같은 성격으로 더 깊다. 속지 안에서는 그림자를 쓰지 않고, 도장은 `mix-blend-mode: multiply`로 종이에 스며 보이게 한다. 예외는 우표 한 장 한 장의 얕은 그림자와 색인 꼬리표의 작은 체크 도장 그림자뿐이다.
 
 ### Shadow Vocabulary
-- **Lift** (`--shadow`: `0 1px 2px rgba(0, 30, 70, .05), 0 18px 40px -22px rgba(0, 30, 70, .28)`): an activity card on hover, paired with a 4px rise. Dark theme swaps to a black-based pair of the same geometry.
-- **Button lift** (`box-shadow: 0 12px 28px -14px rgba(0, 40, 90, .6)`): navy pill buttons on hover only.
-- **Hairline** (`box-shadow: inset 0 -1px 0 var(--hair)`, or `inset 0 1px 0` / `inset 1px 0 0`): every divider in the system — list rows, accordion rows, spec rails, contact column dividers, footer bottom rule. On navy bands the hairline becomes `rgba(255,255,255,.14–.16)`.
-- **Ring** (`box-shadow: inset 0 0 0 1.5px …`): hollow 9px timeline dots (Yonsei Blue) and 7px group-list bullets (Blue Ink). The last timeline dot fills solid instead.
+- **속지** (`box-shadow: 0 1px 2px rgba(0,10,40,.18), 0 26px 50px -24px rgba(0,10,40,.75)`): 모든 쪽, 휴대폰 색인 쪽.
+- **머리줄** (`box-shadow: 0 1px 0 rgba(255,255,255,.08), 0 8px 24px -12px rgba(0,0,0,.6)`): 고정 머리줄.
+- **연락처 창** (`box-shadow: 0 40px 80px -30px rgba(0,10,40,.8)`): 창 뒤는 `rgba(6,20,50,.55)`로 덮는다.
+- **우표** (`filter: drop-shadow(0 1px 1px rgba(14,58,120,.25)) drop-shadow(0 6px 8px rgba(14,58,120,.16))`): 구멍 모양을 따라 그림자가 지도록 `drop-shadow`.
 
 ### Named Rules
-**The Flat-At-Rest Rule.** No surface carries a shadow at rest. Every shadow in the system is a response to hover, and the page must read correctly with all of them removed.
-
-**The Inset Hairline Rule.** Dividers are inset box-shadows, never `border`. A border would change the box and is the incumbent's bordered-box habit the rebuild removed.
+**종이 높이 하나 규칙.** 그림자는 '천 위의 종이'에만 쓴다. 속지 안의 부품에 그림자를 붙여 띄우지 않는다.
 
 ## Shapes
 
-Two radii, a pill and a circle. Cards, mascot cards and executive member tiles take a generous 20px (`{rounded.card}`); the focus ring rounds at 10px (`{rounded.s}`); anything interactive and text-bearing takes a full pill (`999px`) — buttons, tag pills, the copy button, the skip link. Circles are structural: the 40px nav emblem, the 64px footer emblem, the 44px icon buttons, the 36px accordion chevron buttons, the 64px executive Pokémon well, the 9px timeline dots, the 7px group-list ring, the 9px type dots, the 6px department dot, and the pokéball mark itself.
+모서리는 넷뿐이다(`--r-1` 3px 속지와 연락처 창, `--r-2` 6px 표와 탭과 꼬리표와 답 쪽지와 그림 칸, `--r-pill` 칩, 원은 도장 자리와 질문 표시).
 
-The pokéball is the system's one recurring silhouette: a single 24px SVG symbol (`#i-ball`) drawn with presentation attributes (`fill="currentColor"`, `stroke="currentColor"`, `stroke-width="1.4"`) so it inherits the text colour of whatever label carries it, used at 14px beside labels and in the hero meta row. All other icons are inline SVG from one `<defs>` sprite (arrow, external, sun, moon, copy, check, plus/chevron) with 1.6–1.8px round-cap strokes inherited from `.ic`.
-
-### Japanese line breaking
-
-Japanese text breaks at phrase boundaries, not at arbitrary characters: `@supports (word-break: auto-phrase)` applies `word-break: auto-phrase` to `body[data-lang="ja"]` paragraphs, intros, section titles, the quote and the join title. Korean keeps `word-break: keep-all`; English wraps normally. All three languages are checked for orphan last lines at 1440px and 390px.
-
-### Fixed ink on white
-
-`--band-ink` (#003876 in both themes) is the text colour of the white pill on a navy ground. It does not follow the theme, because the pill stays white in both.
+수첩의 모양 장치:
+- **반원 홈:** 표(`.ticket`)의 왼쪽 가장자리를 반지름 8px 원으로 파낸다(`mask: radial-gradient`). 홈 옆에 점선 절취선.
+- **우표 구멍:** `.perf`가 가장자리 한 줄에만 반지름 4px 구멍을 12px마다 뚫는다(안쪽 칸은 `content-box`로 막는다). 안쪽에 9px 들어온 1px 선.
+- **입장권 떼는 쪽:** 점선 절취선과 위아래 반원 홈(천 색 원을 얹어서 판다).
+- **점선:** 도장 자리, 한 학기 도장 카드의 이음선, 부서 이름 뒤 줄, 연락처 줄 구분은 2px 점선.
+- **가로 괘선:** 질문 목록, 가입 요약, 연락처 목록의 머리에는 제목색 2px 실선을 끝까지 긋는다. 한쪽에만 두르는 굵은 색 띠와는 다르다.
+- **기울기:** 도장은 각자 `--r`로 -14도에서 12도, 부서 도장은 -2도에서 2도, 우표는 ±0.8도 안쪽, 펼친 수첩은 -0.5도.
 
 ## Components
 
-### Buttons
-- **Shape:** full pill (`{rounded.pill}`), minimum 52px tall (38px for `.pill-sm` in the nav, at `--t-tiny`).
-- **Primary (`.pill`):** navy band fill, white text, Pretendard 600 at `--t-ui` with `.02em`, 28px horizontal padding, 12px gap to a 17px stroked arrow.
-- **Hover / Focus:** fill deepens to Pressed Blue, a soft button lift appears, and the arrow slides 4px right (an external-link glyph slides 3px up-right instead). Hover treatments are all inside `@media (hover: hover)` so touch never sticks them. Active presses to `scale(.97)`. Focus-visible draws a 2px Blue Ink ring at 3px offset with a 10px radius, switched to white inside navy bands.
-- **On-band (`.pill.white`):** white fill, navy text, hovering to Band Tint. Used once, in the 리그 section. The same inversion is applied to the nav pill while the mobile sheet is open.
-- **Text link (`.link`):** navy, 600 at `--t-ui`, 44px tall, with a 1px underline that wipes in from the left over 720ms on hover and out to the right on leave. The same wipe underlines nav links and contact values.
+### 도장 (`.stamp`)
+수첩의 서명. 공식 포켓몬 미니 스탬프를 본떠, 틀(둥근 사각, 원, 물결 원) 안을 무늬(빗금 또는 점)로 꽉 채우고 2D 캐릭터를 가운데 크게 둔 뒤 아래 리본 띠에 날짜나 단어를 흰 글자로 판다. 캐릭터의 흰 칸은 종이색이라 무늬를 지우고 떠오른다. 비어 보이는 도장(테두리와 글자뿐인 도장)은 만들지 않는다.
+- **캐릭터 그림:** PokeAPI의 2D 원화를 검정 선과 흰 칸 두 가지로 나눈 240px 그림(도장 `<image>`에 바로 들어 있다)을 `#tint-<잉크>` 필터가 물들인다. 소개: 피카츄(SINCE 2022). 연혁: 피츄, 푸린, 수리둥보, 워글. 한 학기: 이상해씨, 이브이, 잠만보, 삐삐. 리그: 리자몽. 환영: 망나뇽. 그림은 늘 틀의 가운데에 둔다.
+- **엠블럼 도장:** 첫 화면 왼쪽 쪽의 엠블럼은 같은 그림을 `#emb-ink` 필터로 남색은 잉크, 흰색은 종이가 되게 한 가지 잉크로 찍은 것이다(모양은 그대로).
+- **잉크:** 색은 `--c`(클래스 `.ink-blue`, `.ink-red`, `.ink-green`, `.ink-violet`). 큰 도장은 `filter: url(#ink)`(잉크 알갱이가 빠지고 가장자리가 3px 번짐), 작은 글자 도장은 `url(#ink-soft)`(결만 남기고 번짐 없음). 둘 다 문서 맨 앞 숨은 `<svg>`의 `<filter>`다.
+- **찍기:** 화면에 55% 들어오면 `.pressed`가 붙고 `press` 460ms(`--press` 곡선)로 6도 더 돌아간 1.2배 크기에서 0.94배로 눌렸다가 1배로 앉는다. 한 칸 안에서는 `--d` 하나당 120ms씩 차례로.
+- **모토 도장:** 첫 화면이 그려지고 450ms 뒤에 찍힌다.
+- **환영 도장:** 가입 쪽의 빈 자리(흐린 엠블럼 14%)에 있다가, 가입 표를 누를 때만 찍힌다. 기기의 움직임 줄이기 설정에서도 누르기 전에는 비어 있다(빈 자리가 이 쪽의 뜻이다).
 
-### Chips
-- **Activity tag (`.tag span`):** 30px pill, Cool Paper fill (inverted to Paper on white sections), navy Fraunces at `--t-label` / `.24em` uppercase, pinned to the bottom of the card by `margin-top: auto`. A one-word category, never a sentence.
-- **Type chip (`.type-chip`):** text plus a 9px coloured dot from the dex type palette; no fill, no border.
+### 표 단추 (`.ticket`)
+- **모양:** 왼쪽 반원 홈과 점선 절취선, 모서리 8px, 높이 48px(머리줄 44px, 가입 쪽 56px).
+- **색:** 기본 파랑, 머리줄은 흰 표(`.white`, 천 색 글자), 리그는 보라, 마지막 가입은 빨강.
+- **상태:** 마우스를 올리면 2px 떠오르고 화살표가 2px 밀린다(220ms). 누르면 1px 내려가며 0.98배.
+- **글자 링크 (`.link`):** 표 옆의 보조 길. 파랑 잉크 글자에 2px 밑줄, 높이 44px.
 
-### Cards / Containers
-- **Corner Style:** 20px.
-- **Background:** inverted against the section ground (white card on Cool Paper, Cool Paper card on white).
-- **Shadow Strategy:** flat at rest; `.card.lift` rises 4px with the Lift shadow on hover. Mascot cards do not lift — their artwork does.
-- **Border:** none.
-- **Internal Padding:** `clamp(28px, 3vw, 40px)`.
+### 자료 칸과 MRZ (`.data`, `.field`, `.mrz`)
+여권 자료 쪽. 자료 여섯 칸(두 줄 세 칸, 칸마다 위에 1px 점선), 항목 이름(고정폭 대문자 `.mono` + 한글 이름표 `.lbl`)과 값(`.val`, 26.5px), 맨 아래 MRZ 두 줄(폭에 맞춰 글자 크기를 `cqi`로 계산해 한 줄에 들어가게). 회원 수와 회비가 바뀌면 이 칸도 바뀐다.
 
-### Navigation
-- **Desktop:** fixed, 68px, transparent over the hero. On scroll a `::before` plate fades in — 82% paper, `saturate(160%) blur(16px)`, 1px hairline underneath. Left: the 40px circular emblem and, 12px after it, `POKÉMON CENTER YONSEI` in Fraunces `--t-label` / `.24em` (`PCY` under 640px), one link to the top. Right: Korean section links (Pretendard `--t-small` / `.03em`, 44px tall, wipe underline on hover), a KO / EN / JA group in Fraunces `--t-label` / `.16em` (muted until selected or hovered), a 44px circular theme toggle, and a navy 가입하기 pill.
-- **Active section:** `.is-here` holds the link's underline fully drawn (left origin), driven by scroll position.
-- **Mobile (≤1120px):** a two-bar hamburger whose bars cross into an X, over a full-screen navy sheet revealed by `clip-path: inset(0 0 100% 0) → inset(0)` over 720ms. Inside: eight 58px serif links at `--t-h4`, each prefixed by its italic numeral and staggered in at `120ms + i × 40ms`; a footer strip with full language names and the theme toggle. While the sheet is open the nav's wordmark and icons invert to white, the pill inverts to white-on-navy-text, the nav plate hides, and the body locks scroll.
+### 쪽 번호 (`.folio`)
+각 쪽 아래 가운데의 두 자리 번호(01에서 08), 양옆에 짧은 선. 색인 번호와 같다.
 
-### Hero
-Centred column, type only: the hairline-flanked meta row, the wordmark, the Korean name at `.32em` (`.24em` in Japanese), a serif one-line description, then the navy pill plus a YPL text link, then the scroll cue. Everything rises and fades in on load at `--d × 120ms + 100ms`; the wordmark instead opens its tracking from `.04em` to `.16em` over 1.8s at a 260ms delay — the signature moment, re-targeted to `.1em` under 640px. The scroll cue is a `Scroll` label at `--t-label`, 60% opacity, above a 48px hairline down which a navy segment falls on a 2.4s loop.
+### 색인 꼬리표 (`.sect-list`)
+머리줄 가운데의 흰 종이 꼬리표. 위 가장자리 3px와 글자가 잉크 넷(파랑, 빨강, 초록, 보라 순서)이고, 지금 쪽만 그 잉크로 채워져 6px 올라와 붙는다. 지나온 쪽의 꼬리표 오른쪽 위 안쪽에 같은 잉크의 6px 점이 찍힌다(`.visited`). 900px 미만에서는 목차 단추가 천 위에 흰 색인 쪽을 펼치고(위에서 아래로 열림), 번호 칸과 이름 칸이 48px 줄로 놓인다.
 
-Along the bottom of the hero runs tall grass (`canvas.hero-grass`), the Pokémon convention for "wild Pokémon live here". Three rows of clumps at an even rhythm, like the game's grass tiles, packed so the clumps overlap and no paper shows between them: the back row is palest and sits highest (Yonsei Blue mixed into the paper at 7%, 12% and 18% from back to front), each row fading lighter toward the tips. A clump is five (back, middle) or seven (front) broad leaves fanned out, the middle one longest, the outer ones shorter and curling outward; the tops of each row rise and fall in a slow wave. The bottom 60% of the grass dissolves into the About section's ground colour (`--bg-alt`), like grass in mist, so the hero runs into the next section without a seam. The grass is about a fifth of the hero tall (124–190px, 92–126px under 640px). It sways on a slow wind and leans away from the pointer. A click or tap sends one soft push outward from the point, so the clumps swing two or three times on a spring (about 0.9s a swing) and settle; nothing jitters. On the first click and about half the time after, a Pokémon rises between the rows with a `!` above it, holds, and sinks back. Half the time it is a mascot or Pikachu: Rufflet or Braviary (the mascot renders, borrowed from `.art-rufflet` / `.art-braviary`, no second copy) or Pikachu (the HOME render, 326px tall WebP, embedded once in the script). The other half it is one of the executives' favourite Pokémon, drawn from the executive icons (`POKE_GIFS`, one per species), with no name tag. Every Pokémon is shown at the same height, 120px (92px under 640px); the 160px executive icons are slightly enlarged at that size, a trade the maintainer chose for presence. A Pokémon never rises in the middle 200px, where it would sit behind the scroll cue; a click there sends it just to the side. Under reduced motion the grass is drawn once, still. It stops drawing when the hero leaves the screen.
+### 입국 도장 (연혁 `.visa`, `.entry`)
+날짜마다 모양과 잉크가 다른 148px 도장(휴대폰 104px)과 옆의 제목과 글. 두 줄로 놓이고 860px 미만에서 한 줄.
 
-### Accordions (executives and FAQ)
-One mechanism, two dressings. A full-width button row (84px for 기수, 80px for FAQ) in a grid, with a 36px circular chevron button on the right whose vertical stroke rotates 90° when open; the panel is a `grid-template-rows: 0fr → 1fr` transition over 720ms with the inner content fading and rising at a 90–100ms delay. Rows are separated by inset hairlines only, and the list as a whole is capped top and bottom by one.
+### 한 학기 도장 카드와 소모임 띠 (활동 `.road`, `.subs`)
+점선 원 네 칸(최대 140px)이 점선으로 이어지고, 들어오면 네 칸에 차례로 포켓몬 도장이 찍힌다. 아래 점선 뒤에 활동 셋(제목 앞 그 잉크의 몬스터볼 도장 30px, 마스크로 그림), 다시 점선 뒤에 소모임 띠: 왼쪽 제목(`act.subs`), 오른쪽 고무도장 꼬리표(`.tag`, Black Han Sans, 2px 테두리, `#ink-soft`, 포켓몬 소모임은 빨강, 그 밖은 파랑, 살짝씩 기울임).
 
-- **기수 rows** carry the 기수 label at `--t-h4` and its member count in muted ink — no index numeral. Eight generations are listed newest first (8기 … 1기); 8기 is open on load and holds 12 members. Each panel opens into department blocks (a 6px navy dot plus the department name) and member tiles.
-- **Member tile (`.exec-member`)**: a 64px circular well on Paper holding a 58px PokeAPI HOME render (160×160 lossless WebP for every entry, all embedded), then serif name at `--t-name`, Blue Ink role at `--t-tiny` / `.06em`, muted meta and favourite lines. 20px radius, Cool Paper fill, rises 2px on hover.
-- **FAQ rows** carry their italic number in a 64px column and answers indent to match (76px, 52px on mobile).
+### 칩 (`.chip`, `.type-chip`, `.dex-form`)
+우표첩 바탕의 알약에 잉크색 점 하나. 소모임은 Black Han Sans, 타입과 형태는 본문 글꼴 700.
 
-### Dex-style mascot card
-A 20px card with a hairlined top row — italic `№ 0627` left, form right — then a 260px square artwork block, the English name in Fraunces italic at `--t-mascot`, the Korean or Japanese name beneath at `--t-num` (hidden in English), the category, the two type chips, a hairline-railed height/weight spec row in italic numerals, and a one-line description. The artwork lifts 6px and scales 1.03 on hover.
+### 리그 입장권 (`.pass`)
+탑승권 모양의 속지 한 장. 왼쪽 본문(보라 형광 밑줄 강조 하나, 보라 표), 오른쪽 300px 떼는 쪽에 보라 트로피 도장, 바코드, 고정폭 리그 이름. 760px 미만에서 떼는 쪽이 아래로 간다.
 
-### League band
-A full-bleed navy section with a giant `League` watermark in Fraunces italic at `--t-watermark` in `rgba(255,255,255,.032)`, centred and behind the content. Label and title turn white, one phrase in the tagline takes Band Sky, the body takes Band Haze, and the single white pill leads offsite.
+### 마스코트 등록 카드 (`.dex`)
+200px 그림 칸(4:5, 흰 테 8px의 사진처럼 살짝 기울어 붙고 네 모서리에 제목색 사진 귀)과 도감 번호, 형태 칩, 이름, 분류, 타입 칩, 키와 몸무게(Martian Mono 600), 설명. 두 장 사이에 진화 화살표(1000px 미만에서 아래로 돈다). 워글 카드의 그림 칸 아래 귀퉁이에 작은 빨강 확인 도장. 그림은 동아리의 마스코트 원본을 그대로 쓴다.
 
-### Join and contacts
-Centred: tracked label, a serif title at `--t-join`, a supporting line with a serif flourish beneath, the navy mailto pill, a wrapped facts row (`회비`, `가입 대상`, `모집 시기` — muted keys, ink values), then a three-column contact table bounded top and bottom by hairlines with vertical hairline dividers (horizontal below 900px). Email carries a copy button that swaps its icon to a check and turns navy in the done state.
+### 우표 (임원 `.exec-member`, `.perf`)
+- **모양:** 196px 폭의 흰 우표(휴대폰 두 장씩). `.perf` 래퍼가 구멍을 뚫고, 그림 칸(104px, 잉크 넷의 옅은 색을 순서대로)에 포켓몬 그림을 78px로 넣는다.
+- **글:** 이름(Hahmlet 900 18px), 이름 아래 한 줄에 국기와 직책 꼬리표(`.exec-badges`. 회장과 부회장은 빨강, 부서장은 파랑, 나머지는 우표첩 바탕. 세 언어 모두 같은 자리), 학과와 학번(영어 Entered '24, 일본어 24年入学. 영어와 일본어는 학번을 다음 줄에), 최애 포켓몬(빨강 이름표).
+- **놓임:** 한 기수가 한 장의 우표 시트다. 부서 묶음(부서 도장과 그 우표들)이 줄을 바꾸지 않고 옆으로 이어 붙고, 우표 사이는 12px. 480px 이하에서는 부서마다 한 줄. 세 장마다 살짝 다른 기울기. 마우스를 올리면 3px 떠오른다.
 
-### Footer
-The navy band that closes the page: 64px circular emblem image, tracked wordmark, one-line description in Band Haze, an Explore column and a Contact column under tracked labels, then a hairlined bottom row with `© 2023–2026 POKÉMON CENTER YONSEI` in Fraunces `--t-label` / `.18em` and the Pokémon trademark disclaimer in Band Haze.
+### 부서 도장 (`.exec-dept-name .dept`)
+2.5px 테두리의 사각 고무도장(Black Han Sans 19px, `#ink-soft`), 잉크 넷을 순서대로, -2도에서 2도. 뒤로 점선이 끝까지 이어진다.
+
+### 기수 탭 (`.gen-tab`)
+우표첩 바탕의 8px 모서리 탭에 기수 이름과 인원(작은 본문 글자). 고른 탭은 파랑 바탕 흰 글자. 최신 기수가 맨 앞에서 골라진 채 시작한다.
+
+### 질문 줄 (`.faq-item`)
+제목색 2px 괘선 아래 1px 줄로 나뉜 목록. 질문은 Hahmlet 700, 오른쪽 40px 고무도장 테(실선 두 겹, 파랑)에 더하기. 열면 테가 빨강으로 바뀌며 -10도 돌고 더하기가 45도 돌아 곱하기가 된다. 답은 우표첩 바탕 8px 쪽지로 펼쳐지고(420ms), 왼쪽에 빨간 몬스터볼 도장(36px, 두 겹 테, 테 둘레 점 넷, `#ink-soft` 잉크 결, -12도, 첫 줄 한가운데).
+
+### 마지막 도장 자리와 가입 (`.final`)
+280px 점선 원(3px, 820px 미만에서는 200px) 안에 흐린 엠블럼, 그 아래 빨강 가입 표. 누르면 WELCOME 환영 도장이 찍히고 연락처 창이 뜬다. 왼쪽에는 큰 제목, 빨강 한 줄, 제목색 괘선 아래 회비, 가입 대상, 정기 모임 세 칸.
+
+### 연락처 창 (`.dlg`)
+속지 한 장(보안 무늬, 10px 모서리, 최대 480px)의 `<dialog>`. 열릴 때 0.94배에서 커진다. 제목 아래 괘선, 연락처마다 선 아이콘 28px, 고정폭 이름표, 값(Hahmlet 700 17px, 마우스를 올리면 빨강), 복사 알약(누르면 초록으로 바뀌고 체크).
+
+### 뒤표지 (`.footer`)
+짙은 천에 결무늬. 엠블럼 120px, 영어 이름(Hahmlet 900), 소개 한 줄, 메뉴, 연락처, 상표 고지, 맨 아래 바코드와 뒤표지 기계 판독 줄. 천 가장자리 16px 안쪽에 눌러 찍은 두 겹 테. 글자는 `on-cloth`와 `on-cloth-2`, 초점 테두리는 흰색.
+
+### 아이콘과 국기
+선 아이콘은 24×24, 선 2, 둥근 끝(`.ic`). 국기는 직접 그린 SVG 기호(`#f-kr`, `#f-us`, `#f-jp`, `#f-fr`)이고 이모지를 쓰지 않는다. 엠블럼은 `#emblem` 기호 하나를 첫 화면, 머리줄, 가입 쪽, 뒤표지가 같이 쓴다.
+
+### 움직임
+곡선은 둘이다. `--press`(눌렀다 앉는 곡선)와 `--ease`(부드러운 멈춤). 길이는 120ms에서 520ms. 움직임은 과하지 않아 화면에 끄는 단추를 두지 않고, 기기 설정의 움직임 줄이기만 따른다(`<html data-motion>`). `reduce`에서는 모든 움직임이 멈추고 도장은 처음부터 찍힌 채 보인다.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** set every heading, label, quote and number in the serif and every paragraph and control in Pretendard, and switch the serif and sans by `body[data-lang]` for ko / en / ja.
-- **Do** pick every font-size from the `--t-*` ramp; if a new surface needs a size the ramp lacks, add a named token with a role comment rather than a literal.
-- **Do** set every visible number in Fraunces italic 300 `opsz 144` in Blue Ink (`{colors.navy-2}`), with tabular figures on dates, counts and phone numbers.
-- **Do** give each section a tracked uppercase English label with the 14px pokéball mark, and leave those labels untranslated across all three dictionaries.
-- **Do** alternate section grounds with `.sec.alt` and invert card fills against their ground.
-- **Do** draw every divider as an inset hairline box-shadow in `{colors.hair}`.
-- **Do** keep saturated navy to full-bleed bands and pill buttons.
-- **Do** use the one easing curve with `--t1` / `--t2` / `--t3`, put hover treatments behind `@media (hover: hover)`, and make sure the surface is still complete when `prefers-reduced-motion` kills all of it.
-- **Do** keep every interactive target at least 44px tall and every focus-visible ring at 2px / 3px offset, white inside navy bands.
-- **Do** use the club's own assets as they are: the emblem (nav and footer, embedded once as the SVG symbol `#emblem`), the two mascot renders (embedded once each as `.art-rufflet` / `.art-braviary` background images and reused), the executive Pokémon renders, the favicons and `og.png`.
-- **Do** state facts plainly in all three languages together, with matching key sets and Korean HTML defaults.
+- **Do** 새 섹션은 속지 한 장(`.paper.page`)으로 만들고, 쪽 번호를 이어 붙이고, 머리줄 색인에 꼬리표를 더한다.
+- **Do** 강조는 잉크 넷 안에서, 여러 개면 파랑, 초록, 빨강, 보라 순서로 돌린다.
+- **Do** 새 장치가 필요하면 수첩에 실제로 있는 물건(도장, 표, 우표, 자료 칸, 쪽지, 절취선)에서 가져온다.
+- **Do** 단추는 표(`.ticket`)로 만든다. 가장 중요한 한 곳만 빨강.
+- **Do** 내용은 처음부터 보이게 둔다. 등장 움직임은 도장 찍기 하나이고, 움직임 줄이기에서는 모든 도장이 제자리에 찍힌 채 보인다.
+- **Do** 임원 포켓몬 그림은 78px 이하로 보여 준다(원본 160px의 절반).
+- **Do** 일본어는 `body[data-lang="ja"]`에서 글꼴 변수만 바꾼다.
+- **Do** 가장 옅은 글자는 `label`까지, 터치 자리는 44px 이상.
 
 ### Don't:
-- **Don't** introduce a second accent hue. The dex type dots exist only inside mascot type chips.
-- **Don't** put a `border` on a surface. Tone and inset hairlines do the separating.
-- **Don't** introduce a third type voice, and don't set a heading, label or number in Pretendard. Adding a per-script cut of the existing serif or sans is not a third voice; a new typeface is.
-- **Don't** lay texture, pattern or gradient over the page ground.
-- **Don't** use middle-dot (·) separators anywhere, in any language.
-- **Don't** use emoji — flag, pokéball or otherwise — as an icon. Icons are inline SVG from the one sprite, and the pokéball mark inherits `currentColor` rather than carrying its own fill.
-- **Don't** redraw the club emblem or the mascot artwork, or re-embed either render a second time.
-- **Don't** give any surface a resting shadow.
-- **Don't** translate the English section labels, the wordmark, or the `League` watermark.
-- **Don't** add a new easing curve or duration for a new component.
+- **Don't** 쪽 제목 위에 작은 영어 라벨이나 꼬리말(kicker)을 얹지 않는다.
+- **Don't** 속지 안에 흰 카드, 테두리 상자, 그림자 상자를 다시 넣지 않는다.
+- **Don't** 같은 카드를 격자로 늘어놓는 것을 섹션의 뼈대로 쓰지 않는다.
+- **Don't** 카드나 글 상자의 한쪽에만 굵은 색 띠를 두르지 않는다.
+- **Don't** 3D를 넣지 않는다. 밤과 낮 같은 테마 전환 단추를 되살리지 않는다.
+- **Don't** 도장 잉크 넷 밖의 강조색이나 그라데이션 단추를 만들지 않는다.
+- **Don't** 글자에 투명도를 쓰지 않는다.
+- **Don't** 임원 포켓몬 그림을 78px보다 크게 키우지 않는다.
+- **Don't** 국기에 이모지를 쓰지 않는다.

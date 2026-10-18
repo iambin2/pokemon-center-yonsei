@@ -32,7 +32,7 @@ A real, officially recognised general club at Yonsei (총동아리연합회 공�
 - One self-contained `index.html` (CSS, JS, base64 images inline). No build tool or framework, by design. Push to `main` deploys via GitHub Pages.
 - Trilingual (ko / en / ja) through the `i18n` dictionary and `data-i18n` keys; the three key sets must match and HTML default text must equal the ko value (enforced by `scripts/check.py`).
 - Features that must keep working: language switch with saved preference, in-page navigation, mobile menu, executive generation accordions (8, newest first) with per-person Pokémon icons, FAQ accordion (13), contact links (email, Instagram, phone), link to YPL.
-- Light and dark themes with a user toggle (decided 2026-09-11), following the device setting by default.
+- One theme only (Yonsei-blue bookcloth with white pages); the light/dark toggle was removed on 2026-10-16.
 - Budgets: file ≤ 2 MB, WCAG AA contrast, focus visible, reduced motion respected, 44px touch targets.
 
 ## Brand Commitments
@@ -40,9 +40,9 @@ A real, officially recognised general club at Yonsei (총동아리연합회 공�
 - Name: 포켓몬 센터 연세점 (포센연), Pokémon Center Yonsei. Motto: 우리는 모두 친구.
 - Yonsei Blue is the core colour and stays.
 - The existing club emblem (footer logo image) and the mascot artwork (수리둥보 Rufflet, 워글 Braviary) are the club's own assets; use them as they are, never redraw them.
-- Copy edits keep every fact (years, counts, fee, contacts) and only improve the sentences: no middle-dot (·) separators anywhere, no meaningless line breaks; all three languages updated together. The small tracked English section labels are part of the incumbent identity and stay.
+- Copy edits keep every fact (years, counts, fee, contacts) and only improve the sentences: no middle-dot (·) separators anywhere, no meaningless line breaks; all three languages updated together. English mono data labels (CLUB, MEMBERS) and English inside stamps are design elements and stay untranslated; no English kicker above headings.
 - Unofficial fan club disclaimer about Pokémon trademarks stays in the footer.
-- Standing direction preference (2026-09-12, revised): respect the incumbent site's own style and layout as the reference — its editorial serif wordmark, navy trilingual marquee, big serif quote, numbered cards, dex-style mascot cards, numbered FAQ and navy footer — and rebuild it new at a higher craft level. The user rejected both a concept world (airport signage, "cheap") and a generic Apple-style category standard ("별로"); what they want is their own site's identity, refined.
+- Standing direction (2026-10-17, user pick from three drafts): the club's stamp-rally booklet, Pokémon cuteness through colored rubber stamps and postage stamps, Yonsei sophistication through the bookcloth, passport guilloche, data fields and MRZ strip. Earlier worlds (editorial serif, Pokopia village, 3D) were tried and replaced; see docs/리디자인-결정목록.md.
 
 ## Evidence on Hand
 
