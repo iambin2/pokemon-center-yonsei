@@ -229,8 +229,8 @@ em { font-style: normal; }
 .bar-tools { display: flex; align-items: center; gap: var(--sp-2); flex: none; margin-left: auto; }
 .langs { display: flex; }
 .langs button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-2); }
-.langs .flag-ic { width: 26px; height: 18px; border-radius: var(--r-1); box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .5); opacity: .7; transition: opacity 200ms, transform 260ms var(--ease); }
-.langs button[aria-pressed="true"] .flag-ic { opacity: 1; box-shadow: 0 0 0 2px #fff; transform: scale(1.08); }
+.langs .flag-ic { width: 27px; height: 18px; border-radius: var(--r-1); outline: 2.5px solid rgba(255, 255, 255, .5); outline-offset: -1px; opacity: .7; transition: opacity 200ms, transform 260ms var(--ease); }
+.langs button[aria-pressed="true"] .flag-ic { opacity: 1; outline: 3px solid #fff; transform: scale(1.08); }
 @media (hover: hover) { .langs button:hover .flag-ic { opacity: 1; } }
 .bar .ticket { min-height: 44px; font-size: var(--fs-2); --px: var(--sp-4); }
 .menu-btn { display: none; place-items: center; width: 44px; height: 44px; border-radius: var(--r-2); color: #fff; }
