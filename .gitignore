@@ -1,0 +1,9 @@
+node_modules/
+*.bak
+*.backup.html
+.DS_Store
+Thumbs.db
+.impeccable/
+_shoot.mjs
+
+dist/
