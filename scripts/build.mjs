@@ -20,7 +20,7 @@ let html = source.replace(/data:image\/(png|webp);base64,([A-Za-z0-9+/=]+)/g, (_
 // Japanese faces skip Hangul, the rest skip kana and kanji. Google silently ignores text= past ~800 characters,
 // so past 700 we keep the full link (slower, never broken).
 const fontLink = /<link href="(https:\/\/fonts\.googleapis\.com\/css2\?[^"]+)" rel="stylesheet">/;
-const shown = [...new Set(html.replace(/<style[\s\S]*?<\/style>|<!--[\s\S]*?-->|\/\*[\s\S]*?\*\//g, ''))].filter(c => c > ' ');
+const shown = [...new Set(html.replace(/<style[\s\S]*?<\/style>|<!--[\s\S]*?-->|\/\*[\s\S]*?\*\//g, ''))].filter(c => c >= ' ');  // keep the space: a face without it is skipped as the line's first font and the fallback's metrics move every baseline
 const jaFace = /Shippori|Zen\+Kaku|Dela/, jaChar = /[　-ヿ一-鿿＀-￯]/, hangul = /[가-힣㄰-㆏]/;
 const families = html.match(fontLink)[1].match(/family=[^&]+/g);
 const fontGroups = [[families.filter(f => !jaFace.test(f)), shown.filter(c => !jaChar.test(c))],
