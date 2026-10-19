@@ -414,7 +414,7 @@ body[data-lang="en"] .dex-en { display: none; }
 .gen-tab[aria-selected="true"] small { color: #DCE6F8; }
 @media (hover: hover) { .gen-tab:not([aria-selected="true"]):hover { transform: translateY(-2px); } }
 @media (max-width: 640px) {
-  .gen-tabs { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--page-pad) * -1); padding: var(--sp-1) var(--page-pad); scrollbar-width: none; scroll-snap-type: x proximity;
+  .gen-tabs { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--page-pad) * -1); padding: var(--sp-1) var(--page-pad); scrollbar-width: none; scroll-snap-type: x proximity; scroll-padding-inline: var(--page-pad);   /* 붙는 자리를 종이 끝이 아니라 쪽 여백 안쪽으로 */
     -webkit-mask: linear-gradient(90deg, #000 calc(100% - 40px), transparent); mask: linear-gradient(90deg, #000 calc(100% - 40px), transparent); }
   .gen-tabs::-webkit-scrollbar { display: none; }
   .gen-tab { flex: none; scroll-snap-align: start; white-space: nowrap; }
