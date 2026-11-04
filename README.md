@@ -2,7 +2,7 @@
 
 연세대학교 포켓몬 동아리 공식 홈페이지. 한국어, 영어, 일본어 3개 국어 단일 페이지. 페이지 전체가 동아리의 스탬프 랠리 수첩이다.
 
-**→ https://iambin2.github.io/pokemon-center-yonsei/**
+**→ https://pokeyonsei.com/**
 
 ## 구조
 
