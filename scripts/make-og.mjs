@@ -15,10 +15,10 @@ const page = await browser.newPage({ viewport: { width: W, height: H }, deviceSc
 await page.goto(URL);
 await page.evaluateHandle('document.fonts.ready');
 await page.mouse.move(-500, -500);
-await page.waitForTimeout(1400);   /* 모토 도장이 찍히기를 기다린다(약 0.9초) */
+await page.waitForTimeout(2400);   /* 모토 도장이 찍히고 표지의 은박 빛이 지나가기를 기다린다 */
 
 await page.evaluate(() => {
-  /* 미리보기에는 머리줄이 들어갈 자리가 없다. 펼친 수첩만 화면 가운데에 */
+  /* 미리보기에는 머리줄이 들어갈 자리가 없다. 표지와 자료 쪽만 화면 가운데에 */
   document.querySelector('.bar')?.remove();
   document.querySelector('main')?.remove();
   const hero = document.querySelector('.hero');
@@ -26,14 +26,12 @@ await page.evaluate(() => {
   hero.style.minHeight = '100vh';
   hero.style.display = 'grid';
   hero.style.alignItems = 'center';
-  /* 미리보기는 작게 보이므로 간추린다: 왼쪽 쪽엔 엠블럼과 이름, 오른쪽 쪽엔 모토 도장과 기계 판독 줄만 */
+  /* 미리보기는 작게 보이므로 간추린다: 왼쪽은 은박 표지 그대로, 오른쪽 자료 쪽엔 모토 도장과 기계 판독 줄만 */
   document.querySelectorAll('.fields, .hero-sub, .hero-act').forEach(el => el.remove());
-  const leaf = document.querySelector('.leaf');
-  leaf.style.justifyContent = 'center';
   const data = document.querySelector('.paper.data');
-  data.style.justifyContent = 'flex-end';
+  Object.assign(data.style, { alignSelf: 'stretch', margin: '28px 0 28px calc(var(--lap) * -1)' });
   const motto = document.querySelector('.motto-stamp');
-  Object.assign(motto.style, { left: 'auto', right: '12%', top: '22%', bottom: 'auto', width: '260px' });
+  Object.assign(motto.style, { left: 'auto', right: '16%', top: '20%', bottom: 'auto', width: '280px' });
   /* 수첩이 화면보다 크면 통째로 줄여 위아래가 잘리지 않게 */
   const spread = document.querySelector('.spread');
   spread.style.zoom = Math.min(1, (innerHeight - 64) / spread.offsetHeight);
