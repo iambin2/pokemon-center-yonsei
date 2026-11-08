@@ -151,7 +151,7 @@ if langs:
 
 # ---------------------------------------------------------------- 구조
 print("\n[구조]")
-VOID = {"meta", "link", "img", "br", "hr", "input", "source", "use", "circle", "line", "path", "rect"}
+VOID = {"meta", "link", "img", "br", "wbr", "hr", "input", "source", "use", "circle", "line", "path", "rect"}
 
 
 class Checker(html.parser.HTMLParser):

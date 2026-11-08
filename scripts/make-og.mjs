@@ -15,7 +15,7 @@ const page = await browser.newPage({ viewport: { width: W, height: H }, deviceSc
 await page.goto(URL);
 await page.evaluateHandle('document.fonts.ready');
 await page.mouse.move(-500, -500);
-await page.waitForTimeout(2400);   /* 모토 도장이 찍히고 표지의 은박 빛이 지나가기를 기다린다 */
+await page.waitForTimeout(1400);   /* 모토 도장이 찍히기를 기다린다(약 0.9초) */
 
 await page.evaluate(() => {
   /* 미리보기에는 머리줄이 들어갈 자리가 없다. 표지와 자료 쪽만 화면 가운데에 */
