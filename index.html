@@ -246,11 +246,12 @@ em { font-style: normal; }
 body:not([data-lang="en"]) [data-i18n="nav.faq"] { font-size: .88em; }   /* 라틴 대문자는 같은 크기의 한글보다 커 보인다 */
 @media (min-width: 900px) { .sect-list li:last-child { display: none; } }
 .bar-tools { display: flex; align-items: center; gap: var(--sp-2); flex: none; margin-left: auto; }
-.langs { display: flex; padding: 2px; border: 1.5px solid rgba(255, 255, 255, .28); border-radius: calc(var(--r-2) + 2px); }
-.langs button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-2); font-family: var(--f-mono); font-size: var(--fs-2); letter-spacing: .08em; color: var(--on-cloth-2); transition: background-color 200ms, color 200ms; }
-.langs .code { padding-top: var(--opt-mono-t); line-height: 1; }
-.langs button[aria-pressed="true"] { background-color: #fff; color: var(--cloth); }
-@media (hover: hover) { .langs button:not([aria-pressed="true"]):hover { color: #fff; background-color: rgba(255, 255, 255, .1); } }
+.langs { display: flex; }
+.langs button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-2); }
+/* 국기는 여권 사증의 작은 국기처럼 모서리 2px, 가는 테. 고른 언어는 흰 테를 두르고 조금 커진다 */
+.langs .flag-ic { width: 26px; height: 17px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .35); opacity: .62; transition: opacity 200ms, transform 260ms var(--ease), box-shadow 200ms; }
+.langs button[aria-pressed="true"] .flag-ic { opacity: 1; box-shadow: 0 0 0 2px var(--cloth-deep), 0 0 0 4px #fff; transform: scale(1.06); }
+@media (hover: hover) { .langs button:hover .flag-ic { opacity: 1; } }
 .bar .ticket { min-height: 44px; font-size: var(--fs-2); --px: var(--sp-4); }
 .menu-btn { display: none; place-items: center; width: 44px; height: 44px; border-radius: var(--r-2); color: #fff; }
 @media (max-width: 1240px) { .brand b { display: none; } }
@@ -274,77 +275,58 @@ body:not([data-lang="en"]) [data-i18n="nav.faq"] { font-size: .88em; }   /* 라�
   .sect-list a[aria-current], .sect-list a[aria-current] .no, .sect-list a:hover { color: var(--ink-blue); }
   body.menu-open { overflow: hidden; }
 }
-@media (max-width: 420px) { .langs { padding: 0; border-color: transparent; } }   /* 단추는 44px 그대로, 묶음 테만 뺀다 */
 @media (max-width: 359px) { .bar .ticket { display: none; } }
 
 /* --------------------------------------------------------------------------
-   첫 화면: 닫힌 수첩 표지와 자료 쪽 한 장. 표지는 짙은 연세 블루 천에 은박으로 누른 엠블럼과 이름,
-   맨 아래 전자여권 표시처럼 STAMP RALLY BOOK. 표지 오른쪽에 반쯤 깔린 자료 쪽에는 소개 한 줄, 자료 칸 여섯,
-   단추, 기계 판독 줄. 모토 도장은 자료 쪽 오른쪽 아래 가장자리에 걸쳐 찍힌다
+   첫 화면: 천 위에 덮어 둔 여권 한 권과 핵심 글만.
+   여권은 앞표지와 그 아래로 비치는 속지 두께, 뒤표지 가장자리, 책등 쪽 그늘과 접는 홈까지 그려 실제로 덮어 둔 수첩처럼 보인다.
+   크기는 화면의 폭과 높이 가운데 작은 쪽에 맞추고 비율(88:125)은 절대 바꾸지 않는다. 표지 안의 모든 치수는 여권 폭(cqi) 기준이라
+   어떤 화면에서도 같은 모양 그대로 줄고 는다(이 물건 안에서만 글자 크기 음계 대신 cqi를 쓴다).
+   글 길이가 언어마다 달라도 여권의 크기와 자리는 바뀌지 않는다
    -------------------------------------------------------------------------- */
-.hero { padding: calc(var(--bar-h) + clamp(var(--sp-5), 4vw, var(--sp-7))) var(--gutter) clamp(var(--sp-8), 7vw, var(--sp-9)); }
-.spread { --cover-h: clamp(440px, calc(100svh - var(--bar-h) - 160px), 600px); --cover-w: calc(var(--cover-h) * .704); --lap: var(--sp-7);
-  position: relative; display: grid; grid-template-columns: var(--cover-w) minmax(0, 1fr); align-items: center; width: min(1200px, 100%); margin: 0 auto; }
-/* 표지: 실제 여권(한국 2021, 노르웨이, 스위스)의 문법을 따른다. 무광 한 가지 색의 표지 재질(옅은 가죽 결),
-   한 가지 은박, 넉넉한 빈 면. 오른쪽 위에 작은 엠블럼, 그 아래 오른쪽 맞춤 글 묶음(이름, 영어 이름, 수첩 종류),
-   왼쪽 아래에는 색 없이 눌러 찍은 큰 몬스터볼과 점 호(한국 여권의 태극 무늬와 점 호처럼), 맨 아래 전자여권 표시.
-   광택 그라데이션, 테두리, 책등 같은 장식은 쓰지 않는다. 모서리는 실제 여권처럼 네 귀가 같은 둥근 귀(4mm) */
-.cover { position: relative; z-index: 2; height: var(--cover-h); container-type: inline-size; overflow: hidden;
-  display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; padding: 12% 10% 9%;   /* %는 표지 폭 기준(cqi는 표지 자신의 여백에는 쓸 수 없다) */ color: var(--foil); rotate: -2.5deg; border-radius: 4.5% / 3.2%;
-  background: var(--cover-art) 0 0 / 100% 100% no-repeat, radial-gradient(130% 90% at 15% 0%, rgba(255, 255, 255, .07), transparent 60%), var(--grain) 0 0 / 160px 160px, var(--cover-c); background-color: var(--cover-c);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05), 0 1px 1px rgba(0, 8, 30, .45), 0 4px 8px -3px rgba(0, 8, 30, .5), 0 44px 70px -30px rgba(0, 8, 30, .95); }
-/* 엠블럼과 글 묶음은 한 덩어리(한국 여권 비율): 엠블럼은 표지 폭의 27%, 엠블럼과 이름 사이는 엠블럼 지름의 4분의 1쯤(6.5cqi).
-   엠블럼 그림 안의 투명한 가장자리(지름의 4%)만큼 오른쪽과 아래로 당겨, 눈에 보이는 고리가 글 오른쪽 끝, 이름 윗선과 정확히 맞게 */
-.cover-emblem { position: relative; justify-self: end; width: 27cqi; margin: -1.1cqi -1.1cqi -1.1cqi 0; }
-.cover-title { position: relative; display: grid; justify-items: end; gap: 1cqi; margin-top: 6.5cqi; text-align: right; }
-/* 표지 글은 영어로만(여권처럼). 번역하지 않는 디자인 요소이고, 화면 낭독기는 숨은 제목(각 언어의 동아리 이름)을 읽는다.
-   이름은 엠블럼 고리의 글자 배치처럼 POKÉMON CENTER / YONSEI 두 줄. 세 언어 모두 함렛 대문자 */
-.cover h1 { color: var(--foil); font-family: 'Hahmlet', serif; font-weight: 700; font-size: clamp(var(--fs-2), 7cqi, var(--fs-6)); line-height: 1.12; letter-spacing: .05em; white-space: nowrap;   /* 표지 폭에 맞춰 줄어 늘 두 줄 */ text-transform: uppercase; text-box: trim-start cap alphabetic; text-shadow: 0 1px 0 rgba(0, 10, 40, .3); }
-.cover h1 + p { margin-top: 3.4cqi; }
-.cover-kind { font-family: 'Hahmlet', serif; font-weight: 700; font-size: clamp(var(--fs-1), 3.4cqi, var(--fs-2)); line-height: var(--lh-small); letter-spacing: .1em; text-transform: uppercase; color: var(--foil); text-shadow: 0 1px 0 rgba(0, 10, 40, .3); }
-.cover-chip { position: relative; grid-row: 4; justify-self: end; width: 12%; fill: none; stroke: var(--foil); stroke-width: 1.5; }
-/* 자료 쪽: 표지 아래로 --lap만큼 깔린다 */
-.data { --mrz-l: calc(var(--page-pad) + var(--lap)); --mrz-r: var(--page-pad); container-type: inline-size; display: grid; grid-template-columns: var(--photo-w, 9.5rem) minmax(0, 1fr); grid-template-areas: "photo sub" "photo fields" "ghost fields" "ghost act"; column-gap: var(--sp-6); align-content: start; margin-left: calc(var(--lap) * -1); padding: var(--page-pad) var(--page-pad) 120px calc(var(--page-pad) + var(--lap)); rotate: .8deg; }
-.hero-sub { grid-area: sub; max-width: 26em; color: var(--ink-2); }
-/* 사진 칸: 실제 여권의 신원 정보면처럼 왼쪽 위에 증명사진(마스코트 워글), 그 아래 옅은 보조 사진(여권의 위조 방지용 작은 흑백 사진) */
-.bio-photo { grid-area: photo; position: relative; align-self: start; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 2px; background: var(--print-url) 0 0 / 240px 60px, var(--well); box-shadow: inset 0 0 0 1px #D5DFEE; }
-.bio-photo .art { position: absolute; inset: 8% 2% 0; background-size: contain; background-position: 50% 100%; background-repeat: no-repeat; }
-.bio-ghost { grid-area: ghost; align-self: end; justify-self: center; width: 52%; aspect-ratio: 4 / 5; margin-top: var(--sp-4); background-size: contain; background-position: 50% 100%; background-repeat: no-repeat; filter: grayscale(1) contrast(.85); opacity: .32; mix-blend-mode: multiply; }
-.hero-sub .ph { display: inline-block; }
-@media (max-width: 560px) { .hero-sub .ph { display: inline; } }
-.fields { grid-area: fields; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-6) var(--sp-5); margin-top: var(--sp-6); }
-.field { display: grid; align-content: start; gap: var(--sp-2); padding-top: var(--sp-4); border-top: 1px dashed var(--rule); }
-.field .v { font-size: var(--fs-5); }
-body:not([data-lang="ko"]) .field .v { font-size: var(--fs-4); }
-body[data-lang="en"] .field .k .lbl { display: none; }   /* 영어에서는 MEMBERS 옆 Members처럼 같은 말이 되풀이된다 */
+.hero { min-height: 100svh; display: grid; align-items: center; padding: calc(var(--bar-h) + var(--sp-7)) var(--gutter) var(--sp-8); }
+.spread { display: grid; grid-template-columns: auto minmax(0, 30rem); justify-content: center; align-items: center; gap: clamp(var(--sp-7), 7vw, var(--sp-9)); width: min(1200px, 100%); margin: 0 auto; }
+.passport { --pw: clamp(200px, calc((100svh - var(--bar-h) - 180px) * .704), 400px); position: relative; isolation: isolate; width: var(--pw); aspect-ratio: 88 / 125; container-type: inline-size; rotate: -3deg; }
+/* 덮어 둔 수첩의 두께: 앞표지 밑으로 속지 가장자리(흰 종이와 가는 파란 결)와 뒤표지 가장자리가 오른쪽 아래로 비친다 */
+.passport::before, .passport::after { content: ""; position: absolute; border-radius: 4.5% / 3.2%; }
+.passport::before { z-index: -2; inset: 0; translate: 2.2cqi 2.4cqi; background: #0B2F66; box-shadow: 0 1px 2px rgba(0, 8, 30, .5), 0 4cqi 8cqi -2cqi rgba(0, 8, 30, .55), 0 12cqi 18cqi -8cqi rgba(0, 8, 30, .8); }
+.passport::after { z-index: -1; inset: .8cqi .4cqi .4cqi .8cqi; translate: 1.3cqi 1.4cqi; background: repeating-linear-gradient(135deg, #fff 0 1.2px, #D5DFEE 1.2px 2px); box-shadow: 0 0 0 .5px rgba(0, 10, 40, .25); }
+/* 앞표지: 무광 한 색, 가죽 결, 왼쪽 책등으로 감기는 그늘과 접는 홈(실제 여권의 힌지), 색 없이 눌러 찍은 몬스터볼과 점 호 */
+.cover { position: absolute; inset: 0; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; padding: 12cqi 10cqi 9cqi 14cqi; color: var(--foil); overflow: hidden; border-radius: 4.5% / 3.2%;
+  background: linear-gradient(90deg, rgba(0, 10, 40, .30) 0, rgba(0, 10, 40, .10) 2.4%, transparent 5.5%),
+    linear-gradient(90deg, transparent 9.4%, rgba(0, 10, 40, .30) 9.4% 9.9%, rgba(255, 255, 255, .10) 9.9% 10.5%, transparent 10.5%),
+    var(--cover-art) 0 0 / 100% 100% no-repeat, radial-gradient(130% 90% at 25% 0%, rgba(255, 255, 255, .08), transparent 60%), var(--grain) 0 0 / 160px 160px, var(--cover-c);
+  background-color: var(--cover-c);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .10), inset -1px -1px 0 rgba(0, 10, 40, .30), 0 .5px 1px rgba(0, 8, 30, .4); }
+/* 엠블럼과 글 묶음은 한 덩어리(한국 여권 비율): 엠블럼은 여권 폭의 27%, 엠블럼과 이름 사이는 엠블럼 지름의 4분의 1(6.5cqi).
+   엠블럼 그림 안의 투명한 가장자리(지름의 4%)만큼 당겨, 눈에 보이는 고리가 글 오른쪽 끝, 이름 윗선과 정확히 맞게 */
+.cover-emblem { justify-self: end; width: 27cqi; margin: -1.1cqi -1.1cqi -1.1cqi 0; }
+.cover-title { display: grid; justify-items: end; margin-top: 6.5cqi; text-align: right; }
+/* 표지 글은 영어로만(여권처럼). 번역하지 않는 디자인 요소이고, 화면 낭독기는 숨은 제목(각 언어의 동아리 이름)을 읽는다 */
+.cover h1 { color: var(--foil); font-family: 'Hahmlet', serif; font-weight: 700; font-size: 7cqi; line-height: 1.12; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; text-box: trim-start cap alphabetic; text-shadow: 0 1px 0 rgba(0, 10, 40, .3); }
+.cover-kind { margin-top: 3.4cqi; font-family: 'Hahmlet', serif; font-weight: 700; font-size: 3.4cqi; line-height: var(--lh-small); letter-spacing: .1em; text-transform: uppercase; color: var(--foil); text-shadow: 0 1px 0 rgba(0, 10, 40, .3); }
+.cover-chip { grid-row: 4; justify-self: end; width: 12cqi; fill: none; stroke: var(--foil); stroke-width: 1.5; }
+/* 핵심 글: 천 위에 바로. 소개 한 줄, 자료 네 칸(여권 자료 칸의 말투), 가입 표와 리그 링크 */
+.hero-lead { font-family: var(--f-title); font-weight: 700; font-size: clamp(var(--fs-5), 2.6vw, var(--fs-6)); line-height: var(--lh-title); letter-spacing: var(--ls-title); color: var(--on-cloth); text-wrap: balance; }
+.hero-lead .ph { display: inline-block; }
+@media (max-width: 560px) { .hero-lead .ph { display: inline; } }
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-5); margin-top: var(--sp-7); }
+.field { display: grid; align-content: start; gap: var(--sp-2); padding-top: var(--sp-3); border-top: 1px dashed rgba(201, 216, 240, .45); }
 .field .k { display: flex; align-items: baseline; gap: var(--sp-2); }
+.field .k :is(.mono, .lbl) { color: var(--on-cloth-2); }
+body[data-lang="en"] .k .lbl { display: none; }   /* 영어에서는 MEMBERS 옆 Members처럼 같은 말이 되풀이된다 */
+.field .v { font-size: var(--fs-4); color: var(--on-cloth); }
 .field .v b { font-weight: inherit; }
-.hero-act { grid-area: act; display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-2); margin-top: var(--sp-6); }   /* 늘 위아래로: 오른쪽 아래 모토 도장 자리를 비운다 */
-.mrz { position: absolute; left: var(--mrz-l); right: var(--mrz-r); bottom: var(--sp-6); font-family: var(--f-mono); font-size: min(14px, calc((100cqi + 2 * var(--page-pad) - var(--mrz-l) - var(--mrz-r)) / 34.4));   /* 44자 한 줄이 칸 폭에 들어가게 */   /* cqi는 안쪽 폭이라 여백을 더한다 */ letter-spacing: .06em; line-height: var(--lh-body); color: #2B3A55; white-space: nowrap; }
-.motto-stamp { --ms: clamp(170px, 15vw, 220px); position: absolute; z-index: 3; right: 4%; bottom: calc(var(--sp-8) * -1); width: var(--ms); --r: -14deg; --c: var(--ink-red); pointer-events: none; }
-.motto-stamp .stamp { width: 100%; }
-.motto-stamp p { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-family: var(--f-ink); font-size: var(--fs-5); line-height: var(--lh-title); color: var(--ink-red); mix-blend-mode: multiply; filter: url(#ink); transform: rotate(-14deg); }
-body[data-lang="en"] .motto-stamp p { font-size: var(--fs-4); }
-body[data-lang="ja"] .motto-stamp p { padding: 0 0 .1em .25em; }   /* 전각 ！ 오른쪽 빈칸과 낮게 앉는 글꼴 */
-.js[data-motion="full"] .motto-stamp:not(.pressed) p { opacity: 0; }
-.js[data-motion="full"] .motto-stamp.pressed p { animation: press-p 460ms var(--press) both; }
-@keyframes press-p { 0% { opacity: 0; transform: rotate(-8deg) scale(1.2); } 58% { opacity: 1; transform: rotate(-14deg) scale(.94); } 100% { opacity: 1; transform: rotate(-14deg) scale(1); } }
-@media (max-width: 899px) {
-  .spread { grid-template-columns: minmax(0, 1fr); --lap: var(--sp-6); }
-  .cover { width: min(100%, 320px, calc((100svh - 300px) * .704)); height: auto; aspect-ratio: 88 / 125; justify-self: center; rotate: -1.5deg; }   /* 첫 화면 아래로 자료 쪽이 살짝 보이게 */
-  .data { margin: calc(var(--lap) * -1) 0 0; padding: calc(var(--page-pad) + var(--lap)) var(--page-pad) calc(var(--sp-9) + var(--sp-5)); --mrz-l: var(--page-pad); rotate: 0deg; }
-  .field .v { font-size: var(--fs-4); }
-  .motto-stamp { right: 2%; bottom: calc(var(--sp-9) + var(--sp-1)); width: 150px; }   /* 단추 줄 오른쪽, 기계 판독 줄 위 */
-  .motto-stamp p { font-size: var(--fs-4); }
-  body[data-lang="en"] .motto-stamp p { font-size: var(--fs-3); }
+.hero-act { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-5); margin-top: var(--sp-7); }
+.hero .link { color: var(--on-cloth); }
+/* 세로로 긴 좁은 화면(휴대폰, 세운 태블릿)만 여권 아래로 글을 쌓는다. 눕힌 휴대폰은 데스크톱처럼 나란히 */
+@media (max-width: 899px) and (orientation: portrait) {
+  .hero { min-height: 0; padding-top: calc(var(--bar-h) + var(--sp-6)); }
+  .spread { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: var(--sp-7); }
+  .passport { --pw: clamp(220px, min(72vw, calc((100svh - var(--bar-h) - 170px) * .704)), 320px); rotate: -2deg; }
+  .hero-copy { width: 100%; max-width: 30rem; }
 }
-@media (max-width: 520px) {
-  .fields { grid-template-columns: 1fr; gap: var(--sp-4); } .motto-stamp { width: 128px; }
-  /* 좁은 화면: 사진은 소개 한 줄 옆에 작게, 자료 칸은 그 아래 온 폭으로. 보조 사진은 뺀다 */
-  .data { --photo-w: 88px; grid-template-areas: "photo sub" "fields fields" "act act"; column-gap: var(--sp-4); }
-  .hero-sub { align-self: center; }
-  .bio-ghost { display: none; }
-}
+@media (max-width: 420px) { .fields { grid-template-columns: minmax(0, 1fr); gap: var(--sp-4); } }
 
 /* --------------------------------------------------------------------------
    소개: 첫 장. 왼쪽 큰 모토, 오른쪽 첫 문단과 이어지는 글
@@ -396,15 +378,15 @@ body[data-lang="en"] .intro-page h2 { font-size: clamp(var(--fs-6), 4.6vw, var(-
    칸 안에는 한 학기 도장 그림 넷을 원판처럼 반전해 비춘다(그림은 스크립트가 도장에서 빌려 온다) */
 .photos { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-5); align-items: start; margin-top: var(--sp-7); padding-top: var(--sp-7); border-top: 2px dashed var(--rule); }
 .photos h3 { font-size: var(--fs-5); }
-.photos-body { display: grid; justify-items: start; gap: var(--sp-4); }
-.photos-body p { color: var(--ink-2); }
-.film { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-2); width: 100%; max-width: 880px; padding: 30px var(--sp-3) 22px; border-radius: 2px; rotate: -.6deg;
-  background: repeating-linear-gradient(90deg, var(--paper) 0 7px, transparent 7px 14px) 6px 6px / 100% 6px no-repeat, repeating-linear-gradient(90deg, var(--paper) 0 7px, transparent 7px 14px) 6px calc(100% - 6px) / 100% 6px no-repeat, var(--cloth-deep);
-  background-color: var(--cloth-deep); box-shadow: 0 6px 12px -8px rgba(0, 10, 40, .6); transition: transform 260ms var(--ease); }
-@media (hover: hover) { .film:hover { transform: translateY(-2px); } }
-.film-edge { position: absolute; right: var(--sp-3); top: 15px; font-size: var(--fs-1); line-height: 1; letter-spacing: .2em; color: var(--on-cloth-2); }   /* 톱니 구멍과 칸 사이 가장자리 인쇄 */
-.frame { position: relative; aspect-ratio: 3 / 2; border-radius: 2px; background: #123A78; overflow: hidden; }
-.frame::before { content: ""; position: absolute; inset: 8%; background: var(--neg, none) 50% 50% / contain no-repeat; filter: invert(1); mix-blend-mode: screen; opacity: .55; }
+/* 활동 사진: 사진은 인스타그램에 있다. 쪽에는 마스코트 등록 카드와 같은 사진 귀를 붙인 빈 사진 자리 하나(인스타그램 표시와 계정)와 글, 표 단추 */
+.photos-body { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-5) var(--sp-7); }
+.album-text { display: grid; justify-items: start; gap: var(--sp-4); flex: 1 1 18em; }
+.album-text p { color: var(--ink-2); }
+.album { position: relative; display: grid; place-items: center; align-content: center; gap: var(--sp-3); width: 260px; aspect-ratio: 4 / 3; border: 8px solid #fff; border-radius: 2px; color: var(--ink-blue);
+  background: var(--print-url) 0 0 / 240px 60px, var(--well); box-shadow: 0 0 0 1px #DCE5F3, 0 6px 12px -6px rgba(14, 58, 120, .35); rotate: -1.2deg; transition: transform 260ms var(--ease); }
+.album .ic { width: 44px; height: 44px; stroke-width: 1.6; }
+.album .mono { color: var(--label); letter-spacing: .06em; text-transform: none; }
+@media (hover: hover) { .album:hover { transform: translateY(-2px); } }
 @media (max-width: 860px) { .acts { grid-template-columns: 1fr; gap: var(--sp-6); } .subs, .photos { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .road ol { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-5) var(--sp-3); } .road ol::before { display: none; } .road .spot { width: min(120px, 100%); } }
 
@@ -431,12 +413,12 @@ body[data-lang="en"] .intro-page h2 { font-size: clamp(var(--fs-6), 4.6vw, var(-
 .dex { position: relative; display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: var(--sp-5); align-items: start; }
 .dex .pic { position: relative; aspect-ratio: 4 / 5; border: 8px solid #fff; border-radius: 2px; background: var(--well); box-shadow: 0 0 0 1px #DCE5F3, 0 6px 12px -6px rgba(14, 58, 120, .35); rotate: -1.2deg; }
 .dex + .dex-arrow + .dex .pic { rotate: 1deg; }
-.dex .pic::before { content: ""; position: absolute; z-index: 1; inset: -12px; pointer-events: none;
+:is(.dex .pic, .album)::before { content: ""; position: absolute; z-index: 1; inset: -12px; pointer-events: none;
   background: linear-gradient(135deg, var(--title) 0 15px, transparent 15px) 0 0 / 32px 32px no-repeat, linear-gradient(225deg, var(--title) 0 15px, transparent 15px) 100% 0 / 32px 32px no-repeat, linear-gradient(45deg, var(--title) 0 15px, transparent 15px) 0 100% / 32px 32px no-repeat, linear-gradient(315deg, var(--title) 0 15px, transparent 15px) 100% 100% / 32px 32px no-repeat; }
 .dex .pic .art { position: absolute; inset: 4%; background-size: contain; background-position: 50% 60%; background-repeat: no-repeat; }
 .dex .pic .art-rufflet { background-size: 132%; background-position: 50% 78%; }   /* 원본 그림에 빈 여백이 많아 워글과 같은 크기감으로 */
 .dex-top { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-2); }
-.chip { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 28px; --px: var(--sp-3); border: 1.5px solid currentColor; border-radius: var(--r-1); font-family: var(--f-stamp); font-size: var(--fs-2); line-height: 1; letter-spacing: var(--ls-stamp); color: var(--title); }
+.chip { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 28px; --px: var(--sp-3); border: 2px solid currentColor; filter: url(#ink-soft); mix-blend-mode: multiply; border-radius: var(--r-1); font-family: var(--f-stamp); font-size: var(--fs-2); line-height: 1; letter-spacing: var(--ls-stamp); color: var(--title); }
 .dex h3 { margin-top: var(--sp-3); font-size: var(--fs-6); }
 .dex-en { margin-top: var(--sp-1); }
 body[data-lang="en"] .dex-en { display: none; }
@@ -444,6 +426,7 @@ body[data-lang="en"] .dex-en { display: none; }
 .types { display: flex; gap: var(--sp-2); margin-top: var(--sp-4); }
 .specs { display: flex; gap: var(--sp-6); margin-top: var(--sp-4); }
 .specs div { display: grid; gap: var(--sp-1); }
+.specs .k { display: flex; align-items: baseline; gap: var(--sp-2); }
 .specs dd { font-size: var(--fs-4); }
 .dex-desc { margin-top: var(--sp-4); color: var(--ink-2); }
 .dex .stamp { position: absolute; z-index: 2; left: 106px; top: 158px; width: 88px; }   /* 테만 있는 도장이라 안쪽이 비친다. 사진 귀가 테 안에 들어오지 않는 자리 */
@@ -583,18 +566,11 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
 
 /* --------------------------------------------------------------------------
    스탬프 랠리: 쪽을 끝까지 읽으면(쪽 번호가 화면에 들어오면) 그 쪽의 작은 도장이
-   쪽 번호 옆, 머리줄 색인, 가입 쪽 랠리 카드에 같이 찍힌다. 일곱 칸을 다 채우면 마지막 자리는 환영 도장
+   쪽 번호 옆에 찍히고, 가입 쪽 랠리 카드에 모인다. 일곱 칸을 다 채우면 마지막 자리는 환영 도장
    -------------------------------------------------------------------------- */
 .mini { display: block; width: 100%; height: 100%; color: var(--c); filter: url(#ink-soft); transform: rotate(var(--r, 0deg)); }
 .js[data-motion="full"] .mini { animation: press 460ms var(--press) both; }
-.folio .mini { position: absolute; left: calc(100% + var(--sp-1)); top: 50%; width: 40px; height: 40px; margin-top: -20px; mix-blend-mode: multiply; }
-.sect-list .slot { position: absolute; top: -9px; right: -9px; width: 20px; height: 20px; pointer-events: none; }   /* 꼬리표 글자 위 오른쪽 모서리에 걸쳐 찍힌다 */
-.sect-list .slot:empty { display: none; }
-@media (max-width: 899px) {
-  .sect-list .slot { position: relative; top: auto; right: auto; flex: none; margin-left: auto; width: 32px; height: 32px; }
-  .sect-list .slot:empty { display: block; border: 2px dashed var(--rule-2); border-radius: 50%; }
-  .sect-list .slot .mini { mix-blend-mode: multiply; }
-}
+.folio .mini { position: absolute; left: calc(100% + var(--sp-3)); top: 50%; width: 48px; height: 48px; margin-top: -24px; mix-blend-mode: multiply; }   /* 쪽 번호 옆 빈자리에 한 번 */
 :root:not(.js) .rally { display: none; }
 .rally { display: grid; justify-items: start; gap: var(--sp-3); max-width: 34em; margin-top: var(--sp-6); padding-top: var(--sp-5); border-top: 2px solid var(--title); }
 .rally-h { display: flex; align-items: baseline; gap: var(--sp-3); font-family: var(--f-stamp); font-size: var(--fs-3); letter-spacing: var(--ls-stamp); color: var(--title); }
@@ -653,14 +629,14 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
 .footer .desc { margin-top: var(--sp-2); color: var(--on-cloth-2); }
 .foot-nav { display: flex; flex-wrap: wrap; gap: 0 var(--sp-1); margin: var(--sp-5) 0 0 calc(var(--sp-3) * -1); }
 .foot-nav + .foot-nav { margin-top: var(--sp-2); }
-.foot-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--sp-3); border-radius: var(--r-2); font-family: var(--f-stamp); font-size: var(--fs-3); letter-spacing: var(--ls-stamp); }
+.foot-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--sp-3); border-radius: var(--r-2); font-family: var(--f-title); font-weight: 700; font-size: var(--fs-3); }   /* 머리줄 색인과 같은 글꼴 */
 @media (hover: hover) { .foot-nav a:hover { background: rgba(255, 255, 255, .1); } }
 .foot-contact a { font-family: var(--f-body); font-size: var(--fs-2); letter-spacing: 0; color: var(--on-cloth-2); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 .legal { max-width: 46em; margin: var(--sp-6) 0 0; font-size: var(--fs-2); line-height: var(--lh-small); color: var(--on-cloth-2); text-wrap: balance; }
 .copyr { display: block; margin-top: var(--sp-3); color: var(--on-cloth-2); }
 
 /* 광학 중앙: 한 줄짜리 상자(표, 탭, 꼬리표, 직책, 색인)는 줄 높이 1, 위아래 여백은 0에 보정만 */
-:is(.ticket, .link, .chip, .copy, .exec-role, .gen-tab, .skip, .tag), .foot-nav a { line-height: 1; padding-top: var(--opt-stamp-t); padding-bottom: var(--opt-stamp-b); }
+:is(.ticket, .link, .chip, .copy, .exec-role, .gen-tab, .skip, .tag) { line-height: 1; padding-top: var(--opt-stamp-t); padding-bottom: var(--opt-stamp-b); }
 :is(.exec-dept-name .dept, .faq-g span) { line-height: 1; padding-top: var(--opt-ink-t); padding-bottom: var(--opt-ink-b); }
 /* 가로: 상자의 좌우 여백(--px, 표는 홈 쪽 --pl)에서 글꼴 보정만큼 잉크를 왼쪽으로 옮긴다 */
 :is(.ticket, .chip, .copy, .exec-role, .gen-tab, .skip, .tag) { padding-inline: calc(var(--pl, var(--px)) - var(--opt-stamp-x)) calc(var(--px) + var(--opt-stamp-x)); }
@@ -668,7 +644,6 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
 .sect-list .no { line-height: 1; padding-top: var(--opt-mono-t); padding-bottom: var(--opt-mono-b); }
 /* 작은 글자(--fs-2)의 상자는 화면 픽셀에 맞춰 반올림되며 1px 더 뜬다 */
 .exec-info .exec-role, .dex .chip { padding-top: calc(var(--opt-stamp-t) + 1px); }
-.foot-contact a { padding-top: 0; padding-bottom: 0; }
 /* 기기 설정에서 움직임 줄이기를 켠 사람: 도장은 처음부터 찍혀 있고 아무것도 움직이지 않는다 */
 :root[data-motion="reduce"] *, :root[data-motion="reduce"] *::before, :root[data-motion="reduce"] *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; transition-delay: 0ms !important; }
 @media print { .bar, .skip, .dlg { display: none !important; } .faq-a { grid-template-rows: 1fr !important; } .exec-gen[hidden] { display: block !important; } body { background: #fff; } }
@@ -712,6 +687,7 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
       <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -.9 1.45" result="m"/>
       <feComposite in="SourceGraphic" in2="m" operator="in"/>
     </filter>
+    <symbol id="f-us" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><g fill="#B22234"><rect y="0.0000" width="24" height="1.2308"/><rect y="2.4615" width="24" height="1.2308"/><rect y="4.9231" width="24" height="1.2308"/><rect y="7.3846" width="24" height="1.2308"/><rect y="9.8462" width="24" height="1.2308"/><rect y="12.3077" width="24" height="1.2308"/><rect y="14.7692" width="24" height="1.2308"/></g><rect width="9.6" height="8.6154" fill="#3C3B6E"/><g fill="#fff"><circle cx="0.96" cy="1.08" r=".42"/><circle cx="2.88" cy="1.08" r=".42"/><circle cx="4.80" cy="1.08" r=".42"/><circle cx="6.72" cy="1.08" r=".42"/><circle cx="8.64" cy="1.08" r=".42"/><circle cx="0.96" cy="3.24" r=".42"/><circle cx="2.88" cy="3.24" r=".42"/><circle cx="4.80" cy="3.24" r=".42"/><circle cx="6.72" cy="3.24" r=".42"/><circle cx="8.64" cy="3.24" r=".42"/><circle cx="0.96" cy="5.40" r=".42"/><circle cx="2.88" cy="5.40" r=".42"/><circle cx="4.80" cy="5.40" r=".42"/><circle cx="6.72" cy="5.40" r=".42"/><circle cx="8.64" cy="5.40" r=".42"/><circle cx="0.96" cy="7.56" r=".42"/><circle cx="2.88" cy="7.56" r=".42"/><circle cx="4.80" cy="7.56" r=".42"/><circle cx="6.72" cy="7.56" r=".42"/><circle cx="8.64" cy="7.56" r=".42"/></g></symbol>
     <symbol id="f-kr" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><path d="M7.8 8a4.2 4.2 0 0 1 8.4 0z" fill="#CD2E3A"/><path d="M7.8 8a4.2 4.2 0 0 0 8.4 0z" fill="#0047A0"/><g fill="#111"><g transform="translate(5 4.2) rotate(-33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g><g transform="translate(19 4.2) rotate(33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g><g transform="translate(5 11.8) rotate(33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g><g transform="translate(19 11.8) rotate(-33)"><rect x="-1.9" y="-1.15" width="3.8" height=".55"/><rect x="-1.9" y="-.28" width="3.8" height=".55"/><rect x="-1.9" y=".6" width="3.8" height=".55"/></g></g></symbol>
     <symbol id="f-jp" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><circle cx="12" cy="8" r="4.4" fill="#BC002D"/></symbol>
     <symbol id="f-fr" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><rect width="8" height="16" fill="#0055A4"/><rect x="16" width="8" height="16" fill="#EF4135"/></symbol>
@@ -757,9 +733,9 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
   </div>
   <div class="bar-tools">
     <div class="langs" role="group" aria-label="Language">
-      <button type="button" data-lang-set="ko" aria-pressed="true" lang="ko"><span class="code" aria-hidden="true">KO</span><span class="sr-only">한국어</span></button>
-      <button type="button" data-lang-set="en" aria-pressed="false" lang="en"><span class="code" aria-hidden="true">EN</span><span class="sr-only">English</span></button>
-      <button type="button" data-lang-set="ja" aria-pressed="false" lang="ja"><span class="code" aria-hidden="true">JA</span><span class="sr-only">日本語</span></button>
+      <button type="button" data-lang-set="ko" aria-pressed="true" lang="ko"><svg class="flag-ic" aria-hidden="true"><use href="#f-kr"/></svg><span class="sr-only">한국어</span></button>
+      <button type="button" data-lang-set="en" aria-pressed="false" lang="en"><svg class="flag-ic" aria-hidden="true"><use href="#f-us"/></svg><span class="sr-only">English</span></button>
+      <button type="button" data-lang-set="ja" aria-pressed="false" lang="ja"><svg class="flag-ic" aria-hidden="true"><use href="#f-jp"/></svg><span class="sr-only">日本語</span></button>
     </div>
     <a class="ticket white" href="#join" data-i18n="nav.join">가입하기</a>
     <button type="button" class="menu-btn" id="sectBtn" aria-expanded="false" aria-controls="sects"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg><span class="sr-only" data-i18n="nav.menu">메뉴 열기</span></button>
@@ -768,35 +744,28 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
 
 <header class="hero" id="top">
   <div class="spread">
-    <div class="cover">
-      <svg class="cover-emblem" viewBox="0 0 100 100" aria-hidden="true"><use href="#emblem-foil" width="100" height="100"/></svg>
-      <div class="cover-title">
+    <div class="passport">
+      <div class="cover">
+        <svg class="cover-emblem" viewBox="0 0 100 100" aria-hidden="true"><use href="#emblem-foil" width="100" height="100"/></svg>
+        <div class="cover-title">
         <h1><span class="sr-only" data-i18n="brand">포켓몬 센터 연세점</span><span class="cover-name" aria-hidden="true">Pokémon Center<br>Yonsei</span></h1>
         <p class="cover-kind" aria-hidden="true">Stamp Rally Book</p>
+        </div>
+        <svg class="cover-chip" viewBox="0 0 26 16" aria-hidden="true"><rect x="1" y="1" width="24" height="14" rx="2.5"/><circle cx="13" cy="8" r="4"/><path d="M1 8h8M17 8h8"/></svg>
       </div>
-      <svg class="cover-chip" viewBox="0 0 26 16" aria-hidden="true"><rect x="1" y="1" width="24" height="14" rx="2.5"/><circle cx="13" cy="8" r="4"/><path d="M1 8h8M17 8h8"/></svg>
     </div>
-    <div class="paper data">
-      <div class="bio-photo" aria-hidden="true"><span class="art art-braviary"></span></div>
-      <span class="bio-ghost art-braviary" aria-hidden="true"></span>
-      <p class="hero-sub" data-i18n="hero.sub">저마다의 방식으로 포켓몬을 즐기는 <span class="ph">연세대학교 포켓몬 동아리입니다.</span></p>
+    <div class="hero-copy">
+      <p class="hero-lead" data-i18n="hero.sub">저마다의 방식으로 포켓몬을 즐기는 <span class="ph">연세대학교 포켓몬 동아리입니다.</span></p>
       <dl class="fields">
-        <div class="field"><dt class="k"><span class="mono">Club</span></dt><dd class="v val" data-i18n="hero.local">포켓몬 센터 연세점</dd></div>
         <div class="field"><dt class="k"><span class="mono">Members</span><span class="lbl" data-i18n="about.n1.k">회원</span></dt><dd class="v val"><span data-i18n="about.n1.pre">약</span> <b>130</b><span data-i18n="about.n1.unit">명</span></dd></div>
-        <div class="field"><dt class="k"><span class="mono">Generation</span><span class="lbl" data-i18n="about.n2.k">기수</span></dt><dd class="v val"><b data-gen>8</b><span data-i18n="about.n2.unit">기</span></dd></div>
         <div class="field"><dt class="k"><span class="mono">Meetup</span><span class="lbl" data-i18n="about.n3.k">정기 모임</span></dt><dd class="v val" data-i18n="facts.r3.v">2주마다, 신촌 일대</dd></div>
         <div class="field"><dt class="k"><span class="mono">Fee</span><span class="lbl" data-i18n="facts.r1.k">회비</span></dt><dd class="v val" data-i18n="facts.r1.v">한 학기 3만 원</dd></div>
         <div class="field"><dt class="k"><span class="mono">Eligibility</span><span class="lbl" data-i18n="facts.r2.k">가입 대상</span></dt><dd class="v val" data-i18n="facts.r2.v">연세대 재학생 누구나</dd></div>
       </dl>
       <div class="hero-act">
-        <a class="ticket" href="#join"><span data-i18n="nav.join">가입하기</span></a>
+        <a class="ticket white" href="#join"><span data-i18n="nav.join">가입하기</span></a>
         <a class="link" href="https://iambin2.github.io/ypl-site/" target="_blank" rel="noopener"><span data-i18n="ypl.cta">YPL 사이트 가기</span><svg class="ic" aria-hidden="true"><use href="#i-out"/></svg></a>
       </div>
-      <p class="mrz" aria-hidden="true">P&lt;KORPOKEMON&lt;CENTER&lt;YONSEI&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>PCY202211&lt;8KOR&lt;&lt;YONSEI&lt;UNIVERSITY&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;08</p>
-    </div>
-    <div class="motto-stamp" aria-hidden="true">
-      <svg class="stamp" viewBox="0 0 240 240"><circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="7"/><circle cx="120" cy="120" r="72" fill="none" stroke="currentColor" stroke-width="2.5"/><text font-size="15" letter-spacing="1.8"><textPath href="#arc-top" startOffset="50%" text-anchor="middle">POKEMON CENTER YONSEI</textPath></text><text font-size="14" letter-spacing="3" dominant-baseline="hanging"><textPath href="#arc-bot" startOffset="50%" text-anchor="middle">YONSEI UNIVERSITY</textPath></text><circle cx="20" cy="134" r="3.5" fill="currentColor"/><circle cx="220" cy="134" r="3.5" fill="currentColor"/></svg>
-      <p data-i18n="about.quote">우리는<br>모두 친구</p>
     </div>
   </div>
 </header>
@@ -875,9 +844,11 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
   <div class="photos">
     <h3 data-i18n="act.photos">활동 사진</h3>
     <div class="photos-body">
-      <a class="film" href="https://instagram.com/pokemon_center_yonsei" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><span class="film-edge mono">PCY 400</span><span class="frame"></span><span class="frame"></span><span class="frame"></span><span class="frame"></span></a>
+      <a class="album" href="https://instagram.com/pokemon_center_yonsei" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><svg class="ic"><use href="#i-insta"/></svg><span class="mono">@pokemon_center_yonsei</span></a>
+      <div class="album-text">
       <p data-i18n="act.photos.body">정모와 배틀 대회, 행사 사진은 공식 인스타그램에 올라옵니다.</p>
       <a class="ticket" href="https://instagram.com/pokemon_center_yonsei" target="_blank" rel="noopener noreferrer"><span data-i18n="act.photos.cta">인스타그램에서 보기</span><svg class="ic" aria-hidden="true"><use href="#i-out"/></svg></a>
+      </div>
     </div>
   </div>
   <span class="folio mono" aria-hidden="true">03</span>
@@ -912,7 +883,7 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
         <p class="dex-en mono" lang="en">Rufflet</p>
         <p class="dex-cat val" data-i18n="mas.m1.cat">새끼독수리 포켓몬</p>
         <p class="types"><span class="chip type-chip type-normal" data-i18n="type.normal">노말</span><span class="chip type-chip type-flying" data-i18n="type.flying">비행</span></p>
-        <dl class="specs"><div><dt class="lbl" data-i18n="mas.ht">키</dt><dd class="val">0.5 m</dd></div><div><dt class="lbl" data-i18n="mas.wt">몸무게</dt><dd class="val">10.5 kg</dd></div></dl>
+        <dl class="specs"><div><dt class="k"><span class="mono">Height</span><span class="lbl" data-i18n="mas.ht">키</span></dt><dd class="val">0.5 m</dd></div><div><dt class="k"><span class="mono">Weight</span><span class="lbl" data-i18n="mas.wt">몸무게</span></dt><dd class="val">10.5 kg</dd></div></dl>
         <p class="dex-desc" data-i18n="mas.m1.desc">넓은 하늘을 꿈꾸는 새내기 독수리.</p>
       </div>
     </article>
@@ -925,7 +896,7 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
         <p class="dex-en mono" lang="en">Braviary</p>
         <p class="dex-cat val" data-i18n="mas.m2.cat">용맹 포켓몬</p>
         <p class="types"><span class="chip type-chip type-normal" data-i18n="type.normal">노말</span><span class="chip type-chip type-flying" data-i18n="type.flying">비행</span></p>
-        <dl class="specs"><div><dt class="lbl" data-i18n="mas.ht">키</dt><dd class="val">1.5 m</dd></div><div><dt class="lbl" data-i18n="mas.wt">몸무게</dt><dd class="val">41.0 kg</dd></div></dl>
+        <dl class="specs"><div><dt class="k"><span class="mono">Height</span><span class="lbl" data-i18n="mas.ht">키</span></dt><dd class="val">1.5 m</dd></div><div><dt class="k"><span class="mono">Weight</span><span class="lbl" data-i18n="mas.wt">몸무게</span></dt><dd class="val">41.0 kg</dd></div></dl>
         <p class="dex-desc" data-i18n="mas.m2.desc">용맹하고 정의로운 연세의 독수리.</p>
       </div>
       <svg class="stamp ink-red" style="--r:12deg" viewBox="0 0 92 92" aria-hidden="true"><circle cx="46" cy="46" r="42" fill="none" stroke="currentColor" stroke-width="4"/><text x="46" y="41" text-anchor="middle" font-size="12" letter-spacing="1.5">YONSEI</text><text x="46" y="59" text-anchor="middle" font-size="12" letter-spacing="1.5">EAGLE</text></svg>
@@ -1232,8 +1203,6 @@ const i18n = {
     'about.n1.k': '회원',
     'about.n1.pre': '약',
     'about.n1.unit': '명',
-    'about.n2.k': '기수',
-    'about.n2.unit': '기',
     'about.n3.k': '정기 모임',
     'history.title': '연혁',
     'history.t1.title': '첫걸음',
@@ -1306,7 +1275,6 @@ const i18n = {
     'meta.title': '포켓몬 센터 연세점 | Pokémon Center Yonsei',
     'brand': '포켓몬 센터 연세점',
     'nav.mascots': '마스코트',
-    'hero.local': '포켓몬 센터 연세점',
     'about.quote': '우리는<br>모두 친구',
     'ypl.tag': '배틀 대회에 나가 실력을 겨루고 동아리 최강의 트레이너에 도전하세요.',
     'facts.r1.k': '회비',
@@ -1514,8 +1482,6 @@ const i18n = {
     'about.n1.k': 'Members',
     'about.n1.pre': 'About',
     'about.n1.unit': '',
-    'about.n2.k': 'Generations',
-    'about.n2.unit': '',
     'about.n3.k': 'Meetups',
     'history.title': 'History',
     'history.t1.title': 'Where it began',
@@ -1588,7 +1554,6 @@ const i18n = {
     'meta.title': 'Pokémon Center Yonsei | Yonsei University Pokémon Club',
     'brand': 'Pokémon Center Yonsei',
     'nav.mascots': 'Mascots',
-    'hero.local': 'Yonsei University Pokémon Club',
     'about.quote': 'Gotta catch<br>’em all!',
     'ypl.tag': 'Battle it out in our tournaments and see if you have what it takes to become the club’s top trainer.',
     'facts.r1.k': 'Fee',
@@ -1796,8 +1761,6 @@ const i18n = {
     'about.n1.k': 'メンバー',
     'about.n1.pre': '約',
     'about.n1.unit': '名',
-    'about.n2.k': '期',
-    'about.n2.unit': '期',
     'about.n3.k': '定例会',
     'history.title': '沿革',
     'history.t1.title': 'はじまり',
@@ -1870,7 +1833,6 @@ const i18n = {
     'meta.title': 'ポケモンセンター延世店 | 延世大学のポケモンサークル',
     'brand': 'ポケモンセンター<wbr>延世店',
     'nav.mascots': 'マスコット',
-    'hero.local': '延世大学<wbr>ポケモンサークル',
     'about.quote': 'キミに<br>きめた！',
     'ypl.tag': '大会で腕を競い、サークル最強のトレーナーを目指そう。',
     'facts.r1.k': '会費',
@@ -2099,7 +2061,6 @@ function switchLang(lang) {
 LANG_BTNS.forEach(btn => btn.addEventListener('click', () => switchLang(btn.getAttribute('data-lang-set'))));
 
 /* 기수 숫자는 사람들 섹션의 기수 개수를 센다 */
-document.querySelectorAll('[data-gen]').forEach(el => { el.textContent = document.querySelectorAll('.gen-tab').length; });
 
 /* ==========================================================================
    색인(섹션 목록). 넓은 화면에서는 머리줄 가운데 꼬리표, 좁은 화면에서는 목차 단추가 펼친다
@@ -2143,14 +2104,9 @@ document.querySelectorAll('main > section, #top').forEach(s => spy.observe(s));
 const press = new IntersectionObserver(entries => {
   for (const en of entries) if (en.isIntersecting) { en.target.classList.add('pressed'); press.unobserve(en.target); }
 }, { threshold: .55 });
-document.querySelectorAll('.stamp:not(.welcome), .motto-stamp').forEach(el => {
-  if (el.closest('.motto-stamp') && !el.classList.contains('motto-stamp')) return;
+document.querySelectorAll('.stamp:not(.welcome)').forEach(el => {
   press.observe(el);
 });
-/* 모토 도장은 첫 화면이 그려지고 잠시 뒤에 */
-/* 활동 사진 필름: 한 학기 도장 그림 넷을 필름 원판 칸에 비춘다(같은 그림을 빌려 쓴다) */
-document.querySelectorAll('.film .frame').forEach((f, i) => { const h = document.querySelectorAll('#activities .road .stamp image')[i]?.getAttribute('href'); if (h) f.style.setProperty('--neg', `url("${h}")`); });
-setTimeout(() => document.querySelectorAll('.motto-stamp, .motto-stamp .stamp').forEach(el => el.classList.add('pressed')), 450);
 
 /* 스탬프 랠리: 쪽 번호(쪽의 끝)가 화면에 들어오면 그 쪽을 다 읽은 것. 그 쪽의 작은 도장이 쪽 번호 옆,
    머리줄 색인, 가입 쪽 랠리 카드에 같이 찍힌다. 그림은 이미 페이지에 있는 도장 그림을 빌려 쓴다(같은 이미지를 또 넣지 않는다).
@@ -2169,15 +2125,12 @@ setTimeout(() => document.querySelectorAll('.motto-stamp, .motto-stamp .stamp').
     ['faq', art('#activities', 2), 'red', -6],
   ];
   const mini = ([, href, ink, r]) => `<svg class="mini ink-${ink}" style="--r:${r}deg" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#fff"/><circle cx="20" cy="20" r="17.6" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="20" cy="20" r="14.4" fill="none" stroke="currentColor" stroke-width=".8"/><image href="${href}" x="7.5" y="7" width="25" height="25" filter="url(#tint-${ink})"/></svg>`;
-  const slots = {};
-  SECT_LINKS.forEach(a => { if (a.dataset.sect === 'join') return; const s = document.createElement('i'); s.className = 'slot'; s.setAttribute('aria-hidden', 'true'); a.append(s); slots[a.dataset.sect] = s; });
   const count = card.querySelector('.rally-n b');
   let got = 0;
   const stamp = f => {
     read.unobserve(f);
     const r = RALLY.find(x => x[0] === f.closest('section').id), svg = mini(r);
     f.insertAdjacentHTML('beforeend', svg);
-    slots[r[0]]?.insertAdjacentHTML('beforeend', svg);
     card.querySelector(`[data-for="${r[0]}"]`).insertAdjacentHTML('beforeend', svg);
     count.textContent = ++got;
     card.classList.toggle('done', got === RALLY.length);

@@ -15,26 +15,19 @@ const page = await browser.newPage({ viewport: { width: W, height: H }, deviceSc
 await page.goto(URL);
 await page.evaluateHandle('document.fonts.ready');
 await page.mouse.move(-500, -500);
-await page.waitForTimeout(1400);   /* 모토 도장이 찍히기를 기다린다(약 0.9초) */
+await page.waitForTimeout(300);
 
 await page.evaluate(() => {
-  /* 미리보기에는 머리줄이 들어갈 자리가 없다. 표지와 자료 쪽만 화면 가운데에 */
+  /* 미리보기에는 머리줄이 들어갈 자리가 없다. 덮어 둔 여권과 소개 한 줄만 화면 가운데에(작게 보이므로 자료 칸과 단추는 뺀다) */
   document.querySelector('.bar')?.remove();
   document.querySelector('main')?.remove();
+  document.querySelectorAll('.fields, .hero-act').forEach(el => el.remove());
   const hero = document.querySelector('.hero');
-  hero.style.padding = '36px 48px';
-  hero.style.minHeight = '100vh';
-  hero.style.display = 'grid';
-  hero.style.alignItems = 'center';
-  /* 미리보기는 작게 보이므로 간추린다: 왼쪽은 은박 표지 그대로, 오른쪽 자료 쪽엔 모토 도장과 기계 판독 줄만 */
-  document.querySelectorAll('.fields, .hero-sub, .hero-act').forEach(el => el.remove());
-  const data = document.querySelector('.paper.data');
-  Object.assign(data.style, { alignSelf: 'stretch', margin: '28px 0 28px calc(var(--lap) * -1)' });
-  const motto = document.querySelector('.motto-stamp');
-  Object.assign(motto.style, { left: 'auto', right: '16%', top: '20%', bottom: 'auto', width: '280px' });
-  /* 수첩이 화면보다 크면 통째로 줄여 위아래가 잘리지 않게 */
-  const spread = document.querySelector('.spread');
-  spread.style.zoom = Math.min(1, (innerHeight - 64) / spread.offsetHeight);
+  Object.assign(hero.style, { minHeight: '100vh', padding: '40px 64px' });
+  const passport = document.querySelector('.passport');
+  passport.style.setProperty('--pw', '380px');
+  document.querySelector('.hero-lead').style.fontSize = '44px';
+  document.querySelector('.spread').style.gridTemplateColumns = 'auto minmax(0, 560px)';
 });
 await page.waitForTimeout(300);
 
