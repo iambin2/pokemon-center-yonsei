@@ -664,14 +664,15 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
 /* --------------------------------------------------------------------------
    바닥글: 여권 뒤표지. 앞표지와 같은 무광 표지에 은박 엠블럼과 이름, 메뉴와 연락처, 법적 고지, 바코드와 기계 판독 줄
    -------------------------------------------------------------------------- */
-.footer { position: relative; margin-top: clamp(var(--sp-7), 7vw, var(--sp-9)); padding: clamp(var(--sp-7), 7vw, var(--sp-9)) var(--gutter) var(--sp-7); overflow: hidden; background: var(--weave), var(--cloth); background-color: var(--cloth); color: var(--on-cloth); display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--sp-6); align-content: start; padding-left: max(calc(var(--sp-4) + var(--gutter)), calc((100% - 1200px) / 2 + var(--page-pad))); padding-right: max(calc(var(--sp-4) + var(--gutter)), calc((100% - 1200px) / 2 + var(--page-pad))); }
+/* 바탕을 따로 칠하지 않는다: body의 천과 무늬가 그대로 이어져 경계가 없다 */
+.footer { position: relative; margin-top: clamp(var(--sp-7), 7vw, var(--sp-9)); padding: clamp(var(--sp-7), 7vw, var(--sp-9)) var(--gutter) var(--sp-7); overflow: hidden; color: var(--on-cloth); display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--sp-6); align-content: start; padding-left: max(calc(var(--sp-4) + var(--gutter)), calc((100% - 1200px) / 2 + var(--page-pad))); padding-right: max(calc(var(--sp-4) + var(--gutter)), calc((100% - 1200px) / 2 + var(--page-pad))); }
 .footer > * { grid-column: 2; }
 .footer > .foot-mark { grid-column: 1; grid-row: 1 / span 4; }
 @media (max-width: 640px) { .footer { grid-template-columns: minmax(0, 1fr); } .footer > *, .footer > .foot-mark { grid-column: 1; grid-row: auto; } }
 /* 앞표지의 눌러 찍은 몬스터볼과 점 호를 뒤표지에서는 좌우를 뒤집어 오른쪽 아래에 */
-.footer::before { content: ""; position: absolute; right: 0; bottom: 0; width: 520px; aspect-ratio: 88 / 125; background: var(--cover-art) 0 0 / 100% 100% no-repeat; transform: scaleX(-1); pointer-events: none; }
+.footer::before { content: ""; position: absolute; right: 0; bottom: 0; height: min(100%, 739px); aspect-ratio: 88 / 125;   /* 뒤표지 높이를 넘지 않게: 넘치면 위가 잘려 절단면이 보인다 */ background: var(--cover-art) 0 0 / 100% 100% no-repeat; transform: scaleX(-1); pointer-events: none; }
 .footer > * { position: relative; }
-@media (max-width: 640px) { .footer::before { width: 280px; } }   /* 휴대폰: 무늬가 글 뒤를 덮지 않게 오른쪽 아래 구석에만 */
+@media (max-width: 640px) { .footer::before { height: min(100%, 398px); } }   /* 휴대폰: 무늬가 글 뒤를 덮지 않게 오른쪽 아래 구석에만 */
 .foot-back { container-type: inline-size; display: grid; justify-items: start; gap: var(--sp-3); margin-top: var(--sp-6); }
 .foot-mrz { font-family: var(--f-mono); font-size: min(13px, 100cqi / 31.6);   /* 44자 한 줄(글자 크기의 31.2배)이 뒤표지 글 폭 안에 */ letter-spacing: .06em; line-height: var(--lh-small); color: var(--foil); white-space: nowrap; }
 .footer :focus-visible { outline-color: #fff; }
