@@ -249,6 +249,63 @@ const browser = await chromium.launch();
   await page.close();
 }
 
+/* 줄바꿈과 빈칸 ---------------------------------------------------- */
+/* 의미 없는 빈칸을 구조로 막는다: (1) 우표 글 줄 사이가 벌어지지 않는다, (2) 마지막 줄에 글자 하나만 남지 않는다,
+   (3) 짧은 한 문장이 최대 폭 때문에 칸이 남는데도 꺾이지 않는다. 세 언어, 넓은 화면과 휴대폰 둘 다 */
+console.log('\n[줄바꿈과 빈칸]');
+{
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  await page.goto(URL, { waitUntil: 'networkidle' });
+  const found = [];
+  for (const w of [1440, 1024, 390, 320]) {
+    await page.setViewportSize({ width: w, height: 900 });
+    for (const lang of ['ko', 'en', 'ja']) {
+      await page.evaluate((l) => setLang(l), lang);
+      await page.waitForTimeout(300);
+      const r = await page.evaluate(() => {
+        const out = [];
+        const lines = (el) => { const rg = document.createRange(); rg.selectNodeContents(el); const L = [];
+          for (const x of rg.getClientRects()) { if (x.width < 1) continue; const l = L.find((y) => Math.abs(y.top - x.top) < 4); if (l) { l.l = Math.min(l.l, x.left); l.r = Math.max(l.r, x.right); } else L.push({ top: x.top, l: x.left, r: x.right }); }
+          return L.sort((a, b) => a.top - b.top); };
+        /* (1) 모든 기수 패널의 우표마다 글 줄 사이(숨은 패널도 잠깐 펼쳐서 잰다) */
+        const hid = [...document.querySelectorAll('.exec-gen[hidden]')]; hid.forEach((g) => { g.hidden = false; });
+        for (const info of document.querySelectorAll('.exec-gen .exec-info')) {
+          const kids = [...info.children].filter((k) => k.getClientRects().length);
+          for (let i = 1; i < kids.length; i++) {
+            const gap = kids[i].getBoundingClientRect().top - kids[i - 1].getBoundingClientRect().bottom;
+            if (gap > 10) out.push(`우표 글 사이 ${Math.round(gap)}px: ${info.querySelector('.exec-name')?.textContent.trim()}`);
+          }
+        }
+        hid.forEach((g) => { g.hidden = true; });
+        /* (2) 마지막 줄 외톨이 글자 */
+        for (const el of document.querySelectorAll('main p, main h2, main h3, .faq-q-text, .hero h1, .hero p, footer p')) {
+          if (!el.getClientRects().length || el.closest('.sr-only, [hidden], dialog, .rally-slots, .rally-h, .types, .exec-badges') || el.children.length > 2) continue;
+          const t = el.textContent.trim(); if (t.length < 6) continue;
+          const L = lines(el); if (L.length < 2) continue;
+          const fs = parseFloat(getComputedStyle(el).fontSize);
+          if ((L[L.length - 1].r - L[L.length - 1].l) < fs * 1.6) out.push(`외톨이 글자: 「${t.slice(-10)}」`);
+        }
+        /* (3) 칸이 남는데 최대 폭 때문에 꺾인 한 문장 */
+        for (const el of document.querySelectorAll('main p, footer p, .hero p')) {
+          if (!el.getClientRects().length || el.closest('.sr-only, [hidden], dialog') || el.querySelector('br') || el.children.length) continue;
+          if (lines(el).length < 2) continue;
+          const c = el.cloneNode(true); Object.assign(c.style, { position: 'absolute', visibility: 'hidden', whiteSpace: 'nowrap', width: 'max-content', maxWidth: 'none' });
+          el.parentElement.appendChild(c); const one = c.getBoundingClientRect().width; c.remove();
+          const pa = el.parentElement, cs = getComputedStyle(pa);
+          const avail = pa.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+          if (one < avail - 4 && getComputedStyle(el).maxWidth !== 'none' && getComputedStyle(pa).display !== 'flex') out.push(`최대 폭 때문에 꺾임: 「${el.textContent.trim().slice(0, 16)}」`);
+        }
+        return out;
+      });
+      for (const m of r) found.push(`${w}px ${lang} ${m}`);
+    }
+  }
+  const uniq = [...new Set(found)];
+  uniq.length ? bad(`의미 없는 줄바꿈이나 빈칸 ${uniq.length}건:\n      ${uniq.slice(0, 12).join('\n      ')}`)
+              : ok('1440, 1024, 390, 320px와 세 언어에서 의미 없는 줄바꿈과 빈칸 없음');
+  await page.close();
+}
+
 await browser.close();
 
 console.log();

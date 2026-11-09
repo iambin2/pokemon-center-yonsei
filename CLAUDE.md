@@ -25,7 +25,7 @@
 
 문구는 `index.html` 안 `const i18n = { ko:{}, en:{}, ja:{} }` 사전에 있고, 마크업은 `data-i18n="키"`로 참조한다. `setLang(lang)`이 `innerHTML`을 교체한다.
 
-- **세 언어의 키 집합이 완전히 동일**해야 한다 (현재 270개 × 3).
+- **세 언어의 키 집합이 완전히 동일**해야 한다 (현재 262개 × 3).
 - **HTML에 직접 적힌 기본 텍스트 = `ko` 값**이어야 한다. 어긋나면 언어 버튼을 한 번도 누르지 않은 첫 방문자에게만 다른 문구가 보인다. 실제로 이 버그로 한국어 페이지에 마스코트 타입 칩이 영어로 떠 있었다.
 - 문구에 가운뎃점(·)을 쓰지 않는다. 나열은 쉼표나 평범한 문장으로 쓴다. (자료 칸의 영어 고정폭 이름표 CLUB, MEMBERS 등, 도장 안의 영어, 첫 화면 여권 표지의 영어(POKÉMON CENTER YONSEI 한 줄, STAMP RALLY BOOK)는 번역 대상이 아니라 디자인 요소다. 표지의 h1에는 각 언어의 동아리 이름(`brand`)이 화면 낭독기용 숨은 글자로 들어 있다. 제목 위에 영어 머리말을 다는 것은 금지다. 아래 디자인 체계 참고.)
 - 일본어는 전각 물음표(？)와 느낌표(！)를 쓰고, 학교 이름은 「延世大学」, 지명은 「シンチョン」처럼 일본어 독자가 읽는 대로 적는다. 영어에는 줄표(—)를 쓰지 않는다.
@@ -34,7 +34,7 @@
 
 문구를 하나라도 건드리면 세 언어를 모두 고친다. 번역이 필요하면 자연스러운 번역을 직접 만들고, 고유명사(포켓몬·인물)는 검색으로 공식 표기를 확인한다.
 
-키 접두사: `meta. brand. nav. hero. about. history. act. sub. ypl. mas. mem. faq. join. facts. contact. foot.`(섹션 문구), `ed. er. em* ey. eg. ec.`(임원 메타), `pn.<한글이름>`(인물), `pk.<한글포켓몬>`(포켓몬), `a11y.`(보조 문구). 대체 텍스트용 `data-i18n-aria`(마스코트 그림)와 스크립트에서만 쓰는 키(`contact.copied`)도 있다.
+키 접두사: `meta. brand. nav. hero. about. history. act. sub. ypl. mas. mem. faq. join. facts. contact. foot.`(섹션 문구), `ed. er. em* ey. eg.`(임원 메타), `pn.<한글이름>`(인물), `pk.<한글포켓몬>`(포켓몬), `a11y.`(보조 문구). 대체 텍스트용 `data-i18n-aria`(마스코트 그림)와 스크립트에서만 쓰는 키(`contact.copied`)도 있다.
 
 `facts.*`는 소개 쪽 아래 자료 칸(네 칸: 회원, 정기 모임, 회비, 가입 대상)의 회비, 가입 대상, 정기 모임 값이다. 회비나 회원 수가 바뀌면 FAQ와 함께 여기도 고친다. 회원 수는 자료 칸 MEMBERS 줄의 `<b>130</b>`에 적혀 있다(2026-11-09에 첫 화면에서 소개 쪽으로 옮겼다).
 
@@ -93,7 +93,7 @@
 - **크기와 여백의 법칙**: 글자 크기는 `--fs-1`~`--fs-10`(17px에서 1.25배씩), 여백은 `--sp-1`~`--sp-9`(8px 바탕, 1.5배씩), 자간은 `--ls-*`, 줄 간격은 `--lh-*` 토큰만 쓴다. 덩어리 안은 4~12, 같은 묶음 항목 사이는 12~24, 묶음 사이는 48. 자세한 표는 `DESIGN.md`의 Typography와 Layout.
 - **하지 말 것**: 내용 없는 자리(사진 없는 사진 자리 같은 것), 같은 사실을 여러 쪽에서 되풀이하기(회원 수, 누구나 환영 등은 한 곳에), 제목 위의 작은 머리말(kicker), 쪽 안의 상자 속 상자, 카드 격자로 섹션을 채우기, 한쪽 굵은 색 선, 3D 장면(첫 화면 여권 한 권의 CSS 3D만 예외), 라이트/다크 전환. 새 장치가 필요하면 수첩, 여권, 도장, 우표, 표에서 가져온다.
 
-**임원 목록**은 기수 고르기 탭(`.gen-tab`)과 기수 패널(`.exec-gen`)이다. 최신 기수 탭이 맨 앞에서 골라진 채 시작한다(현재 8기, 12명). 새 기수를 추가하면 탭 줄 맨 앞에 `aria-selected="true"` 탭을 넣고(직전 기수 탭은 `aria-selected="false"`와 `tabindex="-1"`), `.gens` 맨 위에 그 패널을 넣는다(직전 기수 패널에는 `hidden`). 패널 안의 부서 이름은 `<h3 class="exec-dept-name"><span class="dept" data-i18n="ed.…">`. 임원 한 명은 `<li class="exec-member"><div class="perf"><div class="exec-poke" data-poke="이름" data-fav="포켓몬"></div><div class="exec-info">…</div></div></li>`(우표 구멍을 뚫는 `.perf` 껍질을 빼먹지 말 것). 기수 표시는 기수 이름과 인원뿐이다.
+**임원 목록**은 기수 고르기 탭(`.gen-tab`)과 기수 패널(`.exec-gen`)이다. 최신 기수 탭이 맨 앞에서 골라진 채 시작한다(현재 8기). 새 기수를 추가하면 탭 줄 맨 앞에 `aria-selected="true"` 탭을 넣고(직전 기수 탭은 `aria-selected="false"`와 `tabindex="-1"`), `.gens` 맨 위에 그 패널을 넣는다(직전 기수 패널에는 `hidden`). 패널 안의 부서 이름은 `<h3 class="exec-dept-name"><span class="dept" data-i18n="ed.…">`. 임원 한 명은 `<li class="exec-member"><div class="perf"><div class="exec-poke" data-poke="이름" data-fav="포켓몬"></div><div class="exec-info">…</div></div></li>`(우표 구멍을 뚫는 `.perf` 껍질을 빼먹지 말 것). 기수 탭에는 기수 이름만 적는다(인원 수는 2026-11-09에 뺐다).
 
 ## 작업 흐름
 
@@ -117,7 +117,7 @@
 
 ```bash
 python3 scripts/check.py      # i18n 정합성 · PNG 무결성 · 태그 구조 · 크기 예산
-node scripts/verify.mjs       # 3개 국어 전환 · 탭과 아코디언 · 이미지 로드 · 콘솔 에러 · 명암비 · 모바일 오버플로 · 화면 밖으로 나간 요소(320px, 390px, 세 언어)
+node scripts/verify.mjs       # 3개 국어 전환 · 탭과 아코디언 · 이미지 로드 · 콘솔 에러 · 명암비 · 모바일 오버플로 · 화면 밖으로 나간 요소(320px, 390px, 세 언어) · 의미 없는 줄바꿈과 빈칸(1440, 1024, 390, 320px, 세 언어)
 ```
 
 또는 `npm test`로 둘 다 실행한다. 배포본은 `node scripts/build.mjs` 후 `node scripts/verify-build.mjs`(이미지 복원이 원본과 똑같은지, 첫 로딩 이미지 요청 수, 배포본에서 `verify.mjs` 재실행)로 확인한다.

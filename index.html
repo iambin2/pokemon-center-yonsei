@@ -177,7 +177,7 @@ em { font-style: normal; }
 .folio::before, .folio::after { content: ""; display: inline-block; width: var(--sp-4); height: 1px; margin: 0 var(--sp-2); vertical-align: middle; background: currentColor; opacity: .6; }
 /* 쪽 머리: 제목, 아래 소개. 쪽 머리와 본문 사이는 묶음 사이(--sp-7) */
 .page-title { font-size: clamp(var(--fs-6), 4.4vw, var(--fs-8)); line-height: var(--lh-title); letter-spacing: var(--ls-title); }
-.page-intro { margin-top: var(--sp-3); max-width: 40em; color: var(--ink-2); }
+.page-intro { margin-top: var(--sp-3); max-width: 56em; color: var(--ink-2); }
 :is(.page-intro, .hero-sub, .intro-page .more p:not(.lead), .entry p, .pass .body, .dex-desc, .faq-a p) { font-size: var(--fs-body); }
 #activities .page-intro { max-width: none; text-wrap: balance; }   /* 데스크톱 전체 화면에서 한 줄로 */
 .page-intro + .page-intro { margin-top: var(--sp-1); }
@@ -384,7 +384,7 @@ body[data-lang="en"] .intro-page h2 { font-size: clamp(var(--fs-6), 4.6vw, var(-
 .intro-page .more { display: grid; }
 .intro-page .seal { width: 128px; --r: 8deg; }
 @media (min-width: 761px) { #about .seal { position: absolute; right: var(--page-pad); bottom: calc(var(--page-pad) + var(--sp-6) - var(--sp-3)); } #about .fields { padding-right: 152px; } }   /* 자료 칸 끝에 찍은 도장 */
-.lead { font-family: var(--f-title); font-weight: 700; font-size: clamp(var(--fs-4), 2.2vw, var(--fs-5)); line-height: var(--lh-small); letter-spacing: var(--ls-title); color: var(--title); }
+.lead { text-wrap: balance; font-family: var(--f-title); font-weight: 700; font-size: clamp(var(--fs-4), 2.2vw, var(--fs-5)); line-height: var(--lh-small); letter-spacing: var(--ls-title); color: var(--title); }
 .intro-page .more p:not(.lead) { margin-top: var(--sp-4); color: var(--ink-2); max-width: 36em; }
 .intro-page .more .lead + p { margin-top: var(--sp-5); }
 @media (max-width: 760px) { .intro-page { grid-template-columns: minmax(0, 1fr); } }
@@ -417,8 +417,8 @@ body[data-lang="en"] .intro-page h2 { font-size: clamp(var(--fs-6), 4.6vw, var(-
    -------------------------------------------------------------------------- */
 .road h3, .subs h3 { font-size: var(--fs-5); }
 .subs-h { display: grid; gap: var(--sp-2); }
-.subs-h p { max-width: 38em; color: var(--ink-2); }
-.act-more { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--sp-4); max-width: 38em; margin-top: var(--sp-6); color: var(--ink-2); }
+.subs-h p { color: var(--ink-2); }
+.act-more { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--sp-4); margin-top: var(--sp-6); color: var(--ink-2); }
 .road ol { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-5); margin-top: var(--sp-5); }
 .road ol::before { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 70px; border-top: 2px dashed var(--rule); }
 .road li { position: relative; display: grid; justify-items: center; gap: var(--sp-3); text-align: center; }
@@ -442,7 +442,7 @@ body[data-lang="en"] .intro-page h2 { font-size: clamp(var(--fs-6), 4.6vw, var(-
    -------------------------------------------------------------------------- */
 .pass { display: grid; grid-template-columns: minmax(0, 1fr) 300px; overflow: hidden; }
 .pass-main { position: relative; padding: var(--page-pad) var(--page-pad) calc(var(--page-pad) + var(--sp-6)); }
-.pass .tag-line { margin-top: var(--sp-5); }
+.pass .tag-line { margin-top: var(--sp-5); text-wrap: balance; }
 .pass .body { margin-top: var(--sp-3); color: var(--ink-2); }
 .pass .ticket { margin-top: var(--sp-6); }
 .pass-stub { position: relative; display: grid; justify-items: center; align-content: center; gap: var(--sp-4); padding: var(--sp-6) var(--sp-5); border-left: 2px dashed var(--rule); background: rgba(238, 243, 250, .7); }
@@ -485,10 +485,7 @@ body[data-lang="en"] .dex-en { display: none; }
    -------------------------------------------------------------------------- */
 .gen-tabs { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-6); }
 .gen-tab { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; --px: var(--sp-4); border-radius: var(--r-2); background: var(--album); color: var(--title); font-family: var(--f-stamp); font-size: var(--fs-3); line-height: 1; letter-spacing: var(--ls-stamp); transition: background-color 200ms, color 200ms, transform 200ms var(--ease); }
-.gen-tab small { font-family: var(--f-body); font-size: var(--fs-2); line-height: 1; color: var(--ink-2); letter-spacing: 0; }
-.gen-tabs .gen-tab { flex-direction: column; align-items: flex-start; justify-content: center; gap: var(--sp-1); min-height: 56px; padding-top: calc(var(--sp-2) + var(--opt-stamp-t)); padding-bottom: var(--sp-2); }   /* 기수 이름 아래 인원 한 줄 */
 .gen-tab[aria-selected="true"] { background: var(--ink-blue); color: #fff; }
-.gen-tab[aria-selected="true"] small { color: #DCE6F8; }
 @media (hover: hover) { .gen-tab:not([aria-selected="true"]):hover { transform: translateY(-2px); } }
 @media (max-width: 640px) {
   .gen-tabs { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--page-pad) * -1); padding: var(--sp-1) var(--page-pad); scrollbar-width: none; scroll-snap-type: x proximity; scroll-padding-inline: var(--page-pad);   /* 붙는 자리를 종이 끝이 아니라 쪽 여백 안쪽으로 */
@@ -518,7 +515,7 @@ body[data-lang="en"] .dex-en { display: none; }
 @media (hover: hover) { .exec-member:hover { transform: translateY(-3px) rotate(-1deg); } }
 .exec-poke { display: grid; place-items: center; height: 104px; border-radius: 0; background: var(--well); }
 .exec-poke img { width: 78px; height: 78px; object-fit: contain; }
-.exec-info { --pt: 13px; --pb: 6px; flex: 1; display: flex; flex-direction: column; padding: var(--pt) var(--sp-1) var(--pb); }   /* 글 묶음은 위에 붙여 같은 줄 우표의 이름 높이를 맞추고, 최애는 맨 아래에 붙인다. 위아래 값은 글자 잉크를 화면에서 재어 맞춘 것 */
+.exec-info { --pt: 13px; --pb: 6px; flex: 1; display: flex; flex-direction: column; padding: var(--pt) var(--sp-1) var(--pb); }   /* 글 묶음은 위에 붙여 같은 줄 우표의 이름 높이를 맞춘다. 글 줄 사이는 늘 같은 간격. 위아래 값은 글자 잉크를 화면에서 재어 맞춘 것 */
 .exec-info > p { flex: none; }
 /* 첫 줄 위와 마지막 줄 아래의 줄 사이 여백을 잘라 글자 끝에서부터 잰다: 위 13px = 아래 6px + 안쪽 테까지 7px */
 .exec-name { text-box: trim-start cap alphabetic; }
@@ -542,9 +539,9 @@ body[data-lang="en"] .dex-en { display: none; }
 /* 일본어는 낱자 사이에서 끊지 않고 사전에 넣어 둔 <wbr>(전기전자<wbr>공학과, 이름의 ・ 뒤)에서만 끊는다 */
 body[data-lang="ja"] .exec-meta span:first-child, body[data-lang="ja"] .exec-name span:first-child { word-break: keep-all; }
 /* 영어와 일본어는 학과 이름이 길어 입학 연도를 다음 줄에 */
-body:not([data-lang="ko"]) .exec-meta span { display: block; margin-left: 0; }
+.exec-meta span { display: block; margin-left: 0; }   /* 학과 한 줄, 학번 한 줄. 세 언어, 모든 화면에서 같은 짜임 */
 .exec-meta span:nth-child(2) { white-space: nowrap; }
-.exec-fav { margin-top: auto; }
+.exec-fav { margin-top: var(--sp-1); }   /* 글 사이를 벌려 높이를 맞추지 않는다. 같은 줄 우표가 키를 맞추며 남는 높이는 우표 맨 아래로 간다 */
 .exec-fav span:first-child { color: var(--ink-red); margin-right: .3em; }
 .exec-fav span:last-child { display: inline-block; max-width: 100%; text-wrap: balance; word-break: normal; }   /* 이름표와 포켓몬 이름 사이에서만 줄이 바뀌게(Garc / homp 방지) */
 .flag { display: inline-block; width: 1.5em; height: 1em; vertical-align: -.12em; overflow: hidden; box-shadow: 0 0 0 1px rgba(0, 0, 0, .14); }
@@ -676,7 +673,7 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
 .foot-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--sp-3); border-radius: var(--r-2); font-family: var(--f-title); font-weight: 700; font-size: var(--fs-3); }   /* 머리줄 색인과 같은 글꼴 */
 @media (hover: hover) { .foot-nav a:hover { background: rgba(255, 255, 255, .1); } }
 .foot-contact a { font-family: var(--f-body); font-weight: 400; font-size: var(--fs-2); letter-spacing: 0; color: var(--on-cloth-2); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-.legal { max-width: 40em; margin: var(--sp-6) 0 0; font-size: var(--fs-2); line-height: var(--lh-small); color: var(--on-cloth-2); text-wrap: balance; }
+.legal { max-width: none; margin: var(--sp-6) 0 0; font-size: var(--fs-2); line-height: var(--lh-small); color: var(--on-cloth-2); text-wrap: balance; }
 .copyr { display: block; margin-top: var(--sp-3); color: var(--on-cloth-2); }
 
 /* 광학 중앙: 한 줄짜리 상자(표, 탭, 꼬리표, 직책, 색인)는 줄 높이 1, 위아래 여백은 0에 보정만 */
@@ -950,14 +947,14 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
   <h2 class="page-title" id="mem-t" data-i18n="mem.title">함께하는 사람들</h2>
   <p class="page-intro" data-i18n="mem.intro">학기마다 새 기수가 동아리를 이어 갑니다. 지금까지 8기의 임원진이 동아리를 이끌어 왔습니다.</p>
 <div class="gen-tabs" role="tablist" aria-labelledby="mem-t">
-      <button type="button" role="tab" class="gen-tab" id="gen-tab-8" aria-controls="gen-panel-8" aria-selected="true"><span data-i18n="eg.8">8기</span><small data-i18n="ec.8">12명</small></button>
-      <button type="button" role="tab" class="gen-tab" id="gen-tab-7" aria-controls="gen-panel-7" aria-selected="false" tabindex="-1"><span data-i18n="eg.7">7기</span><small data-i18n="ec.7">8명</small></button>
-      <button type="button" role="tab" class="gen-tab" id="gen-tab-6" aria-controls="gen-panel-6" aria-selected="false" tabindex="-1"><span data-i18n="eg.6">6기</span><small data-i18n="ec.6">15명</small></button>
-      <button type="button" role="tab" class="gen-tab" id="gen-tab-5" aria-controls="gen-panel-5" aria-selected="false" tabindex="-1"><span data-i18n="eg.5">5기</span><small data-i18n="ec.5">16명</small></button>
-      <button type="button" role="tab" class="gen-tab" id="gen-tab-4" aria-controls="gen-panel-4" aria-selected="false" tabindex="-1"><span data-i18n="eg.4">4기</span><small data-i18n="ec.4">18명</small></button>
-      <button type="button" role="tab" class="gen-tab" id="gen-tab-3" aria-controls="gen-panel-3" aria-selected="false" tabindex="-1"><span data-i18n="eg.3">3기</span><small data-i18n="ec.3">17명</small></button>
-      <button type="button" role="tab" class="gen-tab" id="gen-tab-2" aria-controls="gen-panel-2" aria-selected="false" tabindex="-1"><span data-i18n="eg.2">2기</span><small data-i18n="ec.2">6명</small></button>
-      <button type="button" role="tab" class="gen-tab" id="gen-tab-1" aria-controls="gen-panel-1" aria-selected="false" tabindex="-1"><span data-i18n="eg.1">1기</span><small data-i18n="ec.1">1명</small></button>
+      <button type="button" role="tab" class="gen-tab" id="gen-tab-8" aria-controls="gen-panel-8" aria-selected="true"><span data-i18n="eg.8">8기</span></button>
+      <button type="button" role="tab" class="gen-tab" id="gen-tab-7" aria-controls="gen-panel-7" aria-selected="false" tabindex="-1"><span data-i18n="eg.7">7기</span></button>
+      <button type="button" role="tab" class="gen-tab" id="gen-tab-6" aria-controls="gen-panel-6" aria-selected="false" tabindex="-1"><span data-i18n="eg.6">6기</span></button>
+      <button type="button" role="tab" class="gen-tab" id="gen-tab-5" aria-controls="gen-panel-5" aria-selected="false" tabindex="-1"><span data-i18n="eg.5">5기</span></button>
+      <button type="button" role="tab" class="gen-tab" id="gen-tab-4" aria-controls="gen-panel-4" aria-selected="false" tabindex="-1"><span data-i18n="eg.4">4기</span></button>
+      <button type="button" role="tab" class="gen-tab" id="gen-tab-3" aria-controls="gen-panel-3" aria-selected="false" tabindex="-1"><span data-i18n="eg.3">3기</span></button>
+      <button type="button" role="tab" class="gen-tab" id="gen-tab-2" aria-controls="gen-panel-2" aria-selected="false" tabindex="-1"><span data-i18n="eg.2">2기</span></button>
+      <button type="button" role="tab" class="gen-tab" id="gen-tab-1" aria-controls="gen-panel-1" aria-selected="false" tabindex="-1"><span data-i18n="eg.1">1기</span></button>
     </div>
 <div class="gens">
 <div class="exec-gen" id="gen-panel-8" role="tabpanel" aria-labelledby="gen-tab-8" tabindex="0">
@@ -1212,7 +1209,7 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
   <div class="foot-nav foot-contact">
     <a href="mailto:pokeyonsei@gmail.com">pokeyonsei@gmail.com</a><a href="https://instagram.com/pokemon_center_yonsei" target="_blank" rel="noopener noreferrer">@pokemon_center_yonsei</a><a href="https://iambin2.github.io/ypl-site/" target="_blank" rel="noopener noreferrer">Yonsei Pokémon League</a>
   </div>
-  <p class="legal" data-i18n="foot.legal">포켓몬스터와 Pokémon은 Nintendo, Creatures, GAME FREAK의 등록 상표입니다. 포켓몬 센터 연세점은 The Pokémon Company와 관계가 없는 학생 동아리입니다.</p>
+  <p class="legal" data-i18n="foot.legal">포켓몬스터와 Pokémon은 Nintendo, Creatures, GAME FREAK의 등록 상표입니다.<br>포켓몬 센터 연세점은 The Pokémon Company와 관계가 없는 학생 동아리입니다.</p>
   <span class="copyr mono">© 2023–2026 Pokémon Center Yonsei</span>
   <div class="foot-back" aria-hidden="true"><p class="foot-mrz">PCY&lt;&lt;YONSEI&lt;UNIVERSITY&lt;&lt;SEOUL&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p></div>
 </footer>
@@ -1302,7 +1299,7 @@ const i18n = {
     'contact.copy': '주소 복사',
     'contact.copied': '복사했습니다',
     'foot.desc': '연세대학교 포켓몬 동아리. 우리는 모두 친구.',
-    'foot.legal': '포켓몬스터와 Pokémon은 Nintendo, Creatures, GAME FREAK의 등록 상표입니다. 포켓몬 센터 연세점은 The Pokémon Company와 관계가 없는 학생 동아리입니다.',
+    'foot.legal': '포켓몬스터와 Pokémon은 Nintendo, Creatures, GAME FREAK의 등록 상표입니다.<br>포켓몬 센터 연세점은 The Pokémon Company와 관계가 없는 학생 동아리입니다.',
     'meta.title': '포켓몬 센터 연세점 | Pokémon Center Yonsei',
     'brand': '포켓몬 센터 연세점',
     'nav.mascots': '마스코트',
@@ -1314,7 +1311,6 @@ const i18n = {
     'facts.r2.v': '연세대생 누구나',
     'facts.r3.v': '2주마다, 신촌 일대',
     'eg.8': '8기',
-    'ec.8': '12명',
     'ey.26': '26학번',
     'em27': '의류환경학과',
     'em28': '행정학과',
@@ -1385,13 +1381,6 @@ const i18n = {
     'eg.5': '5기',
     'eg.6': '6기',
     'eg.7': '7기',
-    'ec.1': '1명',
-    'ec.2': '6명',
-    'ec.3': '17명',
-    'ec.4': '18명',
-    'ec.5': '16명',
-    'ec.6': '15명',
-    'ec.7': '8명',
     'faq.q1': '혼자 가입해도 괜찮을까요?',
     'faq.a1': '그럼요. 모든 트레이너의 여정은 혼자서 시작됩니다.',
     'faq.q2': '포켓몬 게임이 없어도 활동할 수 있나요?',
@@ -1574,19 +1563,18 @@ const i18n = {
     'contact.copy': 'Copy address',
     'contact.copied': 'Copied',
     'foot.desc': 'Yonsei University’s Pokémon club.',
-    'foot.legal': 'Pokémon is a registered trademark of Nintendo, Creatures and GAME FREAK. Pokémon Center Yonsei is a student club and is not affiliated with The Pokémon Company.',
+    'foot.legal': 'Pokémon is a registered trademark of Nintendo, Creatures and GAME FREAK.<br>Pokémon Center Yonsei is a student club and is not affiliated with The Pokémon Company.',
     'meta.title': 'Pokémon Center Yonsei | Yonsei University Pokémon Club',
     'brand': 'Pokémon Center Yonsei',
     'nav.mascots': 'Mascots',
     'about.quote': 'Gotta catch<br>’em all!',
     'ypl.tag': 'Battle it out in our tournaments and see if you have what it takes to become the club’s top trainer.',
     'facts.r1.k': 'Fee',
-    'facts.r1.v': '₩30,000 / semester',
+    'facts.r1.v': '₩30,000&nbsp;/ semester',
     'facts.r2.k': 'Who can join',
     'facts.r2.v': 'Any Yonsei student',
     'facts.r3.v': 'Every other week, around Sinchon',
     'eg.8': 'Gen 8',
-    'ec.8': '12 members',
     'ey.26': 'Class of 2026',
     'em27': 'Clothing & Textiles',
     'em28': 'Public Admin.',
@@ -1657,13 +1645,6 @@ const i18n = {
     'eg.5': 'Gen 5',
     'eg.6': 'Gen 6',
     'eg.7': 'Gen 7',
-    'ec.1': '1 member',
-    'ec.2': '6 members',
-    'ec.3': '17 members',
-    'ec.4': '18 members',
-    'ec.5': '16 members',
-    'ec.6': '15 members',
-    'ec.7': '8 members',
     'faq.q1': 'Is it okay to join on my own?',
     'faq.a1': 'Absolutely. Every trainer’s journey starts solo.',
     'faq.q2': 'Do I need to own a Pokémon game?',
@@ -1846,7 +1827,7 @@ const i18n = {
     'contact.copy': 'アドレスをコピー',
     'contact.copied': 'コピーしました',
     'foot.desc': '延世大学のポケモンサークル。',
-    'foot.legal': 'ポケットモンスターおよびPokémonは任天堂、クリーチャーズ、ゲームフリークの登録商標です。ポケモンセンター延世店はThe Pokémon Companyとは関係のない学生サークルです。',
+    'foot.legal': 'ポケットモンスターおよびPokémonは任天堂、クリーチャーズ、ゲームフリークの登録商標です。<br>ポケモンセンター延世店はThe Pokémon Companyとは関係のない学生サークルです。',
     'meta.title': 'ポケモンセンター延世店 | 延世大学のポケモンサークル',
     'brand': 'ポケモンセンター<wbr>延世店',
     'nav.mascots': 'マスコット',
@@ -1858,7 +1839,6 @@ const i18n = {
     'facts.r2.v': '延世大学の学生',
     'facts.r3.v': '隔週、シンチョン周辺',
     'eg.8': '8期',
-    'ec.8': '12名',
     'ey.26': '26年入学',
     'em27': '衣類環境<wbr>学科',
     'em28': '行政学科',
@@ -1929,13 +1909,6 @@ const i18n = {
     'eg.5': '5期',
     'eg.6': '6期',
     'eg.7': '7期',
-    'ec.1': '1名',
-    'ec.2': '6名',
-    'ec.3': '17名',
-    'ec.4': '18名',
-    'ec.5': '16名',
-    'ec.6': '15名',
-    'ec.7': '8名',
     'faq.q1': '一人で入っても大丈夫ですか？',
     'faq.a1': '大丈夫です。どんなトレーナーの旅も、最初は一人から始まります。',
     'faq.q2': 'ポケモンのゲームを持っていなくても参加できますか？',
