@@ -234,7 +234,7 @@ em { font-style: normal; }
    -------------------------------------------------------------------------- */
 .bar { position: fixed; z-index: 60; inset: 0 0 auto; height: var(--bar-h); display: flex; align-items: center; gap: var(--sp-4); padding: 0 var(--gutter); background: var(--cloth-deep); box-shadow: 0 1px 0 rgba(255, 255, 255, .08), 0 8px 24px -12px rgba(0, 0, 0, .6); color: #fff; }
 .brand { display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-3); min-width: 44px; min-height: 44px; flex: none; }
-.brand svg { width: 32px; height: 32px; }
+.brand svg { width: 32px; height: 32px; color: var(--foil); }
 .brand b { font-family: 'Hahmlet', serif; font-weight: 800; font-size: var(--fs-2); letter-spacing: .06em; }
 .sects { flex: 1; min-width: 0; display: flex; justify-content: center; }
 .sect-list { display: flex; gap: var(--sp-1); }
@@ -758,7 +758,7 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
 <a class="skip" href="#main" data-i18n="a11y.skip">본문으로 건너뛰기</a>
 
 <header class="bar" id="bar">
-  <a class="brand" href="#top"><svg aria-hidden="true"><use href="#emblem"/></svg><b>POKÉMON CENTER YONSEI</b><span class="sr-only" data-i18n="brand">포켓몬 센터 연세점</span></a>
+  <a class="brand" href="#top"><svg aria-hidden="true"><use href="#emblem-foil"/></svg><b>POKÉMON CENTER YONSEI</b><span class="sr-only" data-i18n="brand">포켓몬 센터 연세점</span></a>
   <div class="sects" id="sects">
     <nav aria-label="Menu">
       <ol class="sect-list">
