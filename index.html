@@ -296,20 +296,29 @@ body:not([data-lang="en"]) [data-i18n="nav.faq"] { font-size: .88em; }   /* 라�
 .spread { display: grid; grid-template-columns: auto minmax(0, 36rem); justify-content: center; align-items: center; gap: clamp(var(--sp-7), 7vw, var(--sp-9)); width: min(1200px, 100%); margin: 0 auto; }
 .passport { --pw: clamp(200px, calc((100svh - var(--bar-h) - 180px) * .704), 400px); position: relative; width: var(--pw); aspect-ratio: 88 / 125; container-type: inline-size; perspective: 2200px; }   /* 먼 시점: 원근이 과장되면 도형을 돌린 것처럼 보인다 */
 /* 진짜 책 한 권: 앞표지, 뒤표지, 두께(오른쪽과 아래의 종이 단면)를 3D로 세우고 살짝 기울여 놓는다. 표지와 단면의 모든 치수는 여권 폭(cqi) 기준 */
-.book { --T: 11cqi; position: absolute; inset: 0; transform-style: preserve-3d;
-  transform: translateY(-1.5cqi) rotateX(10deg) rotateY(-25deg) rotateZ(-4deg); will-change: transform; }
-/* 천 위에 살짝 떠서 천천히 숨 쉬듯 흔들린다: 위아래 몇 px, 좌우로 2도 안쪽. 그림자는 책이 오를 때 옅고 넓어진다(움직임 줄이기에서는 멈춤) */
-:root[data-motion="full"] .book { animation: drift 8s ease-in-out infinite; }
-:root[data-motion="full"] .passport::before { animation: drift-shadow 8s ease-in-out infinite; }
-:root[data-motion="full"] .passport::after { animation: drift-shadow-far 8s ease-in-out infinite; }
-@keyframes drift {
-  0%, 100% { transform: translateY(-1.5cqi) rotateX(10deg) rotateY(-25deg) rotateZ(-4deg); }
-  25% { transform: translateY(-4.5cqi) rotateX(8.5deg) rotateY(-21deg) rotateZ(-2.8deg); }
-  50% { transform: translateY(-6cqi) rotateX(11deg) rotateY(-23.5deg) rotateZ(-3.6deg); }
-  75% { transform: translateY(-3.5cqi) rotateX(12deg) rotateY(-29deg) rotateZ(-5.2deg); }
-}
-@keyframes drift-shadow { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: .55; scale: .93; } }
-@keyframes drift-shadow-far { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: .8; scale: 1.08; } }
+/* 무중력 표류: 높이, 앞뒤 기울기, 좌우 돌림, 비틀림, 옆 밀림을 저마다 다른 주기(서로 나누어떨어지지 않는 초)로 따로 흔든다.
+   축마다 한 방향으로 천천히 갔다 돌아오는 단순한 물결이지만, 주기가 어긋나 합쳐진 움직임은 몇 시간이 지나도 같은 자세로 돌아오지 않는다.
+   축마다 시작 지점도 다르게(음수 지연) 두어 처음부터 정해진 길을 도는 느낌이 없다. 값은 @property로 등록해야 부드럽게 이어진다 */
+@property --ty { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --tx { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --rx { syntax: "<angle>"; inherits: false; initial-value: 10deg; }
+@property --ry { syntax: "<angle>"; inherits: false; initial-value: -25deg; }
+@property --rz { syntax: "<angle>"; inherits: false; initial-value: -4deg; }
+.book { --T: 11cqi; --ty: -1.5cqi; position: absolute; inset: 0; transform-style: preserve-3d;
+  transform: translate3d(var(--tx), var(--ty), 0) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz)); will-change: transform; }
+/* 그림자는 높이와 같은 주기로 묶여 책이 오를 때 옅고 넓어진다(움직임 줄이기에서는 멈춤) */
+:root[data-motion="full"] .book { animation: f-ty 3.7s -1.1s var(--float) infinite alternate, f-tx 9.3s -4.2s var(--float) infinite alternate,
+  f-rx 5.3s -2.9s var(--float) infinite alternate, f-ry 7.9s -6.1s var(--float) infinite alternate, f-rz 6.7s -0.8s var(--float) infinite alternate; }
+:root[data-motion="full"] .passport::before { animation: drift-shadow 3.7s -1.1s var(--float) infinite alternate; }
+:root[data-motion="full"] .passport::after { animation: drift-shadow-far 3.7s -1.1s var(--float) infinite alternate; }
+.passport { --float: cubic-bezier(.37, 0, .63, 1); }   /* 사인 곡선에 가까운 오감: 끝에서 멈칫하지 않고 미끄러지듯 돈다 */
+@keyframes f-ty { from { --ty: -1.5cqi; } to { --ty: -6cqi; } }
+@keyframes f-tx { from { --tx: -1.2cqi; } to { --tx: 1.2cqi; } }
+@keyframes f-rx { from { --rx: 7.5deg; } to { --rx: 12.5deg; } }
+@keyframes f-ry { from { --ry: -30deg; } to { --ry: -20deg; } }
+@keyframes f-rz { from { --rz: -5.8deg; } to { --rz: -2.4deg; } }
+@keyframes drift-shadow { from { opacity: 1; scale: 1; } to { opacity: .55; scale: .93; } }
+@keyframes drift-shadow-far { from { opacity: 1; scale: 1; } to { opacity: .8; scale: 1.08; } }
 .book > * { position: absolute; }
 /* 두께: 표지와 같은 둥근 모양의 얇은 장 30장을 일정한 간격으로 겹친다(여권 폭의 11%). 단면을 따로 붙인 면이 아니라 쌓인 장이라 모서리까지 끊김 없이 둥글다.
    빛은 왼쪽 위에서 오므로 오른쪽 종이 단면은 그늘진 회청색이다(하얗게 빛나면 도형처럼 보인다). 장마다 짙기를 번갈아 종이 결이 보이고,
