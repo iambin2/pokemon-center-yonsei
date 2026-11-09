@@ -293,7 +293,7 @@ body:not([data-lang="en"]) [data-i18n="nav.faq"] { font-size: .88em; }   /* 라�
    글 길이가 언어마다 달라도 여권의 크기와 자리는 바뀌지 않는다
    -------------------------------------------------------------------------- */
 .hero { min-height: 100svh; display: grid; align-items: center; padding: calc(var(--bar-h) + var(--sp-7)) var(--gutter) var(--sp-8); }
-.spread { display: grid; grid-template-columns: auto minmax(0, 30rem); justify-content: center; align-items: center; gap: clamp(var(--sp-7), 7vw, var(--sp-9)); width: min(1200px, 100%); margin: 0 auto; }
+.spread { display: grid; grid-template-columns: auto minmax(0, 36rem); justify-content: center; align-items: center; gap: clamp(var(--sp-7), 7vw, var(--sp-9)); width: min(1200px, 100%); margin: 0 auto; }
 .passport { --pw: clamp(200px, calc((100svh - var(--bar-h) - 180px) * .704), 400px); position: relative; width: var(--pw); aspect-ratio: 88 / 125; container-type: inline-size; perspective: 1400px; }
 /* 진짜 책 한 권: 앞표지, 뒤표지, 두께(오른쪽과 아래의 종이 단면)를 3D로 세우고 살짝 기울여 놓는다. 표지와 단면의 모든 치수는 여권 폭(cqi) 기준 */
 .book { --T: 6.5cqi; position: absolute; inset: 0; transform-style: preserve-3d;
@@ -339,31 +339,35 @@ body:not([data-lang="en"]) [data-i18n="nav.faq"] { font-size: .88em; }   /* 라�
 .cover-emblem { justify-self: end; width: 27cqi; margin: -1.1cqi -1.1cqi -1.1cqi 0; }
 .cover-title { display: grid; justify-items: end; margin-top: 6.5cqi; text-align: right; }
 /* 표지 글은 영어로만(여권처럼). 번역하지 않는 디자인 요소이고, 화면 낭독기는 숨은 제목(각 언어의 동아리 이름)을 읽는다 */
-.cover h1 { color: var(--foil); font-family: 'Hahmlet', serif; font-weight: 700; font-size: 7cqi; line-height: 1.12; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; text-box: trim-start cap alphabetic; text-shadow: 0 -.22cqi 0 rgba(0, 8, 30, .55), 0 .22cqi 0 rgba(255, 255, 255, .14); }
+.cover .cover-h { color: var(--foil); font-family: 'Hahmlet', serif; font-weight: 700; font-size: 4.6cqi; line-height: 1.12; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; text-box: trim-start cap alphabetic; text-shadow: 0 -.22cqi 0 rgba(0, 8, 30, .55), 0 .22cqi 0 rgba(255, 255, 255, .14); }
 .cover-kind { margin-top: 3.4cqi; font-family: 'Hahmlet', serif; font-weight: 700; font-size: 3.4cqi; line-height: var(--lh-small); letter-spacing: .1em; text-transform: uppercase; color: var(--foil); text-shadow: 0 -.18cqi 0 rgba(0, 8, 30, .55), 0 .18cqi 0 rgba(255, 255, 255, .14); }
 .cover-chip { grid-row: 4; justify-self: end; width: 12cqi; fill: none; stroke: var(--foil); stroke-width: 1.5; }
 /* 핵심 글: 천 위에 바로. 소개 한 줄, 자료 네 칸(여권 자료 칸의 말투), 가입 표와 리그 링크 */
-.hero-lead { font-family: var(--f-title); font-weight: 700; font-size: clamp(var(--fs-5), 2.6vw, var(--fs-6)); line-height: var(--lh-title); letter-spacing: var(--ls-title); color: var(--on-cloth); text-wrap: balance; }
-.hero-lead .ph { display: inline-block; }
-@media (max-width: 560px) { .hero-lead .ph { display: inline; } }
-.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-5); margin-top: var(--sp-7); }
-.field { display: grid; align-content: start; gap: var(--sp-2); padding-top: var(--sp-3); border-top: 1px dashed rgba(201, 216, 240, .45); }
-.field .k { display: flex; align-items: baseline; gap: var(--sp-2); }
-.field .k :is(.mono, .lbl) { color: var(--on-cloth-2); }
+/* 첫 화면 글: 동아리 이름 하나, 한 줄, 가입 표. 설명은 여권이 대신하고 자료는 소개 쪽(여권의 신원 정보면)에 둔다 */
+.hero-title { white-space: nowrap; font-size: min(var(--fs-9), 12.4cqi); line-height: var(--lh-display); letter-spacing: var(--ls-display); color: var(--on-cloth); text-wrap: balance; }
+body[data-lang="en"] .hero-title { font-size: min(var(--fs-9), 8cqi); }
+.hero-copy { container-type: inline-size; }
+body[data-lang="ja"] .hero-title { font-size: min(var(--fs-9), 8.6cqi); }   /* 이름은 세 언어 모두 한 줄. 글자 크기가 글 칸 폭(cqi)에 맞춰 줄어든다 */
+.hero-lead { margin-top: var(--sp-4); font-size: var(--fs-4); line-height: var(--lh-title); color: var(--on-cloth-2); text-wrap: balance; }
+/* 자료 칸: 소개 쪽 아래 네 칸(여권의 신원 정보면 말투). 고정폭 영어 이름표와 한글 이름표, 값 */
+.fields { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-5); }
+.field { display: grid; align-content: start; gap: var(--sp-2); padding-top: var(--sp-3); border-top: 2px dashed var(--rule); }
+.field .k { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--sp-2); }
+.field .k :is(.mono, .lbl) { color: var(--label); }
 body[data-lang="en"] .k .lbl { display: none; }   /* 영어에서는 MEMBERS 옆 Members처럼 같은 말이 되풀이된다 */
-.field .v { font-size: var(--fs-4); color: var(--on-cloth); text-wrap: balance; }
+.field .v { font-size: var(--fs-4); color: var(--title); text-wrap: balance; }
 .field .v b { font-weight: inherit; }
-.hero-act { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-5); margin-top: var(--sp-6); }
+@media (max-width: 860px) { .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-5) var(--sp-4); } }
+.hero-act { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-5); margin-top: var(--sp-7); }
 .hero .link { color: var(--on-cloth); }
 /* 세로로 긴 좁은 화면(휴대폰, 세운 태블릿)만 여권 아래로 글을 쌓는다. 눕힌 휴대폰은 데스크톱처럼 나란히 */
 @media (max-width: 899px) and (orientation: portrait) {
   .hero { min-height: 0; padding-top: calc(var(--bar-h) + var(--sp-5)); }
   .spread { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: var(--sp-6); }
-  .passport { --pw: clamp(160px, min(46vw, calc((100svh - var(--bar-h) - 170px) * .44)), 260px); }   /* 첫 화면 안에 소개 한 줄과 가입 표까지 들어오게 */
-  .hero-copy { width: 100%; max-width: 30rem; }
-  .fields { margin-top: var(--sp-6); }
+  .passport { --pw: clamp(180px, min(62vw, calc((100svh - var(--bar-h) - 330px) * .704)), 300px); }   /* 첫 화면 안에 이름, 한 줄, 가입 표까지 들어오게 */
+  .hero-copy { width: 100%; max-width: 36rem; text-align: center; }
+  .hero-act { justify-content: center; margin-top: var(--sp-6); }
 }
-@media (max-width: 420px) { .fields { gap: var(--sp-4) var(--sp-3); } }
 
 /* --------------------------------------------------------------------------
    소개: 첫 장. 왼쪽 큰 모토, 오른쪽 첫 문단과 이어지는 글
@@ -781,7 +785,7 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
       <div class="cover">
         <svg class="cover-emblem" viewBox="0 0 100 100" aria-hidden="true"><use href="#emblem-foil" width="100" height="100"/></svg>
         <div class="cover-title">
-        <h1><span class="sr-only" data-i18n="brand">포켓몬 센터 연세점</span><span class="cover-name" aria-hidden="true">Pokémon Center<br>Yonsei</span></h1>
+        <p class="cover-h" aria-hidden="true">Pokémon Center Yonsei</p>
         <p class="cover-kind" aria-hidden="true">Stamp Rally Book</p>
         </div>
         <svg class="cover-chip" viewBox="0 0 26 16" aria-hidden="true"><rect x="1" y="1" width="24" height="14" rx="2.5"/><circle cx="13" cy="8" r="4"/><path d="M1 8h8M17 8h8"/></svg>
@@ -789,13 +793,8 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
       </div>
     </div>
     <div class="hero-copy">
-      <p class="hero-lead" data-i18n="hero.sub"><span class="ph">포켓몬 센터 연세점은</span> 저마다의 방식으로 포켓몬을 즐기는 <span class="ph">연세대학교 동아리입니다.</span></p>
-      <dl class="fields">
-        <div class="field"><dt class="k"><span class="mono">Members</span><span class="lbl" data-i18n="about.n1.k">회원</span></dt><dd class="v val"><span data-i18n="about.n1.pre">약</span> <b>130</b><span data-i18n="about.n1.unit">명</span></dd></div>
-        <div class="field"><dt class="k"><span class="mono">Meetup</span><span class="lbl" data-i18n="about.n3.k">정기 모임</span></dt><dd class="v val" data-i18n="facts.r3.v">2주마다, 신촌 일대</dd></div>
-        <div class="field"><dt class="k"><span class="mono">Fee</span><span class="lbl" data-i18n="facts.r1.k">회비</span></dt><dd class="v val" data-i18n="facts.r1.v">한 학기 3만 원</dd></div>
-        <div class="field"><dt class="k"><span class="mono">Eligibility</span><span class="lbl" data-i18n="facts.r2.k">가입 대상</span></dt><dd class="v val" data-i18n="facts.r2.v">연세대 재학생 누구나</dd></div>
-      </dl>
+      <h1 class="hero-title" data-i18n="brand">포켓몬 센터 연세점</h1>
+      <p class="hero-lead" data-i18n="hero.sub">저마다의 방식으로 포켓몬을 즐기는 연세대학교 동아리</p>
       <div class="hero-act">
         <a class="ticket white big" href="#join"><span data-i18n="nav.join">가입하기</span></a>
       </div>
@@ -812,10 +811,16 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
     </div>
     <div class="more">
       <p class="lead" data-i18n="about.p1">포켓몬을 좋아하는 사람들이 모여 각자의 즐거움을 나누는 곳입니다.</p>
-      <p data-i18n="about.p2">2022년 카카오톡 오픈채팅방에서 시작해 2023년 정식 동아리가 되었습니다. 지금은 연세대학교 총동아리연합회 공인 일반동아리로, 약 130명의 회원과 함께 학기마다 새 기수를 맞이하고 있습니다.</p>
+      <p data-i18n="about.p2">2022년 카카오톡 오픈채팅방에서 시작해 2023년 정식 동아리가 되었습니다. 지금은 연세대학교 총동아리연합회 공인 일반동아리로, 학기마다 새 기수를 맞이하고 있습니다.</p>
       <svg class="stamp ink-green seal" style="--r:8deg" viewBox="0 0 160 160" aria-hidden="true"><clipPath id="sc11"><rect x="14" y="14" width="132" height="132" rx="16"/></clipPath><rect x="5" y="5" width="150" height="150" rx="24" fill="none" stroke="currentColor" stroke-width="5.5"/><rect x="14" y="14" width="132" height="132" rx="16" fill="none" stroke="currentColor" stroke-width="1.6"/><g clip-path="url(#sc11)" opacity=".4"><path d="M0 9L9 0M0 18L18 0M0 27L27 0M0 36L36 0M0 45L45 0M0 54L54 0M0 63L63 0M0 72L72 0M0 81L81 0M0 90L90 0M0 99L99 0M0 108L108 0M0 117L117 0M0 126L126 0M0 135L135 0M0 144L144 0M0 153L153 0M2 160L160 2M11 160L160 11M20 160L160 20M29 160L160 29M38 160L160 38M47 160L160 47M56 160L160 56M65 160L160 65M74 160L160 74M83 160L160 83M92 160L160 92M101 160L160 101M110 160L160 110M119 160L160 119M128 160L160 128M137 160L160 137M146 160L160 146M155 160L160 155" stroke="currentColor" stroke-width="1.6" fill="none"/></g><image href="data:image/webp;base64,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" x="25" y="12" width="110" height="110" filter="url(#tint-green)"/><polygon class="band" points="6,114 154,114 146,128 154,142 6,142 14,128"/><text class="band-t" x="79.5" y="134.7" text-anchor="middle" font-size="17" letter-spacing="1">SINCE 2022</text></svg>
     </div>
   </div>
+      <dl class="fields page-body">
+        <div class="field"><dt class="k"><span class="mono">Members</span><span class="lbl" data-i18n="about.n1.k">회원</span></dt><dd class="v val"><span data-i18n="about.n1.pre">약</span> <b>130</b><span data-i18n="about.n1.unit">명</span></dd></div>
+        <div class="field"><dt class="k"><span class="mono">Meetup</span><span class="lbl" data-i18n="about.n3.k">정기 모임</span></dt><dd class="v val" data-i18n="facts.r3.v">2주마다, 신촌 일대</dd></div>
+        <div class="field"><dt class="k"><span class="mono">Fee</span><span class="lbl" data-i18n="facts.r1.k">회비</span></dt><dd class="v val" data-i18n="facts.r1.v">한 학기 3만 원</dd></div>
+        <div class="field"><dt class="k"><span class="mono">Eligibility</span><span class="lbl" data-i18n="facts.r2.k">가입 대상</span></dt><dd class="v val" data-i18n="facts.r2.v">연세대 재학생 누구나</dd></div>
+      </dl>
   <span class="folio mono" aria-hidden="true">01</span>
 </section>
 
@@ -1213,9 +1218,9 @@ const i18n = {
     'nav.menu': '메뉴 열기',
     'a11y.skip': '본문으로 건너뛰기',
     'a11y.close': '닫기',
-    'hero.sub': '<span class="ph">포켓몬 센터 연세점은</span> 저마다의 방식으로 포켓몬을 즐기는 <span class="ph">연세대학교 동아리입니다.</span>',
+    'hero.sub': '저마다의 방식으로 포켓몬을 즐기는 연세대학교 동아리',
     'about.p1': '포켓몬을 좋아하는 사람들이 모여 각자의 즐거움을 나누는 곳입니다.',
-    'about.p2': '2022년 카카오톡 오픈채팅방에서 시작해 2023년 정식 동아리가 되었습니다. 지금은 연세대학교 총동아리연합회 공인 일반동아리로, 약 130명의 회원과 함께 학기마다 새 기수를 맞이하고 있습니다.',
+    'about.p2': '2022년 카카오톡 오픈채팅방에서 시작해 2023년 정식 동아리가 되었습니다. 지금은 연세대학교 총동아리연합회 공인 일반동아리로, 학기마다 새 기수를 맞이하고 있습니다.',
     'about.n1.k': '회원',
     'about.n1.pre': '약',
     'about.n1.unit': '명',
@@ -1485,9 +1490,9 @@ const i18n = {
     'nav.menu': 'Open menu',
     'a11y.skip': 'Skip to content',
     'a11y.close': 'Close',
-    'hero.sub': 'Pokémon Center Yonsei is the Yonsei University club for enjoying Pokémon your own way.',
+    'hero.sub': 'Yonsei University’s club for enjoying Pokémon your own way',
     'about.p1': 'We bring together everyone who loves Pokémon, in all the ways they enjoy it.',
-    'about.p2': 'We started in 2022 as a KakaoTalk group chat and became an official club in 2023. Today we’re registered with the Yonsei Student Club Council, with about 130 members and a new cohort joining every semester.',
+    'about.p2': 'We started in 2022 as a KakaoTalk group chat and became an official club in 2023. Today we’re registered with the Yonsei Student Club Council and welcome a new cohort every semester.',
     'about.n1.k': 'Members',
     'about.n1.pre': 'About',
     'about.n1.unit': '',
@@ -1757,9 +1762,9 @@ const i18n = {
     'nav.menu': 'メニューを開く',
     'a11y.skip': '本文へスキップ',
     'a11y.close': '閉じる',
-    'hero.sub': 'ポケモンセンター延世店は、思い思いのスタイルでポケモンを楽しむ延世大学のサークルです。',
+    'hero.sub': '思い思いのスタイルでポケモンを楽しむ、延世大学のサークル',
     'about.p1': 'ポケモンが好きな人たちが集まって、それぞれの楽しみ方でわいわい過ごす場所です。',
-    'about.p2': '2022年にKakaoTalkのオープンチャットから始まり、2023年に正式なサークルになりました。現在は延世大学の公認サークルとして約130名が在籍し、学期ごとに新しい期のメンバーを迎えています。',
+    'about.p2': '2022年にKakaoTalkのオープンチャットから始まり、2023年に正式なサークルになりました。現在は延世大学の公認サークルとして、学期ごとに新しい期のメンバーを迎えています。',
     'about.n1.k': 'メンバー',
     'about.n1.pre': '約',
     'about.n1.unit': '名',

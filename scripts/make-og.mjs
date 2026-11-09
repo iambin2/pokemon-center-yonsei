@@ -18,15 +18,15 @@ await page.mouse.move(-500, -500);
 await page.waitForTimeout(300);
 
 await page.evaluate(() => {
-  /* 미리보기에는 머리줄이 들어갈 자리가 없다. 덮어 둔 여권과 소개 한 줄만 화면 가운데에(작게 보이므로 자료 칸과 단추는 뺀다) */
+  /* 미리보기에는 머리줄이 들어갈 자리가 없다. 여권과 동아리 이름, 한 줄만 화면 가운데에(작게 보이므로 단추는 뺀다) */
   document.querySelector('.bar')?.remove();
   document.querySelector('main')?.remove();
-  document.querySelectorAll('.fields, .hero-act').forEach(el => el.remove());
+  document.querySelectorAll('.hero-act').forEach(el => el.remove());
   const hero = document.querySelector('.hero');
   Object.assign(hero.style, { minHeight: '100vh', padding: '40px 64px' });
   const passport = document.querySelector('.passport');
   passport.style.setProperty('--pw', '380px');
-  document.querySelector('.hero-lead').style.fontSize = '44px';
+  document.querySelector('.hero-lead').style.fontSize = '30px';
   document.querySelector('.spread').style.gridTemplateColumns = 'auto minmax(0, 560px)';
 });
 await page.waitForTimeout(300);
