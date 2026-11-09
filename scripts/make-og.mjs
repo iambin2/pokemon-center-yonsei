@@ -11,7 +11,7 @@ const OUT = path.join(root, 'og.png');
 const W = 1200, H = 630;
 
 const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 2 });
+const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 2, reducedMotion: 'reduce' });   // 떠 있는 여권이 늘 같은 자세로 찍히게(움직임을 멈춘다)
 await page.goto(URL);
 await page.evaluateHandle('document.fonts.ready');
 await page.mouse.move(-500, -500);

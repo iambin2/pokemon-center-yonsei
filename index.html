@@ -13,7 +13,7 @@
 <meta property="og:locale" content="ko_KR">
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:locale:alternate" content="ja_JP">
-<meta property="og:image" content="https://pokeyonsei.com/og.png?v=5">
+<meta property="og:image" content="https://pokeyonsei.com/og.png?v=6">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="포켓몬 센터 연세점 | Pokémon Center Yonsei">
 <meta name="twitter:description" content="연세대학교 포켓몬스터 동아리. 우리는 모두 친구.">
-<meta name="twitter:image" content="https://pokeyonsei.com/og.png?v=5">
+<meta name="twitter:image" content="https://pokeyonsei.com/og.png?v=6">
 <meta name="theme-color" content="#0E3A78">
 <meta name="color-scheme" content="light">
 <link rel="canonical" href="https://pokeyonsei.com/">
@@ -294,33 +294,37 @@ body:not([data-lang="en"]) [data-i18n="nav.faq"] { font-size: .88em; }   /* 라�
    -------------------------------------------------------------------------- */
 .hero { min-height: 100svh; display: grid; align-items: center; padding: calc(var(--bar-h) + var(--sp-7)) var(--gutter) var(--sp-8); }
 .spread { display: grid; grid-template-columns: auto minmax(0, 36rem); justify-content: center; align-items: center; gap: clamp(var(--sp-7), 7vw, var(--sp-9)); width: min(1200px, 100%); margin: 0 auto; }
-.passport { --pw: clamp(200px, calc((100svh - var(--bar-h) - 180px) * .704), 400px); position: relative; width: var(--pw); aspect-ratio: 88 / 125; container-type: inline-size; perspective: 1400px; }
+.passport { --pw: clamp(200px, calc((100svh - var(--bar-h) - 180px) * .704), 400px); position: relative; width: var(--pw); aspect-ratio: 88 / 125; container-type: inline-size; perspective: 2200px; }   /* 먼 시점: 원근이 과장되면 도형을 돌린 것처럼 보인다 */
 /* 진짜 책 한 권: 앞표지, 뒤표지, 두께(오른쪽과 아래의 종이 단면)를 3D로 세우고 살짝 기울여 놓는다. 표지와 단면의 모든 치수는 여권 폭(cqi) 기준 */
-.book { --T: 6.5cqi; position: absolute; inset: 0; transform-style: preserve-3d;
-  transform: translateY(-1.5cqi) rotateX(13deg) rotateY(-24deg) rotateZ(-4deg); will-change: transform; }
+.book { --T: 11cqi; position: absolute; inset: 0; transform-style: preserve-3d;
+  transform: translateY(-1.5cqi) rotateX(10deg) rotateY(-25deg) rotateZ(-4deg); will-change: transform; }
 /* 천 위에 살짝 떠서 천천히 숨 쉬듯 흔들린다: 위아래 몇 px, 좌우로 2도 안쪽. 그림자는 책이 오를 때 옅고 넓어진다(움직임 줄이기에서는 멈춤) */
 :root[data-motion="full"] .book { animation: drift 8s ease-in-out infinite; }
 :root[data-motion="full"] .passport::before { animation: drift-shadow 8s ease-in-out infinite; }
 :root[data-motion="full"] .passport::after { animation: drift-shadow-far 8s ease-in-out infinite; }
 @keyframes drift {
-  0%, 100% { transform: translateY(-1.5cqi) rotateX(13deg) rotateY(-24deg) rotateZ(-4deg); }
-  25% { transform: translateY(-4.5cqi) rotateX(11deg) rotateY(-19deg) rotateZ(-2.8deg); }
-  50% { transform: translateY(-6cqi) rotateX(14deg) rotateY(-22deg) rotateZ(-3.6deg); }
-  75% { transform: translateY(-3.5cqi) rotateX(15deg) rotateY(-28deg) rotateZ(-5.2deg); }
+  0%, 100% { transform: translateY(-1.5cqi) rotateX(10deg) rotateY(-25deg) rotateZ(-4deg); }
+  25% { transform: translateY(-4.5cqi) rotateX(8.5deg) rotateY(-21deg) rotateZ(-2.8deg); }
+  50% { transform: translateY(-6cqi) rotateX(11deg) rotateY(-23.5deg) rotateZ(-3.6deg); }
+  75% { transform: translateY(-3.5cqi) rotateX(12deg) rotateY(-29deg) rotateZ(-5.2deg); }
 }
 @keyframes drift-shadow { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: .55; scale: .93; } }
 @keyframes drift-shadow-far { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: .8; scale: 1.08; } }
 .book > * { position: absolute; }
-/* 두께: 표지와 같은 둥근 모양의 얇은 장을 일정한 간격으로 겹친다. 단면을 따로 붙인 면이 아니라 쌓인 장이라 모서리까지 끊김 없이 둥글다.
-   위부터 앞표지 안쪽(파랑) 둘, 종이 열(표지보다 조금 작고, 아래로 갈수록 그늘), 뒤표지(파랑) 둘 */
-.book .ly { inset: 0; border-radius: 4.5% / 3.2%; transform: translateZ(calc(var(--T) * var(--z) / -14)); backface-visibility: hidden; }
-.book .ly.cv { background: #133B7E; }
-.book .ly.pg { inset: .3cqi .45cqi .45cqi .3cqi; border-radius: 4.3% / 3%; background: hsl(216 32% calc(96% - var(--z) * 1.6%)); box-shadow: inset 0 0 0 .5px rgba(30, 50, 90, .25); }
-.book .ly.bk { background: #0A2C60; }
+/* 두께: 표지와 같은 둥근 모양의 얇은 장 30장을 일정한 간격으로 겹친다(여권 폭의 11%). 단면을 따로 붙인 면이 아니라 쌓인 장이라 모서리까지 끊김 없이 둥글다.
+   빛은 왼쪽 위에서 오므로 오른쪽 종이 단면은 그늘진 회청색이다(하얗게 빛나면 도형처럼 보인다). 장마다 짙기를 번갈아 종이 결이 보이고,
+   표지 바로 밑과 뒤표지 바로 위의 종이는 표지 그늘(맞닿은 곳의 어둠)로 더 짙다. 표지는 종이보다 조금 커서 가장자리가 종이를 덮는다 */
+.book .ly { inset: 0; border-radius: 4.5% / 3.2%; transform: translateZ(calc(var(--T) * var(--z) / -30)); backface-visibility: hidden; }
+.book .ly.cv { background: #12387A; }
+.book .ly.bk { background: #0A2858; }
+.book .ly.pg { inset: .55cqi .9cqi .9cqi .55cqi; border-radius: 4% / 2.8%; background: hsl(219 20% 79%); }
+.book .ly.pg:nth-child(odd) { background: hsl(219 16% 85%); }
+.book .ly.pg:is([style="--z:3"], [style="--z:28"]) { background: hsl(219 22% 58%); }
+.book .ly.pg:is([style="--z:4"], [style="--z:27"]) { background: hsl(219 20% 70%); }
 /* 천 위에 떨어지는 그림자: 바로 밑의 짙은 그늘과 넓게 퍼진 그늘 두 겹(평면, 오른쪽 아래로) */
 .passport::before, .passport::after { content: ""; position: absolute; z-index: -1; border-radius: 6%; pointer-events: none; }
-.passport::before { inset: 9% 1% 1% 14%; translate: 4cqi 5.5cqi; rotate: -4deg; background: rgba(0, 8, 28, .55); filter: blur(2.2cqi); }
-.passport::after { inset: 10% -4% -4% 16%; translate: 9cqi 12cqi; rotate: -4deg; background: rgba(0, 8, 28, .45); filter: blur(9cqi); }
+.passport::before { inset: 6% 2% 0 6%; translate: 2.5cqi 4cqi; rotate: -4deg; background: rgba(0, 8, 28, .6); filter: blur(1.6cqi); }
+.passport::after { inset: 8% -2% -3% 10%; translate: 7cqi 10cqi; rotate: -4deg; background: rgba(0, 8, 28, .4); filter: blur(8cqi); }
 /* 앞표지: 무광 한 색, 가죽 결, 왼쪽 책등으로 감기는 그늘과 접는 홈(실제 여권의 힌지), 색 없이 눌러 찍은 몬스터볼과 점 호 */
 .cover { inset: 0; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; padding: 12cqi 10cqi 9cqi 14cqi; color: var(--foil); overflow: hidden; border-radius: 4.5% / 3.2%;
   background: linear-gradient(90deg, rgba(0, 10, 40, .30) 0, rgba(0, 10, 40, .10) 2.4%, transparent 5.5%),
@@ -331,7 +335,7 @@ body:not([data-lang="en"]) [data-i18n="nav.faq"] { font-size: .88em; }   /* 라�
 /* 가죽 돋음과 빛: 결은 overlay로 얹고, 빛은 왼쪽 위에서(마우스를 따라 조금 움직인다) */
 .cover::before, .cover::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; }
 .cover::before { background: var(--leather) 0 0 / 180px 180px; mix-blend-mode: multiply; opacity: .22; }
-.cover::after { background: radial-gradient(120% 85% at 22% 8%, rgba(255, 255, 255, .20), rgba(255, 255, 255, .04) 45%, rgba(0, 8, 30, .22) 100%); mix-blend-mode: soft-light; }
+.cover::after { background: linear-gradient(118deg, transparent 18%, rgba(255, 255, 255, .07) 34%, transparent 52%), radial-gradient(120% 85% at 22% 8%, rgba(255, 255, 255, .20), rgba(255, 255, 255, .04) 45%, rgba(0, 8, 30, .28) 100%); mix-blend-mode: soft-light; }
 .cover > * { position: relative; z-index: 1; }
 .cover-emblem, .cover-chip { filter: drop-shadow(0 -.22cqi 0 rgba(0, 8, 30, .55)) drop-shadow(0 .22cqi 0 rgba(255, 255, 255, .14)); }   /* 은박을 눌러 찍은 자리: 위쪽 턱은 그늘, 아래쪽 턱은 빛 */
 /* 엠블럼과 글 묶음은 한 덩어리(한국 여권 비율): 엠블럼은 여권 폭의 27%, 엠블럼과 이름 사이는 엠블럼 지름의 4분의 1(6.5cqi).
@@ -783,7 +787,7 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
   <div class="spread">
     <div class="passport">
       <div class="book">
-      <i class="ly bk" style="--z:14" aria-hidden="true"></i><i class="ly bk" style="--z:13" aria-hidden="true"></i><i class="ly pg" style="--z:12" aria-hidden="true"></i><i class="ly pg" style="--z:11" aria-hidden="true"></i><i class="ly pg" style="--z:10" aria-hidden="true"></i><i class="ly pg" style="--z:9" aria-hidden="true"></i><i class="ly pg" style="--z:8" aria-hidden="true"></i><i class="ly pg" style="--z:7" aria-hidden="true"></i><i class="ly pg" style="--z:6" aria-hidden="true"></i><i class="ly pg" style="--z:5" aria-hidden="true"></i><i class="ly pg" style="--z:4" aria-hidden="true"></i><i class="ly pg" style="--z:3" aria-hidden="true"></i><i class="ly cv" style="--z:2" aria-hidden="true"></i><i class="ly cv" style="--z:1" aria-hidden="true"></i>
+      <i class="ly bk" style="--z:30" aria-hidden="true"></i><i class="ly bk" style="--z:29" aria-hidden="true"></i><i class="ly pg" style="--z:28" aria-hidden="true"></i><i class="ly pg" style="--z:27" aria-hidden="true"></i><i class="ly pg" style="--z:26" aria-hidden="true"></i><i class="ly pg" style="--z:25" aria-hidden="true"></i><i class="ly pg" style="--z:24" aria-hidden="true"></i><i class="ly pg" style="--z:23" aria-hidden="true"></i><i class="ly pg" style="--z:22" aria-hidden="true"></i><i class="ly pg" style="--z:21" aria-hidden="true"></i><i class="ly pg" style="--z:20" aria-hidden="true"></i><i class="ly pg" style="--z:19" aria-hidden="true"></i><i class="ly pg" style="--z:18" aria-hidden="true"></i><i class="ly pg" style="--z:17" aria-hidden="true"></i><i class="ly pg" style="--z:16" aria-hidden="true"></i><i class="ly pg" style="--z:15" aria-hidden="true"></i><i class="ly pg" style="--z:14" aria-hidden="true"></i><i class="ly pg" style="--z:13" aria-hidden="true"></i><i class="ly pg" style="--z:12" aria-hidden="true"></i><i class="ly pg" style="--z:11" aria-hidden="true"></i><i class="ly pg" style="--z:10" aria-hidden="true"></i><i class="ly pg" style="--z:9" aria-hidden="true"></i><i class="ly pg" style="--z:8" aria-hidden="true"></i><i class="ly pg" style="--z:7" aria-hidden="true"></i><i class="ly pg" style="--z:6" aria-hidden="true"></i><i class="ly pg" style="--z:5" aria-hidden="true"></i><i class="ly pg" style="--z:4" aria-hidden="true"></i><i class="ly pg" style="--z:3" aria-hidden="true"></i><i class="ly cv" style="--z:2" aria-hidden="true"></i><i class="ly cv" style="--z:1" aria-hidden="true"></i>
       <div class="cover">
         <svg class="cover-emblem" viewBox="0 0 100 100" aria-hidden="true"><use href="#emblem-foil" width="100" height="100"/></svg>
         <div class="cover-title">
