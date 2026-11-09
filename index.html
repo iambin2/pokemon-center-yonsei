@@ -106,7 +106,7 @@
   /* 줄 간격 */
   --lh-display: 1.1; --lh-title: 1.25; --lh-body: 1.7; --lh-small: 1.55;
   /* 모서리: 속지 3, 꼬리표와 단추 6, 알약, 원 */
-  --r-1: 3px; --r-2: 6px; --r-pill: 999px;
+  --r-1: 0; --r-2: 0;   /* 2026-11-09: 네모는 모두 각진 직사각형(국기처럼). 둥근 것은 원(도장 자리, 랠리 칸)과 여권 책 한 권뿐 */
   /* 광학 중앙 보정(글꼴마다 잉크가 줄 상자 가운데에서 치우친 만큼). 위 / 아래 안쪽 여백에 더한다 */
   --opt-stamp-t: 0em; --opt-stamp-b: .18em;   /* 꼬리표와 표의 글자(Hahmlet 700): 잉크가 상자 가운데보다 .09em 아래 */
   --opt-ink-t: var(--opt-stamp-t); --opt-ink-b: var(--opt-stamp-b);
@@ -123,7 +123,7 @@
   --leather: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='l' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='.62' numOctaves='3' stitchTiles='stitch' result='n'/><feDiffuseLighting in='n' surfaceScale='1.4' lighting-color='%23fff' diffuseConstant='1.05'><feDistantLight azimuth='235' elevation='58'/></feDiffuseLighting></filter><rect width='180' height='180' filter='url(%23l)'/></svg>");   /* 여권 표지 가죽의 돋음(빛을 받는 결) */
   --ball: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.6'><circle cx='8' cy='8' r='6.6'/><path d='M1.4 8h4.3M10.3 8h4.3'/><circle cx='8' cy='8' r='2.3'/></svg>");   /* 표의 떼는 쪽에 눌러 찍은 작은 몬스터볼 */
   --grain: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 -.18'/></filter><rect width='160' height='160' filter='url(%23g)'/></svg>");   /* 여권 표지 재질의 옅은 결 */
-  --weave: repeating-linear-gradient(0deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(0, 0, 0, .07) 0 1px, transparent 1px 3px);
+  --weave: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='640' height='360'><path fill='none' stroke='white' stroke-opacity='.05' stroke-width='1' d='M0 -36q80 -36 160 0t160 0t160 0t160 0M0 -36q80 36 160 0t160 0t160 0t160 0M0 0q80 -36 160 0t160 0t160 0t160 0M0 0q80 36 160 0t160 0t160 0t160 0M0 36q80 -36 160 0t160 0t160 0t160 0M0 36q80 36 160 0t160 0t160 0t160 0M0 72q80 -36 160 0t160 0t160 0t160 0M0 72q80 36 160 0t160 0t160 0t160 0M0 108q80 -36 160 0t160 0t160 0t160 0M0 108q80 36 160 0t160 0t160 0t160 0M0 144q80 -36 160 0t160 0t160 0t160 0M0 144q80 36 160 0t160 0t160 0t160 0M0 180q80 -36 160 0t160 0t160 0t160 0M0 180q80 36 160 0t160 0t160 0t160 0M0 216q80 -36 160 0t160 0t160 0t160 0M0 216q80 36 160 0t160 0t160 0t160 0M0 252q80 -36 160 0t160 0t160 0t160 0M0 252q80 36 160 0t160 0t160 0t160 0M0 288q80 -36 160 0t160 0t160 0t160 0M0 288q80 36 160 0t160 0t160 0t160 0M0 324q80 -36 160 0t160 0t160 0t160 0M0 324q80 36 160 0t160 0t160 0t160 0M0 360q80 -36 160 0t160 0t160 0t160 0M0 360q80 36 160 0t160 0t160 0t160 0M0 396q80 -36 160 0t160 0t160 0t160 0M0 396q80 36 160 0t160 0t160 0t160 0'/></svg>");   /* 천: 여권 보안 무늬(물결 두 겹이 엮인 길로셰). 큰 물결과 낮은 대비라 확대해도 자글거리지 않는다 */
 }
 body[data-lang="ja"] {
   --f-title: 'Shippori Mincho B1', 'Hahmlet', serif;
@@ -137,7 +137,7 @@ body[data-lang="ja"] {
 * { margin: 0; padding: 0; }
 html { scrollbar-gutter: stable; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; background: var(--cloth); scroll-padding-top: calc(var(--bar-h) + var(--sp-4)); font-synthesis: none; scrollbar-color: #5B7FB8 var(--cloth-deep); }
 :root[data-motion="full"] { scroll-behavior: smooth; }
-body { font-family: var(--f-body); font-size: var(--fs-3); line-height: var(--lh-body); color: var(--ink); background: var(--weave), var(--cloth); word-break: keep-all; overflow-wrap: break-word; }
+body { font-family: var(--f-body); font-size: var(--fs-3); line-height: var(--lh-body); color: var(--ink); background: var(--weave), radial-gradient(1400px 900px at 50% 0, #15468C, transparent 70%), var(--cloth); background-color: var(--cloth); word-break: keep-all; overflow-wrap: break-word; }
 /* 찍히기 전 크게 떠 있는 도장(1.2배)이 화면 옆으로 삐져 휴대폰 화면 폭을 넓히지 않게 */
 .hero, main { overflow-x: clip; }
 body[data-lang="ja"] { word-break: normal; line-break: strict; }
@@ -251,9 +251,9 @@ body:not([data-lang="en"]) [data-i18n="nav.faq"] { font-size: .88em; }   /* 라�
 .langs { display: flex; }
 .langs button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-2); }
 /* 국기는 여권 사증의 작은 국기처럼 모서리 2px, 가는 테. 고른 언어는 흰 테를 두르고 조금 커진다 */
-.langs .flag-ic { width: 26px; height: 17px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .35); opacity: .62; transition: opacity 200ms, transform 260ms var(--ease), box-shadow 200ms; }
-.langs button[aria-pressed="true"] .flag-ic { opacity: 1; box-shadow: 0 0 0 2px var(--cloth-deep), 0 0 0 4px #fff; transform: scale(1.06); }
-@media (hover: hover) { .langs button:hover .flag-ic { opacity: 1; } }
+.langs .flag-ic { display: block; width: 27px; height: 18px; filter: brightness(.55); transition: filter 200ms, transform 260ms var(--ease); }   /* 네모 국기(3:2). 고르지 않은 국기는 어둡게 가라앉고, 테는 두르지 않는다 */
+.langs button[aria-pressed="true"] .flag-ic { filter: none; transform: scale(1.08); }
+@media (hover: hover) { .langs button:hover .flag-ic { filter: brightness(.85); } }
 .menu-langs { display: none; }
 .bar .ticket { min-height: 44px; font-size: var(--fs-2); --px: var(--sp-4); --stub: 34px; transition: opacity 260ms var(--ease), translate 260ms var(--ease), visibility 0s; }
 .bar.at-hero .ticket { opacity: 0; translate: 0 -6px; visibility: hidden; transition: opacity 200ms, translate 200ms, visibility 0s linear 200ms; }   /* 첫 화면의 가입 표가 보이는 동안은 하나만 */
@@ -382,19 +382,28 @@ body[data-lang="en"] .k .lbl { display: none; }   /* 영어에서는 MEMBERS 옆
 .intro-page h2 { font-size: clamp(var(--fs-7), 6vw, var(--fs-10)); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
 body[data-lang="en"] .intro-page h2 { font-size: clamp(var(--fs-6), 4.6vw, var(--fs-9)); }
 .intro-page .more { display: grid; }
-.intro-page .seal { justify-self: end; width: 128px; margin-top: var(--sp-5); --r: 8deg; }
+.intro-page .seal { width: 128px; --r: 8deg; }
+@media (min-width: 761px) { #about .seal { position: absolute; right: var(--page-pad); bottom: calc(var(--page-pad) + var(--sp-6) - var(--sp-3)); } #about .fields { padding-right: 152px; } }   /* 자료 칸 끝에 찍은 도장 */
 .lead { font-family: var(--f-title); font-weight: 700; font-size: clamp(var(--fs-4), 2.2vw, var(--fs-5)); line-height: var(--lh-small); letter-spacing: var(--ls-title); color: var(--title); }
 .intro-page .more p:not(.lead) { margin-top: var(--sp-4); color: var(--ink-2); max-width: 36em; }
 .intro-page .more .lead + p { margin-top: var(--sp-5); }
-@media (max-width: 760px) { .intro-page { grid-template-columns: minmax(0, 1fr); } .intro-page .seal { width: 96px; } }
-@media (max-width: 400px) { .intro-page .seal { width: 80px; } }
+@media (max-width: 760px) { .intro-page { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 760px) { .intro-page { position: relative; } .intro-page h2 { padding-right: 88px; } .intro-page .seal { position: absolute; top: 0; right: 0; width: 80px; } }   /* 휴대폰: 제목 옆에 */
 
 /* --------------------------------------------------------------------------
    연혁: 입국 도장 쪽. 날짜마다 모양과 잉크가 다른 포켓몬 도장, 옆에 글
    -------------------------------------------------------------------------- */
 @media (min-width: 861px) { .fold::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 72px; margin-left: -36px; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(10, 30, 70, .07) 46%, rgba(10, 30, 70, .14) 50%, rgba(10, 30, 70, .07) 54%, transparent); } }
-.visa { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-7) var(--sp-8); }   /* 시간은 가로로 읽는다: 2022.11 → 2023.03 / 2023.07 → 2024.03. 오른쪽 쪽은 반 줄 내려 지그재그 */
-@media (min-width: 861px) { .visa { padding-bottom: var(--sp-8); } .visa > .entry:nth-child(even) { translate: 0 var(--sp-8); } }
+.visa { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-7) var(--sp-8); }
+/* 넓은 화면: 펼친 두 쪽. 왼쪽 쪽은 제목 아래 2022.11, 2023.03, 오른쪽 쪽은 맨 위부터 2023.07, 2024.03(책처럼 왼쪽 쪽 다음 오른쪽 쪽).
+   목록은 쪽의 격자를 그대로 이어 받아(subgrid) 오른쪽 쪽 첫 도장이 제목 줄에서 시작한다. 오른쪽 위가 비지 않는다 */
+@media (min-width: 861px) {
+  #history { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; gap: var(--sp-7) calc(var(--page-pad) * 2); }
+  #history > .page-title { grid-area: 1 / 1; }
+  #history > .visa { grid-area: 1 / 1 / 4 / 3; margin-top: 0; grid-template-columns: subgrid; grid-template-rows: subgrid; }
+  .visa > .entry:nth-child(1) { grid-area: 2 / 1; } .visa > .entry:nth-child(2) { grid-area: 3 / 1; }
+  .visa > .entry:nth-child(3) { grid-area: 1 / 2 / 3 / 3; align-self: center; } .visa > .entry:nth-child(4) { grid-area: 3 / 2; }
+}
 .entry { display: grid; grid-template-columns: 152px minmax(0, 1fr); gap: var(--sp-5); align-items: center; }
 .entry .stamp { width: 152px; }
 .entry h3 { font-size: var(--fs-4); }
@@ -450,7 +459,7 @@ body[data-lang="en"] .intro-page h2 { font-size: clamp(var(--fs-6), 4.6vw, var(-
 .dex-row { display: grid; grid-template-columns: minmax(0, 1fr) var(--sp-8) minmax(0, 1fr); align-items: center; }
 .dex-arrow { width: 40px; height: 40px; justify-self: center; color: var(--ink-blue); }
 .dex { position: relative; display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: var(--sp-5); align-items: start; }
-.dex .pic { position: relative; aspect-ratio: 4 / 5; border: 8px solid #fff; border-radius: 2px; background: var(--well); box-shadow: 0 0 0 1px #DCE5F3, 0 6px 12px -6px rgba(14, 58, 120, .35); rotate: -1.2deg; }
+.dex .pic { position: relative; aspect-ratio: 4 / 5; border: 8px solid #fff; border-radius: 0; background: var(--well); box-shadow: 0 0 0 1px #DCE5F3, 0 6px 12px -6px rgba(14, 58, 120, .35); rotate: -1.2deg; }
 .dex + .dex-arrow + .dex .pic { rotate: 1deg; }
 .dex .pic::before { content: ""; position: absolute; z-index: 1; inset: -12px; pointer-events: none;
   background: linear-gradient(135deg, var(--rule-2) 0 15px, transparent 15px) 0 0 / 32px 32px no-repeat, linear-gradient(225deg, var(--rule-2) 0 15px, transparent 15px) 100% 0 / 32px 32px no-repeat, linear-gradient(45deg, var(--rule-2) 0 15px, transparent 15px) 0 100% / 32px 32px no-repeat, linear-gradient(315deg, var(--rule-2) 0 15px, transparent 15px) 100% 100% / 32px 32px no-repeat; }
@@ -507,7 +516,7 @@ body[data-lang="en"] .dex-en { display: none; }
 .exec-dept:has(.dept[data-i18n="ed.lead"]) .perf::after { border-color: rgba(194, 51, 31, .4); }   /* 회장단 우표만 빨간 안쪽 테 */
 .exec-member:nth-child(3n+2) { rotate: .8deg; } .exec-member:nth-child(3n) { rotate: -.6deg; }
 @media (hover: hover) { .exec-member:hover { transform: translateY(-3px) rotate(-1deg); } }
-.exec-poke { display: grid; place-items: center; height: 104px; border-radius: 2px; background: var(--well); }
+.exec-poke { display: grid; place-items: center; height: 104px; border-radius: 0; background: var(--well); }
 .exec-poke img { width: 78px; height: 78px; object-fit: contain; }
 .exec-info { --pt: 13px; --pb: 6px; flex: 1; display: flex; flex-direction: column; padding: var(--pt) var(--sp-1) var(--pb); }   /* 글 묶음은 위에 붙여 같은 줄 우표의 이름 높이를 맞추고, 최애는 맨 아래에 붙인다. 위아래 값은 글자 잉크를 화면에서 재어 맞춘 것 */
 .exec-info > p { flex: none; }
@@ -538,7 +547,7 @@ body:not([data-lang="ko"]) .exec-meta span { display: block; margin-left: 0; }
 .exec-fav { margin-top: auto; }
 .exec-fav span:first-child { color: var(--ink-red); margin-right: .3em; }
 .exec-fav span:last-child { display: inline-block; max-width: 100%; text-wrap: balance; word-break: normal; }   /* 이름표와 포켓몬 이름 사이에서만 줄이 바뀌게(Garc / homp 방지) */
-.flag { display: inline-block; width: 1.5em; height: 1em; vertical-align: -.12em; border-radius: 2px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0, 0, 0, .14); }
+.flag { display: inline-block; width: 1.5em; height: 1em; vertical-align: -.12em; overflow: hidden; box-shadow: 0 0 0 1px rgba(0, 0, 0, .14); }
 .flag svg { width: 100%; height: 100%; }
 :root[data-motion="full"] .exec-gen.play .exec-member { animation: stick 520ms var(--press) both; animation-delay: calc(60ms + var(--k, 0) * 40ms); }
 @keyframes stick { 0% { transform: translateY(-10px) scale(1.05) rotate(-3deg); } 60% { transform: translateY(2px) scale(.99); } 100% { transform: none; } }   /* 내용은 늘 보인다. 우표가 종이에 붙는 움직임만 */
@@ -632,7 +641,7 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
 .dlg::backdrop { background: rgba(6, 20, 50, .55); }
 .dlg-in { padding: var(--sp-7) var(--sp-6) var(--sp-6); }
 .dlg-title { font-size: var(--fs-6); }
-.dlg-close { position: absolute; right: var(--sp-3); top: var(--sp-3); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: var(--ink); }
+.dlg-close { position: absolute; right: var(--sp-3); top: var(--sp-3); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 0; color: var(--ink); }
 .dlg-close:hover { background: var(--album); }
 .contacts { display: grid; margin-top: var(--sp-5); border-top: 2px solid var(--title); }
 .contact { display: grid; grid-template-columns: 44px minmax(0, 1fr); align-items: center; gap: var(--sp-1) var(--sp-3); padding: var(--sp-4) var(--sp-1); border-bottom: 1.5px dashed var(--rule); }
