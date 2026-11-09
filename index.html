@@ -358,6 +358,8 @@ body[data-lang="en"] .k .lbl { display: none; }   /* 영어에서는 MEMBERS 옆
 .field .v { font-size: var(--fs-4); color: var(--title); text-wrap: balance; }
 .field .v b { font-weight: inherit; }
 @media (max-width: 860px) { .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-5) var(--sp-4); } }
+@media (max-width: 420px) { .field .v { font-size: var(--fs-3); } }
+@media (max-width: 400px) { body[data-lang="ja"] .page-title { font-size: var(--fs-5); } }   /* 가장 좁은 휴대폰: 일본어 쪽 제목의 한 구절(7자)이 한 줄에 들어가게 */
 .hero-act { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-5); margin-top: var(--sp-7); }
 .hero .link { color: var(--on-cloth); }
 /* 세로로 긴 좁은 화면(휴대폰, 세운 태블릿)만 여권 아래로 글을 쌓는다. 눕힌 휴대폰은 데스크톱처럼 나란히 */
@@ -402,8 +404,8 @@ body[data-lang="en"] .intro-page h2 { font-size: clamp(var(--fs-6), 4.6vw, var(-
    -------------------------------------------------------------------------- */
 .road h3, .subs h3 { font-size: var(--fs-5); }
 .subs-h { display: grid; gap: var(--sp-2); }
-.subs-h p { color: var(--ink-2); }
-.act-more { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--sp-4); margin-top: var(--sp-6); color: var(--ink-2); }
+.subs-h p { max-width: 38em; color: var(--ink-2); }
+.act-more { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--sp-4); max-width: 38em; margin-top: var(--sp-6); color: var(--ink-2); }
 .road ol { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-5); margin-top: var(--sp-5); }
 .road ol::before { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 70px; border-top: 2px dashed var(--rule); }
 .road li { position: relative; display: grid; justify-items: center; gap: var(--sp-3); text-align: center; }
@@ -460,7 +462,7 @@ body[data-lang="en"] .dex-en { display: none; }
 .specs { display: flex; gap: var(--sp-6); margin-top: var(--sp-4); }
 .specs div { display: grid; gap: var(--sp-1); }
 .specs .k { display: flex; align-items: baseline; gap: var(--sp-2); }
-.specs dd { font-size: var(--fs-4); }
+.specs dd { font-size: var(--fs-4); white-space: nowrap; }
 .dex-desc { margin-top: var(--sp-4); color: var(--ink-2); }
 @media (max-width: 1000px) { .dex-row { grid-template-columns: 1fr; gap: var(--sp-5); } .dex-arrow { rotate: 90deg; } }
 @media (max-width: 560px) { .dex { grid-template-columns: 1fr; } .dex .pic { width: 64%; } }
@@ -550,7 +552,7 @@ body:not([data-lang="ko"]) .exec-meta span { display: block; margin-left: 0; }
 @media (max-width: 760px) { .faq-group { grid-template-columns: minmax(0, 1fr); } .faq-g { position: static; } }
 /* 넓은 화면: 메모장 두 칸. 왼쪽에 쪽 제목이 목록을 따라 내려오고, 오른쪽에 묶음 이름표와 질문이 차례로 */
 @media (min-width: 861px) {
-  #faq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); column-gap: var(--sp-7); align-items: start; }
+  #faq { display: grid; grid-template-columns: minmax(16rem, 1fr) minmax(0, 3fr); column-gap: var(--sp-7); align-items: start; }
   #faq > .page-title { position: sticky; top: calc(var(--bar-h) + var(--sp-6)); font-size: clamp(var(--fs-6), 3.4vw, var(--fs-7)); }
   #faq > .faq-list { margin-top: var(--sp-2); }
   #faq .faq-group { grid-template-columns: minmax(0, 1fr); gap: var(--sp-4); }
@@ -560,7 +562,7 @@ body:not([data-lang="ko"]) .exec-meta span { display: block; margin-left: 0; }
 .faq-h { font: inherit; }
 .faq-q { width: 100%; min-height: 64px; display: grid; grid-template-columns: 3em minmax(0, 1fr) 24px; align-items: baseline; gap: var(--sp-4); padding: var(--sp-4) 0; text-align: left; }
 .faq-q::before { counter-increment: q; content: "Q" counter(q, decimal-leading-zero) / ""; font-family: var(--f-mono); font-size: var(--fs-2); letter-spacing: .08em; color: var(--label); }
-.faq-q-text { font-size: clamp(var(--fs-3), 1.8vw, var(--fs-4)); line-height: var(--lh-title); }
+.faq-q-text { font-size: clamp(var(--fs-3), 1.8vw, var(--fs-4)); line-height: var(--lh-title); text-wrap: balance; }
 .faq-mark { position: relative; display: grid; place-items: center; width: 24px; height: 24px; align-self: center; color: var(--ink-blue); transition: border-color 200ms, color 200ms, transform 360ms var(--press); }
 .faq-mark .ic { width: 18px; height: 18px; stroke-width: 2.6; transition: transform 360ms var(--press); }
 .faq-item.open .faq-mark { color: var(--ink-red); transform: rotate(-10deg); }
@@ -661,7 +663,7 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
 .foot-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--sp-3); border-radius: var(--r-2); font-family: var(--f-title); font-weight: 700; font-size: var(--fs-3); }   /* 머리줄 색인과 같은 글꼴 */
 @media (hover: hover) { .foot-nav a:hover { background: rgba(255, 255, 255, .1); } }
 .foot-contact a { font-family: var(--f-body); font-weight: 400; font-size: var(--fs-2); letter-spacing: 0; color: var(--on-cloth-2); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-.legal { max-width: 46em; margin: var(--sp-6) 0 0; font-size: var(--fs-2); line-height: var(--lh-small); color: var(--on-cloth-2); text-wrap: balance; }
+.legal { max-width: 40em; margin: var(--sp-6) 0 0; font-size: var(--fs-2); line-height: var(--lh-small); color: var(--on-cloth-2); text-wrap: balance; }
 .copyr { display: block; margin-top: var(--sp-3); color: var(--on-cloth-2); }
 
 /* 광학 중앙: 한 줄짜리 상자(표, 탭, 꼬리표, 직책, 색인)는 줄 높이 1, 위아래 여백은 0에 보정만 */
@@ -819,7 +821,7 @@ body[data-lang="ja"] .join-page h2 { font-size: clamp(var(--fs-6), 4.4vw, var(--
         <div class="field"><dt class="k"><span class="mono">Members</span><span class="lbl" data-i18n="about.n1.k">회원</span></dt><dd class="v val"><span data-i18n="about.n1.pre">약</span> <b>130</b><span data-i18n="about.n1.unit">명</span></dd></div>
         <div class="field"><dt class="k"><span class="mono">Meetup</span><span class="lbl" data-i18n="about.n3.k">정기 모임</span></dt><dd class="v val" data-i18n="facts.r3.v">2주마다, 신촌 일대</dd></div>
         <div class="field"><dt class="k"><span class="mono">Fee</span><span class="lbl" data-i18n="facts.r1.k">회비</span></dt><dd class="v val" data-i18n="facts.r1.v">한 학기 3만 원</dd></div>
-        <div class="field"><dt class="k"><span class="mono">Eligibility</span><span class="lbl" data-i18n="facts.r2.k">가입 대상</span></dt><dd class="v val" data-i18n="facts.r2.v">연세대 재학생 누구나</dd></div>
+        <div class="field"><dt class="k"><span class="mono">Eligibility</span><span class="lbl" data-i18n="facts.r2.k">가입 대상</span></dt><dd class="v val" data-i18n="facts.r2.v">연세대생 누구나</dd></div>
       </dl>
   <span class="folio mono" aria-hidden="true">01</span>
 </section>
@@ -1296,7 +1298,7 @@ const i18n = {
     'facts.r1.k': '회비',
     'facts.r1.v': '한 학기 3만 원',
     'facts.r2.k': '가입 대상',
-    'facts.r2.v': '연세대 재학생 누구나',
+    'facts.r2.v': '연세대생 누구나',
     'facts.r3.v': '2주마다, 신촌 일대',
     'eg.8': '8기',
     'ec.8': '12명',
