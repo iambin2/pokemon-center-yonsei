@@ -31,7 +31,7 @@ A real, officially recognised general club at Yonsei (총동아리연합회 공�
 
 - One self-contained `index.html` (CSS, JS, base64 images inline). No build tool or framework, by design. Push to `main` deploys via GitHub Pages.
 - Trilingual (ko / en / ja) through the `i18n` dictionary and `data-i18n` keys; the three key sets must match and HTML default text must equal the ko value (enforced by `scripts/check.py`).
-- Features that must keep working: language switch with saved preference, in-page navigation, mobile menu, executive generation accordions (8, newest first) with per-person Pokémon icons, FAQ accordion (13), contact links (email, Instagram, phone), link to YPL.
+- Features that must keep working: language switch with saved preference, in-page navigation, mobile menu, executive generation tabs (8, newest first) with per-person Pokémon icons, FAQ accordion (16 in three groups), stamp rally card, contact links (email, Instagram, phone), link to YPL.
 - One theme only (Yonsei-blue bookcloth with white pages); the light/dark toggle was removed on 2026-10-16.
 - Budgets: file ≤ 2 MB, WCAG AA contrast, focus visible, reduced motion respected, 44px touch targets.
 
@@ -39,14 +39,14 @@ A real, officially recognised general club at Yonsei (총동아리연합회 공�
 
 - Name: 포켓몬 센터 연세점 (포센연), Pokémon Center Yonsei. Motto: 우리는 모두 친구.
 - Yonsei Blue is the core colour and stays.
-- The existing club emblem (footer logo image) and the mascot artwork (수리둥보 Rufflet, 워글 Braviary) are the club's own assets; use them as they are, never redraw them.
+- The existing club emblem (SVG symbols `#emblem` and `#emblem-foil`, traced from the 2026-09 logo) and the mascot artwork (수리둥보 Rufflet, 워글 Braviary) are the club's own assets; use them as they are, never redraw them.
 - Copy edits keep every fact (years, counts, fee, contacts) and only improve the sentences: no middle-dot (·) separators anywhere, no meaningless line breaks; all three languages updated together. English mono data labels (CLUB, MEMBERS) and English inside stamps are design elements and stay untranslated; no English kicker above headings.
 - Unofficial fan club disclaimer about Pokémon trademarks stays in the footer.
-- Standing direction (2026-10-17, user pick from three drafts): the club's stamp-rally booklet, Pokémon cuteness through colored rubber stamps and postage stamps, Yonsei sophistication through the bookcloth, passport guilloche, data fields and MRZ strip. Earlier worlds (editorial serif, Pokopia village, 3D) were tried and replaced; see docs/리디자인-결정목록.md.
+- Standing direction (2026-10-17, user pick from three drafts): the club's stamp-rally booklet, Pokémon cuteness through colored rubber stamps and postage stamps, Yonsei sophistication through the bookcloth, passport guilloche, data fields and MRZ strip. Earlier worlds (editorial serif, Pokopia village, 3D) were tried and replaced; see the decision log in DESIGN.md section 12.
 
 ## Evidence on Hand
 
-Real content only: history entries (2022.11 → 2024.03), activities and subgroups, mascot facts, 8 generations of executives with department, year, and favourite Pokémon icons, 13 FAQ answers, contacts. Member count "약 130명" (8th generation, 2026-09) is the club's own figure. No testimonials, photos of events, or sponsor logos exist; do not fabricate them.
+Real content only: history entries (2022.11 → 2024.03), activities and subgroups, mascot facts, 8 generations of executives with department, year, nationality, and favourite Pokémon icons, 16 FAQ answers, contacts. Member count "약 130명" (8th generation, 2026-09) is the club's own figure. No testimonials, photos of events, or sponsor logos exist; do not fabricate them.
 
 ## Product Principles
 
@@ -57,4 +57,4 @@ Real content only: history entries (2022.11 → 2024.03), activities and subgrou
 
 ## Accessibility & Inclusion
 
-Korean-first, with full English and Japanese. Readable type on phones, visible focus, AA contrast in both themes, reduced motion respected.
+Korean-first, with full English and Japanese. Readable type on phones, visible focus, AA contrast (one theme), reduced motion respected.

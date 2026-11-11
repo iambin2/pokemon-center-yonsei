@@ -6,6 +6,7 @@
   - 인라인 이미지(임원 아이콘 WebP) 무결성
   - HTML 태그 구조
   - 크기 예산
+  - 디자인 토큰 (토큰 밖의 색, 글꼴, 글자 크기, 굵기, 곡선, 웹 글꼴, 외부 스크립트, 인라인 style)
 
 사용법:  python3 scripts/check.py [index.html 경로]
 """
@@ -196,6 +197,44 @@ if raw_mb > SIZE_BUDGET_MB or gz_mb > GZIP_BUDGET_MB:
     bad(f"예산 초과 — {line} / 한도 {SIZE_BUDGET_MB} MB, gzip {GZIP_BUDGET_MB} MB")
 else:
     ok(f"{line} — 예산 내")
+
+# ---------------------------------------------------------------- 디자인 토큰
+# DESIGN.md의 "토큰 밖 값" 규칙을 지킨다. 색, 글꼴, 글자 크기, 굵기, 곡선은 :root 토큰으로만 쓰고,
+# 토큰 밖 고정값은 DESIGN.md "허용된 고정값" 표에 적힌 것만 허용한다. 새 값이 필요하면 토큰을 먼저 만들고 이 목록과 문서를 함께 고친다.
+print("\n[디자인 토큰]")
+ALLOWED_HEX = {"#000", "#0000", "#fff", "#0A2858", "#12387A", "#15468C", "#5B7FB8",
+               "#D5DFEE", "#DCE5F3", "#E3EAF5", "#F1F5FB", "#FFD9CF"}
+ALLOWED_RGB = {"0, 0, 0", "0, 10, 40", "0, 8, 28", "0, 8, 30", "10, 30, 70", "14, 58, 120",
+               "194, 51, 31", "238, 243, 250", "255, 255, 255", "6, 20, 50"}
+ALLOWED_FF = {"var(--f-title)", "var(--f-body)", "var(--f-stamp)", "var(--f-mono)", "var(--f-ink)",
+              "'Hahmlet', serif", "'Black Han Sans', var(--f-ink)"}
+ALLOWED_FONTS = {"Hahmlet", "Gowun+Dodum", "Black+Han+Sans", "B612+Mono", "Shippori+Mincho+B1", "Zen+Kaku+Gothic+New"}
+css = src[src.find("<style>"): src.find("</style>")]
+css = re.sub(r'url\("data:[^"]*"\)', "URL", css)
+css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+tokens_end = css.find("*, *::before")          # :root와 일본어 글꼴 변수 블록 뒤부터 검사
+rules = css[tokens_end:]
+problems = []
+problems += [f"색 {h}" for h in sorted(set(re.findall(r"#[0-9A-Fa-f]{3,8}\b", rules)) - ALLOWED_HEX)]
+problems += [f"색 rgba({b}, …)" for b in sorted({m for m in re.findall(r"rgba?\((\d+, \d+, \d+)", rules)} - ALLOWED_RGB)]
+problems += [f"색 {h}" for h in sorted(set(re.findall(r"hsl\([^)]*\)", rules))) if not h.startswith("hsl(219 ")]
+problems += [f"글꼴 {f}" for f in sorted(set(re.findall(r"font-family:\s*([^;}]+)", rules))) if f.strip() not in ALLOWED_FF]
+problems += [f"글자 크기 {v}" for v in sorted(set(re.findall(r"font-size:\s*([^;}]+)", rules)))
+             if not re.search(r"var\(--fs-|cqi|^0$|^[.\d]+em$", v.strip())]
+problems += [f"굵기 {w}" for w in sorted(set(re.findall(r"font-weight:\s*([^;}]+)", rules))) if w.strip() not in {"400", "700", "800", "inherit"}]
+problems += [f"곡선 {b}" for b in sorted(set(re.findall(r"cubic-bezier\([^)]*\)", rules))) if b != "cubic-bezier(.37, 0, .63, 1)"]
+fonts_link = re.search(r'fonts\.googleapis\.com/css2\?([^"]+)"', src)
+families = set(re.findall(r"family=([^:&]+)", fonts_link.group(1))) if fonts_link else set()
+problems += [f"새 웹 글꼴 {f}" for f in sorted(families - ALLOWED_FONTS)]
+problems += [f"외부 스크립트 {s}" for s in re.findall(r'<script[^>]+src="([^"]+)"', src)]
+body = src[src.find("<body"):]
+problems += [f'인라인 style="{s}"' for s in sorted(set(re.findall(r' style="([^"]*)"', body)))
+             if not all(re.match(r"\s*--[rdizk]\s*:", p) for p in s.split(";") if p.strip()) and s != "position:absolute"]
+if problems:
+    for p in problems:
+        bad(f"토큰 밖 값: {p} (DESIGN.md '허용된 고정값'과 토큰 표 참고)")
+else:
+    ok("색, 글꼴, 글자 크기, 굵기, 곡선 모두 토큰이나 허용된 고정값")
 
 # ---------------------------------------------------------------- 링크 공유 카드
 # 선언한 크기가 실제 파일과 다르면 스크래퍼가 잘못 그리거나 아예 거부한다.

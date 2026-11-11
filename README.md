@@ -15,8 +15,9 @@
 | `og.png` | 링크 공유용 미리보기 카드 (`node scripts/make-og.mjs`로 생성) |
 | `scripts/` | 배포 준비(`build.mjs`), 검증, 이미지 추가 도구 |
 | `dist/` | 자동 생성되는 배포본. 커밋하지 않는다 |
-| `DESIGN.md` | 디자인 규칙과 토큰 |
+| `DESIGN.md` | 디자인 정본: 토큰, 부품, 수정 레시피 |
 | `CLAUDE.md` | AI가 읽는 프로젝트 규칙 |
+| `AGENTS.md` | Codex 등 다른 AI 도구의 입구 |
 | `docs/인수인계.md` | 운영자용 안내서 |
 
 ## 검증
@@ -30,5 +31,5 @@ node scripts/verify-build.mjs   # 배포본 검증
 
 ## 관리
 
-저장소 폴더에서 `claude`를 실행하면 `CLAUDE.md`의 규칙을 읽고 작업한다.
+저장소 폴더에서 `claude`를 실행하면 `CLAUDE.md`의 규칙을 읽고 작업한다. Codex 같은 다른 AI 도구는 `AGENTS.md`를 거쳐 같은 규칙을 읽는다.
 자세한 운영 방법은 [`docs/인수인계.md`](docs/인수인계.md) 참고.
