@@ -26,7 +26,9 @@ await page.evaluate(() => {
   Object.assign(hero.style, { minHeight: '100vh', padding: '40px 64px' });
   const passport = document.querySelector('.passport');
   passport.style.setProperty('--pw', '380px');
-  document.querySelector('.hero-lead').style.fontSize = '30px';
+  const lead = document.querySelector('.hero-lead');
+  lead.style.fontSize = '30px';
+  lead.innerHTML = '저마다의 방식으로 포켓몬을 즐기는<br>연세대학교 동아리';
   document.querySelector('.spread').style.gridTemplateColumns = 'auto minmax(0, 560px)';
 });
 await page.waitForTimeout(300);
